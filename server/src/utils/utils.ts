@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ResponseError } from "../models/interfaces/utils";
+import { RequestEnhanced, ResponseError } from "../models/interfaces/utils";
 import Role from "../models/Role";
 import User from "../models/User";
 
@@ -39,13 +39,13 @@ export function generateCode() {
 export function runAsync(func: Function) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      func(req, res, next);
+      console.log("RUNNING ASYNC");
+
+      return func(req, res, next);
     } catch (error) {
-      res
-        .status(400)
-        .json({
-          error: { message: (error as Error).message, completeError: error },
-        } as ResponseError);
+      return res.status(400).json({
+        error: { message: (error as Error).message, completeError: error },
+      } as ResponseError);
     }
   };
 }

@@ -6,13 +6,13 @@ export declare interface ProductParams {
 
 export declare interface ProductPutBody {
   name: string;
-  description:string
+  description: string;
   price: number;
   imgUri: string;
 }
 export declare interface ProductIfc {
   name: string;
-  description:string;
+  description: string;
   price: number;
   imgUri: string;
 }

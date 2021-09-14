@@ -5,8 +5,8 @@ const harvestSchema = new Schema<Harvest>({
   amount: Number,
 });
 const scheme = new Schema<Hive>({
-  name: String,
-  installationDate: Number,
+  name: { type: String, required: true },
+  installationDate: { type: Date, required: true },
   harvests: [harvestSchema],
 });
 

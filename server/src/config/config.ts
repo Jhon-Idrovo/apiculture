@@ -1,4 +1,4 @@
-export const accessTokenLifetime = "1h";
+export const accessTokenLifetime = "1000000h";
 export const refreshTokenLifetime = "72h";
 //base URL. Standard form
 const version = 4;

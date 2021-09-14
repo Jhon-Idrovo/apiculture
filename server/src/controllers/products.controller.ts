@@ -44,8 +44,7 @@ export async function postProductHandler(
   next: NextFunction
 ) {
   console.log("creating product");
-  const { category, price, imgUri, name } =
-    req.body as unknown as ProductPutBody;
+  const { price, imgUri, name } = req.body as unknown as ProductPutBody;
   const newProduct = new Product({ ...req.body });
   try {
     const savedProduct = await newProduct.save();

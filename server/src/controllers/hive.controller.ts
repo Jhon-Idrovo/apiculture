@@ -4,9 +4,9 @@ import { RequestEnhanced } from "../models/interfaces/utils";
 
 export async function create(req: Request, res: Response, next: NextFunction) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;
-  try {
-  } catch (error) {}
-  const newHive = await Hive.create(req.body);
+  const { date, name } = req.body;
+  await Hive.create({ installationDate: date, name });
+  res.sendStatus(201);
 }
 export function readOne(req: Request, res: Response, next: NextFunction) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;
