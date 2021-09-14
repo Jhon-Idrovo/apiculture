@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { RequestEnhanced } from "../models/interfaces/utils";
 import { verifyToken } from "../utils/tokens";
 /**
  * Verify the access token. If valid include the payload in the req's body.
@@ -19,6 +20,7 @@ export function verifyTokenMiddleware(
 
   if (payload) {
     req.body.decodedtToken = payload;
+
     return next();
   }
   return res.status(401).json({ error: "Authorization failed" });
