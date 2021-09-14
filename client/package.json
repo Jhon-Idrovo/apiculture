@@ -1,0 +1,39 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "coverage": "jest --coverage",
+    "test": "jest --watch",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.6.1",
+    "axios": "^0.21.1",
+    "moment": "^2.29.1",
+    "next": "^10.0.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-redux": "^7.2.5",
+    "redux": "^4.1.1",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.0",
+    "@types/jest": "^27.0.1",
+    "@types/react": "^17.0.15",
+    "autoprefixer": "^10.3.1",
+    "axios-mock-adapter": "^1.20.0",
+    "babel-jest": "^27.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.2.0",
+    "postcss": "^8.3.6",
+    "react-test-renderer": "^17.0.2",
+    "redux-devtools-extension": "^2.13.9",
+    "tailwindcss": "^2.2.7",
+    "typescript": "^4.3.5"
+  }
+}
