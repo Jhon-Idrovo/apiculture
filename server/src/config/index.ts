@@ -7,6 +7,7 @@ import { initDatabaseConnection } from "./database";
 //load enviroment variables. This must be done before initializing the database
 const a = dotenv.config();
 a ? console.log("Enviroment variables loaded") : console.log(a);
+console.log(process.env.CREATE_ADMIN_PASSWORD);
 
 import app from "../routes/app";
 //run passport
