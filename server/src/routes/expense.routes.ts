@@ -1,18 +1,19 @@
 import { Router } from "express";
 import { verifyTokenMiddleware } from "../middlewares/verifyToken";
 import * as ExpenseCtrl from "../controllers/expense.controller";
+import { runAsync } from "../utils/utils";
 
 const router = Router();
 
 router.use(verifyTokenMiddleware);
 //C
-router.post("/create", ExpenseCtrl.create);
+router.post("/create", runAsync(ExpenseCtrl.create));
 //R
-router.get("/", ExpenseCtrl.readAll); //all
-router.get("/:id", ExpenseCtrl.readOne); //one
+router.get("/", runAsync(ExpenseCtrl.readAll)); //all
+router.get("/:id", runAsync(ExpenseCtrl.readOne)); //one
 //U
-router.put("/:id", ExpenseCtrl.updateOne);
+router.put("/:id", runAsync(ExpenseCtrl.updateOne));
 //D
-router.delete("/:id", ExpenseCtrl.deleteOne);
+router.delete("/:id", runAsync(ExpenseCtrl.deleteOne));
 
 export default router;
