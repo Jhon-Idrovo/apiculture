@@ -39,9 +39,9 @@ export function generateCode() {
 export function runAsync(func: Function) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log("RUNNING ASYNC");
+      console.log("RUNNING ASYNC", (req as RequestEnhanced).decodedToken);
 
-      return func(req, res, next);
+      await func(req as RequestEnhanced, res, next);
     } catch (error) {
       return res.status(400).json({
         error: { message: (error as Error).message, completeError: error },
