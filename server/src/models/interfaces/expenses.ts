@@ -1,4 +1,4 @@
-export declare interface Expense {
+export declare interface IExpense {
   hive?: string;
   amount: number;
   description: string;

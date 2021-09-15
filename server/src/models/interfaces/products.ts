@@ -10,7 +10,7 @@ export declare interface ProductPutBody {
   price: number;
   imgUri: string;
 }
-export declare interface ProductIfc {
+export declare interface IProduct {
   name: string;
   description: string;
   price: number;

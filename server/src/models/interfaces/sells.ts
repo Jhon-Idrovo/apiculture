@@ -1,4 +1,4 @@
-export declare interface Sell {
+export declare interface ISell {
   // client:string,
   amount: number;
   product: string;

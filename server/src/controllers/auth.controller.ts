@@ -12,7 +12,7 @@ import {
   verifyToken,
 } from "../utils/tokens";
 import passport from "passport";
-import { UserIfc } from "../models/interfaces/users";
+import { IUser } from "../models/interfaces/users";
 import { Document } from "mongoose";
 import { CLIENT_URL } from "../config/config";
 import { RequestEnhanced, ResponseError } from "../models/interfaces/utils";
@@ -153,7 +153,7 @@ export async function signUpHandler(
 ) {
   console.log(req.body);
 
-  const requestUser = { ...req.body, authMethod: "built-in" } as UserIfc;
+  const requestUser = { ...req.body, authMethod: "built-in" } as IUser;
   // validate agains joi
   const { error, value } = User.joiValidate(requestUser);
   if (error) return res.status(400).json({ error });
@@ -268,7 +268,7 @@ export async function handleGoogle(
   passport.authenticate(
     "google",
     { scope: ["profile", "email"], session: false },
-    function (err, user: UserIfc & Document<any, any, UserIfc>, userInfo) {
+    function (err, user: IUser & Document<any, any, IUser>, userInfo) {
       console.log(err, user, userInfo);
       //role are populated
       const role = user.role.name;
@@ -287,7 +287,7 @@ export async function handleFacebook(
   next: NextFunction
 ) {
   console.log("handleFacebook REQUEST:------------------");
-  const user = req.user as UserIfc & Document<any, any, UserIfc>;
+  const user = req.user as IUser & Document<any, any, IUser>;
   //roles are populated
   const role = user.role.name;
   const accesToken = generateAccessToken(user._id, role);
@@ -307,7 +307,7 @@ export async function handleTwitter(
   next: NextFunction
 ) {
   console.log("handleTwitter", req.user);
-  const user = req.user as UserIfc & Document<any, any, UserIfc>;
+  const user = req.user as IUser & Document<any, any, IUser>;
   //roles are populated
   const role = user.role.name;
   const accesToken = generateAccessToken(user._id, role);
@@ -442,7 +442,7 @@ export async function verifyRecoveryCode(
     role,
     email: userEmail,
     username,
-  } = recoveryCod.userId as unknown as UserIfc & Document<any, any, UserIfc>;
+  } = recoveryCod.userId as unknown as IUser & Document<any, any, IUser>;
   const accessToken = generateAccessToken(_id, role.name);
   const refreshToken = generateRefreshToken(_id, role.name);
   if (userEmail === email && recoveryCod.iat < Date.now()) {

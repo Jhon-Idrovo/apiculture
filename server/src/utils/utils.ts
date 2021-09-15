@@ -39,8 +39,6 @@ export function generateCode() {
 export function runAsync(func: Function) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log("RUNNING ASYNC", (req as RequestEnhanced).decodedToken);
-
       await func(req as RequestEnhanced, res, next);
     } catch (error) {
       return res.status(400).json({
@@ -48,4 +46,10 @@ export function runAsync(func: Function) {
       } as ResponseError);
     }
   };
+}
+export async function getUser(userID: string) {
+  const user = await User.findById(userID);
+  if (!user) throw new Error("User not found");
+
+  return user;
 }

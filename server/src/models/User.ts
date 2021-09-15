@@ -1,8 +1,8 @@
 import { model, Schema } from "mongoose";
 import joi from "joi";
-import { AUTH_METHODS, UserIfc, UserModel } from "./interfaces/users";
+import { AUTH_METHODS, IUser, UserModel } from "./interfaces/users";
 import bcrypt from "bcryptjs";
-const userSchema = new Schema<UserIfc, UserModel>({
+const userSchema = new Schema<IUser, UserModel>({
   authMethod: String,
   authProviderId: { type: String, require: false },
   username: { type: String, required: true, unique: false },
@@ -35,7 +35,7 @@ userSchema.methods.comparePassword = async (
   return await bcrypt.compare(tipedPassword, savedPassword);
 };
 
-userSchema.statics.joiValidate = (user: UserIfc) => {
+userSchema.statics.joiValidate = (user: IUser) => {
   const joiSchema = joi.object({
     username: joi.string().min(8).max(30).required(),
     password: joi
@@ -53,4 +53,4 @@ userSchema.statics.joiValidate = (user: UserIfc) => {
   return joiSchema.validate(user);
 };
 
-export default model<UserIfc, UserModel>("User", userSchema);
+export default model<IUser, UserModel>("User", userSchema);
