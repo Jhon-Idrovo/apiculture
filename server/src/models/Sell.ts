@@ -3,7 +3,7 @@ import { ISell } from "./interfaces/sells";
 
 const sellSchema = new Schema<ISell>({
   userID: { ref: "User", type: Schema.Types.ObjectId, required: true },
-  product: { ref: "Product", type: Schema.Types.ObjectId },
+  productID: { ref: "Product", type: Schema.Types.ObjectId },
   totalPrice: { type: Number, required: true },
   totalAmount: { type: Number, required: true },
 });
