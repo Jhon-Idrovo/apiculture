@@ -25,7 +25,7 @@ app.use(passport.initialize());
 
 app.use(`${basePath}/auth`, authRouter);
 app.use(`${basePath}/users`, userRouter);
-app.use(`${basePath}/products`, productRouter);
+app.use(`${basePath}/product`, productRouter);
 app.use(`${basePath}/hive`, hiveRouter);
 app.use(`${basePath}/expense`, expenseRouter);
 app.use(`${basePath}/sell`, sellRouter);

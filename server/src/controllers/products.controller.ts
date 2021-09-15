@@ -3,70 +3,50 @@
  */
 
 import { NextFunction, Request, Response } from "express";
-import { IProduct, ProductPutBody } from "../models/interfaces/products";
+import { IProduct } from "../models/interfaces/products";
+import { RequestEnhanced } from "../models/interfaces/utils";
 import Product from "../models/Product";
 //models
-export async function getAllProductsHandler(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function readAll(req: Request, res: Response, next: NextFunction) {
   const products = await Product.find();
-  res.json({ products });
+  return res.json({ products });
 }
-export async function getProdutHandler(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function readOne(req: Request, res: Response, next: NextFunction) {
   const { id } = req.params;
-  console.log("getting product", id);
   const product = await Product.findById(id);
-  res.json({ product });
+  return res.json({ product });
 }
 // export async function getProdutHandler(req:Request, res:Response, next:NextFunction) { }
-export async function deleteProdutHandler(
+export async function deleteOne(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  try {
-    const product = await Product.findById(req.params.id);
-    product ? await product.delete() : null;
-    return res.status(200).send();
-  } catch (error) {
-    return res.status(400).json({ error });
-  }
+  const product = await Product.findByIdAndDelete(req.params.id);
+  return res.status(200).send();
 }
-export async function postProductHandler(
+export async function createOne(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  console.log("creating product");
-  const { price, imgUri, name } = req.body as unknown as ProductPutBody;
-  const newProduct = new Product({ ...req.body });
-  try {
-    const savedProduct = await newProduct.save();
-    return res.status(201).json({ product: savedProduct });
-  } catch (errors) {
-    return res.status(400).json({ errors });
-  }
+  const { userID } = (req as RequestEnhanced).decodedToken;
+  const { price, name, description } = req.body as unknown as IProduct;
+  console.log("creating product", req.body);
+  await Product.create({
+    price,
+    name,
+    description,
+    userID,
+  });
+  return res.sendStatus(201);
 }
 
-export async function putProdutHandler(
+export async function updateOne(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  try {
-    const product = await Product.findById(req.params.id);
-    Object.keys(req.body).map((key) =>
-      product ? (product[key] = req.body[key]) : null
-    );
-    await product?.save();
-    return res.status(200).json({ product });
-  } catch (error) {
-    return res.status(400).json({ error });
-  }
+  await Product.findByIdAndUpdate(req.params.id, req.body);
+  return res.sendStatus(200);
 }

@@ -4,15 +4,10 @@ export declare interface ProductParams {
   price: number;
 }
 
-export declare interface ProductPutBody {
-  name: string;
-  description: string;
-  price: number;
-  imgUri: string;
-}
 export declare interface IProduct {
   name: string;
   description: string;
   price: number;
   imgUri: string;
+  userID: string;
 }

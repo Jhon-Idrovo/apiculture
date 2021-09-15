@@ -2,15 +2,15 @@
  * example routing for a model
  */
 
-import { RequestHandler, Router } from "express";
+import { Router } from "express";
 import * as ProductsCtlr from "../controllers/products.controller";
 import { verifyTokenMiddleware } from "../middlewares/verifyToken";
+import { runAsync } from "../utils/utils";
 const router = Router();
-router.get("/", ProductsCtlr.getAllProductsHandler);
-router.get("/:id", ProductsCtlr.getProdutHandler);
-//with authorization
 router.use(verifyTokenMiddleware);
-router.post("/create", ProductsCtlr.postProductHandler);
-router.delete("/delete", ProductsCtlr.deleteProdutHandler);
-router.put("/update/:id", ProductsCtlr.putProdutHandler);
+router.get("/", runAsync(ProductsCtlr.readAll));
+router.get("/:id", runAsync(ProductsCtlr.readOne));
+router.post("/create", runAsync(ProductsCtlr.createOne));
+router.delete("/:id", runAsync(ProductsCtlr.deleteOne));
+router.put("/:id", runAsync(ProductsCtlr.updateOne));
 export default router;

@@ -7,7 +7,7 @@ export async function create(req: Request, res: Response, next: NextFunction) {
   const { userID } = (req as RequestEnhanced).decodedToken;
   const { date, name } = req.body;
   await Hive.create({ installationDate: date, name, userID });
-  res.sendStatus(201);
+  return res.sendStatus(201);
 }
 export async function readOne(req: Request, res: Response, next: NextFunction) {
   res.json({ hive: await Hive.findById(req.params.id) });
@@ -15,7 +15,7 @@ export async function readOne(req: Request, res: Response, next: NextFunction) {
 export async function readAll(req: Request, res: Response, next: NextFunction) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;
   const hives = await Hive.find({ userID });
-  res.json({ hives });
+  return res.json({ hives });
 }
 export async function updateOne(
   req: Request,
@@ -28,7 +28,7 @@ export async function updateOne(
   if (!hive) throw new Error("Hive not found");
 
   await hive.update({ name, installationDate });
-  res.send();
+  return res.send();
 }
 export async function deleteOne(
   req: Request,
@@ -36,5 +36,5 @@ export async function deleteOne(
   next: NextFunction
 ) {
   await Hive.findByIdAndDelete(req.params.id);
-  res.send();
+  return res.send();
 }
