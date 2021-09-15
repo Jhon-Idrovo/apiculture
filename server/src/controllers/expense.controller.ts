@@ -1,18 +1,37 @@
 import { NextFunction, Request, Response } from "express";
+import Expense from "../models/Expense";
 import { RequestEnhanced } from "../models/interfaces/utils";
 
-export function create(req: Request, res: Response, next: NextFunction) {
+export async function create(req: Request, res: Response, next: NextFunction) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;
+  await Expense.create({ ...req.body, userID });
+  return res.sendStatus(201);
 }
-export function readOne(req: Request, res: Response, next: NextFunction) {
+export async function readOne(req: Request, res: Response, next: NextFunction) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;
+  const expense = await Expense.findById(req.params.id);
+  return res.json({ expense });
 }
-export function readAll(req: Request, res: Response, next: NextFunction) {
+export async function readAll(req: Request, res: Response, next: NextFunction) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;
+  const expenses = await Expense.find({ userID });
+  return res.json({ expenses });
 }
-export function updateOne(req: Request, res: Response, next: NextFunction) {
+export async function updateOne(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;
+  await Expense.findByIdAndUpdate(req.params.id, req.body);
+  return res.send();
 }
-export function deleteOne(req: Request, res: Response, next: NextFunction) {
+export async function deleteOne(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;
+  await Expense.findByIdAndDelete(req.params.id);
+  return res.send();
 }

@@ -41,6 +41,8 @@ export function runAsync(func: Function) {
     try {
       await func(req as RequestEnhanced, res, next);
     } catch (error) {
+      console.log(error);
+
       return res.status(400).json({
         error: { message: (error as Error).message, completeError: error },
       } as ResponseError);
