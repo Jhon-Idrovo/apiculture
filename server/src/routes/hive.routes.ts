@@ -10,10 +10,10 @@ router.use(verifyTokenMiddleware);
 router.post("/create", runAsync(HiveCtlr.create));
 //R
 router.get("/", runAsync(HiveCtlr.readAll)); //all
-router.get("/:id", runAsync(HiveCtlr.readOne)); //one
+router.get("/read-one/:id", runAsync(HiveCtlr.readOne)); //one
 //U
-router.put("/:id", runAsync(HiveCtlr.updateOne));
+router.put("/update/:id", runAsync(HiveCtlr.updateOne));
 //D
-router.delete("/:id", runAsync(HiveCtlr.deleteOne));
+router.delete("/delete/:id", runAsync(HiveCtlr.deleteOne));
 
 export default router;
