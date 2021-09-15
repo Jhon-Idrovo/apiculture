@@ -1,10 +1,4 @@
-import {
-  AnyAction,
-  createAsyncThunk,
-  createSlice,
-  Dispatch,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import axiosInstance from "../../config/axiosInstance";
 import { LOGIN_ENDPOINT } from "../../config/config";
