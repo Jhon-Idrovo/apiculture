@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import axiosInstance from "../../config/axiosInstance";
 import { HIVES_ENDPOTINT } from "../../config/config";
+import { errorToMessage } from "../../utils/utils";
 import { AppThunk } from "../middleware/thunkMiddleware";
 
 export declare interface IHive {
@@ -36,6 +37,7 @@ const hivesSlice = createSlice({
 
       state.hivesList = action.payload;
       state.loading = false;
+      state.error = "";
     },
     hivesLoadFailed: (state, action: PayloadAction<string>) => {
       state.loading = false;
@@ -59,13 +61,7 @@ export const loadHives = (): AppThunk => async (dispatch) => {
   } catch (error) {
     console.log(error);
 
-    dispatch(
-      hivesLoadFailed(
-        axios.isAxiosError(error)
-          ? (error as AxiosError).response?.data.error.message
-          : (error as Error).message
-      )
-    );
+    dispatch(hivesLoadFailed(errorToMessage(error)));
   }
 };
 
