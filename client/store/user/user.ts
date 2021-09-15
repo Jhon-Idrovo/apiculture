@@ -5,9 +5,10 @@ import {
   Dispatch,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import axiosInstance from "../../config/axiosInstance";
-import { LOG_IN_ENDPOINT } from "../../config/config";
+import { LOGIN_ENDPOINT } from "../../config/config";
+import { verifyToken } from "../../utils/utils";
 import { RootState } from "../configureStore";
 import { AppThunk } from "../middleware/thunkMiddleware";
 
@@ -27,7 +28,8 @@ export const userInitialState: IUser = {
   error: "",
 };
 export declare interface IUserResponse {
-  id: IUser["id"];
+  accessToken: string;
+  refreshToken: string;
   name: IUser["name"];
 }
 export const userSlice = createSlice({
@@ -61,25 +63,38 @@ export default userSlice.reducer;
 // automatically memoized
 
 //SELECTORS
-export const getUser = (state: RootState) => state.auth.user;
+export const getUser = (state: RootState) => state.user;
 
 // FUNCTION ACTIONS
 export const logIn =
-  (username: string, password: string): AppThunk =>
+  (email: string, password: string): AppThunk =>
   async (dispatch) => {
-    console.log(username, password);
+    console.log(email, password);
 
     // start the loading
     dispatch(userLoading());
     // call the api
     try {
-      const res = await axiosInstance.get("/users/1");
-      const { id, name } = res.data as IUserResponse;
+      const res = await axiosInstance.post(LOGIN_ENDPOINT, { email, password });
+      const { name, accessToken, refreshToken } = res.data as IUserResponse;
+      localStorage.setItem("ss", accessToken);
+      localStorage.setItem("rr", refreshToken);
+      const r = verifyToken(accessToken);
+      console.log(r);
+      if (!r) throw new Error("Error verifying session, please log in again");
+      const { userID } = r;
+      axiosInstance.defaults.headers = { Authorization: `JWT ${accessToken}` };
       // pass the error to override previous errors
-      return dispatch(userLogged({ id, name, error: "", loading: false }));
+      return dispatch(
+        userLogged({ id: userID, name, error: "", loading: false })
+      );
     } catch (error) {
       return dispatch(
-        userLogInFailed((error as AxiosError).response?.data.error.message)
+        userLogInFailed(
+          axios.isAxiosError(error)
+            ? (error as AxiosError).response?.data.error.message
+            : (error as Error).message
+        )
       );
     }
   };

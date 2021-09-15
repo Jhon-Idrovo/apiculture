@@ -1,7 +1,7 @@
 import Head from "next/head";
 
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
-import { getUser, logIn, logOut } from "../store/auth/user";
+import { getUser, logIn, logOut } from "../store/user/user";
 import { getAlbums, loadAlbums } from "../store/entities/albums";
 
 export default function Home() {
@@ -18,7 +18,9 @@ export default function Home() {
       <section className="game-board">
         <div className="">{}</div>
         <div>Name:{user.name}</div>
-        <button onClick={() => dispatch(logIn("jhon", "lavacalola"))}>
+        <button
+          onClick={() => dispatch(logIn("testemail@gmail.com", "lavacalola"))}
+        >
           Log In
         </button>
         <button onClick={() => dispatch(logOut())}>Log Out</button>

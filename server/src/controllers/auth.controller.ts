@@ -57,6 +57,7 @@ export async function signInHandler(
           //And we can't very the signature on the client.
           //Instead, use the access token payload on the server.
           //role: userRole,
+          name: user.username,
         });
       }
       throw new Error("Invalid password");

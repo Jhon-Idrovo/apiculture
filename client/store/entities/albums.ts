@@ -50,7 +50,7 @@ export default albumsSlice.reducer;
 export const loadAlbums = (): AppThunk => async (dispatch, getState) => {
   dispatch(loading());
   const state = getState() as RootState;
-  const userId = state.auth.user.id;
+  const userId = state.user.id;
   const lastFetch = state.entities.albums.lastFetch;
   // check cache time
   if (lastFetch + BUGS_CACHING_TIMEOUT > Date.now())

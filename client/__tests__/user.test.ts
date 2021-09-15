@@ -1,10 +1,17 @@
-import { getAlbums, loadAlbums } from "../store/entities/albums";
 import store from "../store/configureStore";
-import { getUser, IUser, logIn } from "../store/auth/user";
+import { getUser, IUser, IUserResponse, logIn } from "../store/user/user";
 import MockAdapter from "axios-mock-adapter";
-import { LOG_IN_ENDPOINT, USER_SERVER_RESPONSE } from "../config/config";
+import { LOGIN_ENDPOINT } from "../config/config";
 import axiosInstance from "../config/axiosInstance";
+import { verifyToken } from "../utils/utils";
 
+const expectedUserResponse = {
+  accessToken:
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MTQxNDZmZmYzN2VjZjFhOTNlOTRlZWEiLCJpYXQiOjE2MzE2Njc5NjcsImV4cCI6NTIzMTY2Nzk2N30.shTuR8CmWJxSJ6S-mpWkb8LI0uUcFaBxlzddh33fvjA",
+  refreshToken:
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MTQxNDZmZmYzN2VjZjFhOTNlOTRlZWEiLCJpYXQiOjE2MzE2Njc5NjcsImV4cCI6NTIzMTY2Nzk2N30.shTuR8CmWJxSJ6S-mpWkb8LI0uUcFaBxlzddh33fvjA",
+  name: "Jhon Doe",
+} as IUserResponse;
 // UNIT TESTS
 describe("User", () => {
   let fakeAxios: MockAdapter;
@@ -13,15 +20,16 @@ describe("User", () => {
   });
   test("should log in user", async () => {
     // change the HTTP method for real use
-    fakeAxios.onGet(LOG_IN_ENDPOINT).reply(200, USER_SERVER_RESPONSE);
+    fakeAxios.onPost(LOGIN_ENDPOINT).reply(200, expectedUserResponse);
     // log in is an async function
-    await store.dispatch(logIn("TestUser", "TestPassword"));
+    await store.dispatch(logIn("TestEmail", "TestPassword"));
     const state = store.getState();
     const user = getUser(state);
     console.log(state);
-
+    const r = verifyToken(expectedUserResponse.accessToken);
     expect(user).toStrictEqual({
-      ...USER_SERVER_RESPONSE,
+      name: expectedUserResponse.name,
+      id: r ? r.userID : "",
       loading: false,
       error: "",
     } as IUser);
