@@ -1,9 +1,16 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import { getUser, reloadUserFromToken } from "../store/user/user";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
 function NavBar() {
   const router = useRouter();
-
+  const user = useAppSelector(getUser);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    // recover user from token
+    dispatch(reloadUserFromToken());
+  }, []);
   return (
     <nav className="nav-bar">
       <Link href="/">

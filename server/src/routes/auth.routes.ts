@@ -12,6 +12,7 @@ router.post("/get-new-access-token", AuthCtlr.getAccessTokenHandler);
 router.post("/signup", AuthCtlr.signUpHandler);
 router.post("/signout", AuthCtlr.signOutHandler);
 router.post("/create-admin", AuthCtlr.createAdminHandler);
+router.post("/get-user", AuthCtlr.readUser);
 //sign in with Google
 //scopes https://developers.google.com/identity/protocols/oauth2/scopes?authuser=1#google-sign-in
 router.get("/google", AuthCtlr.handleGoogle);

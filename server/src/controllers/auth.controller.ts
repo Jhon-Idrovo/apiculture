@@ -457,3 +457,39 @@ export async function verifyRecoveryCode(
     error: { message: "Invalid code" },
   });
 }
+
+export async function readUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (token) {
+    //validate token
+    //first validation
+    const decoded = verifyToken(token as string);
+
+    if (decoded) {
+      //second validation: See if the token is blacklisted
+      const dbToken = await BlacklistedToken.findOne({
+        token: token as string,
+      }).catch(() => null);
+      /**a third validation could be neccesary to verify that the user requesting the
+       * new token is the same as the user registered in it. This is important since
+       * the autorization middleware uses that information to identify the user.
+       * A user cannot use its refresh token to request an access token for another
+       * client since we return the latter with the same userID.
+       */
+      if (!dbToken) {
+        //send another acces token to the client along with the user information
+        const user = await User.findById(decoded.userID);
+        return res.status(200).json({
+          refreshToken: generateRefreshToken(decoded.userID, decoded.role),
+          user,
+        });
+      }
+    }
+    //the token is expired or blacklisted
+    return res.status(400).json({ error: "Invalid access token" });
+  }
+}

@@ -7,7 +7,10 @@
     "test": "jest --watch",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "extract:i18n": "formatjs extract '{pages,components,sections}/**/*.{js,ts,tsx}' --format simple --id-interpolation-pattern '[sha512:contenthash:base64:6]' --out-file content/locales/en.json",
+    "compile:i18n": "formatjs compile-folder --ast --format simple content/locales content/compiled-locales",
+    "i18n": "yarn extract:i18n && yarn compile:i18n"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
@@ -18,11 +21,13 @@
     "next": "^10.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-intl": "^5.20.10",
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
+    "@formatjs/cli": "^4.2.33",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.0",
     "@types/jest": "^27.0.1",
@@ -30,6 +35,7 @@
     "autoprefixer": "^10.3.1",
     "axios-mock-adapter": "^1.20.0",
     "babel-jest": "^27.2.0",
+    "babel-plugin-formatjs": "^10.3.8",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.2.0",
     "postcss": "^8.3.6",

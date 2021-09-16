@@ -34,6 +34,7 @@ describe("User", () => {
       error: "",
     } as IUser);
   });
+  test("should log in user from token", () => {});
 });
 
 // // INTEGRATION TESTS

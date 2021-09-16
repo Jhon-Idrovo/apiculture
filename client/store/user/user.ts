@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import axiosInstance from "../../config/axiosInstance";
-import { LOGIN_ENDPOINT } from "../../config/config";
+import { LOGIN_ENDPOINT, RELOAD_USER_ENDPOINT } from "../../config/config";
 import { verifyToken } from "../../utils/utils";
 import { RootState } from "../configureStore";
 import { AppThunk } from "../middleware/thunkMiddleware";
@@ -36,8 +36,9 @@ export const userSlice = createSlice({
       state.loading = true;
     },
     userLogged: (state, action: PayloadAction<IUser>) => {
-      // state.loading = false;
-      return { ...action.payload };
+      state.loading = false;
+      (state.error = ""), (state.id = action.payload.id);
+      state.name = action.payload.name;
     },
     userLoggedOut: () => {
       return { ...userInitialState };
@@ -60,6 +61,18 @@ export default userSlice.reducer;
 export const getUser = (state: RootState) => state.user;
 
 // FUNCTION ACTIONS
+export const reloadUserFromToken = (): AppThunk => async (dispatch) => {
+  dispatch(userLoading);
+  const token = localStorage.getItem("rr");
+  if (!token) return dispatch(userLogInFailed(""));
+  axiosInstance.defaults.headers = { Authorization: `JWT ${token}` };
+  try {
+    const res = await axiosInstance.post(RELOAD_USER_ENDPOINT);
+    const { _id, username } = res.data.user;
+    localStorage.setItem("rr", res.data.refreshToken);
+    dispatch(userLogged({ id: _id, name: username }));
+  } catch (error) {}
+};
 export const logIn =
   (email: string, password: string): AppThunk =>
   async (dispatch) => {
