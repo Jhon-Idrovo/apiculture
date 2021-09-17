@@ -29,10 +29,8 @@ describe("Hive", () => {
     console.log(state);
 
     // assert
-    expect(state.entities.hives).toStrictEqual({
-      loading: false,
-      error: "",
-      list: expectedHivesResponse.hives,
-    });
+    expect(state.entities.hives.list).toStrictEqual(
+      expectedHivesResponse.hives
+    );
   });
 });
