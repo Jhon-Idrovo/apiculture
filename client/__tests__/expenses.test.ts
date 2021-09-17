@@ -25,10 +25,8 @@ describe("Expenses", () => {
     // is an async function
     await store.dispatch(loadExpenses());
     const state = store.getState();
-    expect(state.entities.expenses).toStrictEqual({
-      loading: false,
-      error: "",
-      list: expectedExpensesResponse.expenses,
-    });
+    expect(state.entities.expenses.list).toStrictEqual(
+      expectedExpensesResponse.expenses
+    );
   });
 });

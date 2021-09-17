@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
-import { ISell } from "../store/entities/sells";
-import { IExpense } from "../store/entities/expenses";
-import { IHarvest } from "../store/entities/hives";
 import TableBody from "../components/TableBody";
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
-import { Selector } from "reselect";
-import { RootState } from "../store/configureStore";
+import Error from "./Error";
 
 export declare interface HeaderMappingInterface {
   header: string;
@@ -23,7 +19,6 @@ export declare interface TablePropsInterface {
   // };
   rowsSort: Function;
 }
-type Order = "asc" | "desc";
 
 function Table({ rowsSelector, rowsSort }: TablePropsInterface) {
   const dispatch = useAppDispatch();
@@ -46,11 +41,13 @@ function Table({ rowsSelector, rowsSort }: TablePropsInterface) {
   //-------------TABLE MENU--------------
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   if (loading) return <div>Loading</div>;
+  if (error) return <Error />;
   return (
     <div className="w-full overflow-x-show" style={{ height: "max-content" }}>
       <table className="w-full">
         <thead className="t-head">
           <tr>
+            {/* Menu button */}
             <th className="relative">
               <button
                 className="relative overflow-visible w-max"
@@ -83,6 +80,7 @@ function Table({ rowsSelector, rowsSort }: TablePropsInterface) {
                 ))}
               </ul>
             </th>
+            {/* Headers */}
             {displayRowKeys.map((k) => {
               return (
                 <th

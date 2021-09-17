@@ -26,14 +26,7 @@ describe("Sells", () => {
     // is an async function
     await store.dispatch(loadSells());
     const state = store.getState();
-    expect(state.entities.sells).toStrictEqual({
-      fields: Object.keys(expectedResponse.sells[0]),
-      sortBy: "",
-      order: "asc",
-      loading: false,
-      error: "",
-      list: expectedResponse.sells,
-    });
+    expect(state.entities.sells.list).toStrictEqual(expectedResponse.sells);
   });
   test("should sort the rows", () => {
     store.dispatch(sortSells("_id"));

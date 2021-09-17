@@ -35,7 +35,8 @@ const sellsSlice = createSlice({
       sells.loading = action.payload;
     },
     sellsLoaded: (sells, action: PayloadAction<ISell[]>) => {
-      (sells.loading = false), (sells.list = action.payload);
+      sells.loading = false;
+      sells.list = action.payload;
       sells.error = "";
       sells.fields = Object.keys(action.payload[0]);
     },
