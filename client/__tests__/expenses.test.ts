@@ -28,7 +28,7 @@ describe("Expenses", () => {
     expect(state.entities.expenses).toStrictEqual({
       loading: false,
       error: "",
-      expensesList: expectedExpensesResponse.expenses,
+      list: expectedExpensesResponse.expenses,
     });
   });
 });

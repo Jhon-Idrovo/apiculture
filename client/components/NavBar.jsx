@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { getUser, reloadUserFromToken } from "../store/user/user";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
+import { FormattedMessage } from "react-intl";
 function NavBar() {
   const router = useRouter();
   const user = useAppSelector(getUser);
@@ -14,24 +15,39 @@ function NavBar() {
   return (
     <nav className="nav-bar">
       <Link href="/">
-        <a>LOGO</a>
+        <a className="nav-logo">LOGO</a>
       </Link>
-      <div className="nav-menu">
-        <input type="checkbox" id="menu-check" />
-        <div></div>
-        <ul className="nav-list">
-          <li>Products</li>
-          <li>About</li>
-          <li>Community</li>
-          <li>Find Us</li>
-          <li>FAQ</li>
-          <li className="hover:border-opacity-0 ">
-            <button type="button" className="btn-base">
-              Buy Now
-            </button>
-          </li>
-        </ul>
-      </div>
+      <hr />
+
+      <ul className="nav-list">
+        <li className={`${router.pathname === "/sells" && "nav-list-active"}`}>
+          <Link href="/sells">
+            <a>
+              <FormattedMessage defaultMessage="Sells"></FormattedMessage>
+            </a>
+          </Link>
+        </li>
+        <li
+          className={`${router.pathname === "/expenses" && "nav-list-active"}`}
+        >
+          <Link href="/expenses">
+            <a>
+              <FormattedMessage defaultMessage="Expenses"></FormattedMessage>
+            </a>
+          </Link>
+        </li>
+        <li
+          className={`${
+            router.pathname === "/production" && "nav-list-active"
+          }`}
+        >
+          <Link href="/production">
+            <a>
+              <FormattedMessage defaultMessage="Production"></FormattedMessage>
+            </a>
+          </Link>
+        </li>
+      </ul>
     </nav>
   );
 }

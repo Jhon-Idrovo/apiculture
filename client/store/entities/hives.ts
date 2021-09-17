@@ -13,6 +13,7 @@ export declare interface IHive {
   harvests: IHarvest[];
 }
 export declare interface IHarvest {
+  _id: string;
   date: string;
   amoutn: number;
 }
@@ -21,7 +22,7 @@ export declare interface IHivesResponse {
 }
 const hivesInitialState = {
   loading: false,
-  hivesList: [] as IHive[],
+  list: [] as IHive[],
   error: "",
 };
 
@@ -35,7 +36,7 @@ const hivesSlice = createSlice({
     hivesLoaded: (state, action: PayloadAction<IHive[]>) => {
       console.log(action.payload);
 
-      state.hivesList = action.payload;
+      state.list = action.payload;
       state.loading = false;
       state.error = "";
     },

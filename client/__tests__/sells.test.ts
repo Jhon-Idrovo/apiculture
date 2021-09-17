@@ -3,7 +3,7 @@ import axiosInstance from "../config/axiosInstance";
 import { SELLS_ENDPOINT } from "../config/config";
 import store from "../store/configureStore";
 import { loadExpenses } from "../store/entities/expenses";
-import { loadSells } from "../store/entities/sells";
+import { loadSells, sortSells } from "../store/entities/sells";
 
 const expectedResponse = {
   sells: [
@@ -27,9 +27,15 @@ describe("Sells", () => {
     await store.dispatch(loadSells());
     const state = store.getState();
     expect(state.entities.sells).toStrictEqual({
+      fields: Object.keys(expectedResponse.sells[0]),
+      sortBy: "",
+      order: "asc",
       loading: false,
       error: "",
-      sellsList: expectedResponse.sells,
+      list: expectedResponse.sells,
     });
+  });
+  test("should sort the rows", () => {
+    store.dispatch(sortSells("_id"));
   });
 });

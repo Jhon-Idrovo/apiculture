@@ -32,7 +32,7 @@ describe("Hive", () => {
     expect(state.entities.hives).toStrictEqual({
       loading: false,
       error: "",
-      hivesList: expectedHivesResponse.hives,
+      list: expectedHivesResponse.hives,
     });
   });
 });

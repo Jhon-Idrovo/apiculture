@@ -4,12 +4,14 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
-      base: colors.yellow[200],
-      "txt-base": colors.black,
-      primary: colors.yellow[100],
-      "txt-primary": colors.black,
-      secondary: colors.yellow[900],
-      "txt-secondary": colors.white,
+      base: "#363107",
+      "txt-base": "#FFFFFF",
+      primary: "#E1B114",
+      "txt-primary": "#363107",
+      // secondary: colors.yellow[900],
+      // "txt-secondary": colors.white,
+      "accent-primary": "#79A9D1",
+      "txt-accent-primary": "#FFFFFF",
     },
     extend: {},
   },

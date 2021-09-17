@@ -6,6 +6,7 @@ import { errorToMessage } from "../../utils/utils";
 import { AppThunk } from "../middleware/thunkMiddleware";
 
 export declare interface IExpense {
+  _id: string;
   hive?: string;
   amount: number;
   description: string;
@@ -14,7 +15,7 @@ export declare interface IExpense {
 const expensesInitialState = {
   loading: false,
   error: "",
-  expensesList: [] as IExpense[],
+  list: [] as IExpense[],
 };
 const expensesSlice = createSlice({
   name: "expenses",
@@ -24,7 +25,7 @@ const expensesSlice = createSlice({
       expenses.loading = true;
     },
     expensesLoaded: (expenses, action: PayloadAction<IExpense[]>) => {
-      expenses.expensesList = action.payload;
+      expenses.list = action.payload;
       expenses.loading = false;
       expenses.error = "";
     },

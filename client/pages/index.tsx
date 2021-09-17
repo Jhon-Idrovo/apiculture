@@ -5,6 +5,7 @@ import { getUser, logIn, logOut } from "../store/user/user";
 import { getAlbums, loadAlbums } from "../store/entities/albums";
 import { loadHives } from "../store/entities/hives";
 
+import { FormattedMessage } from "react-intl";
 export default function Home() {
   const user = useAppSelector(getUser);
   const albums = useAppSelector(getAlbums);
@@ -24,8 +25,10 @@ export default function Home() {
         >
           Log In
         </button>
-        <button onClick={() => dispatch(logOut())}>Log Out</button>
-        <button onClick={() => dispatch(loadHives())}>Load Hives </button>
+        <button onClick={() => dispatch(logOut())}>
+          <FormattedMessage defaultMessage="Log Out" />
+        </button>
+        <button onClick={() => dispatch(loadHives())}></button>
         {albums?.list && albums.list.map(({ title }) => <div>{title}</div>)}
       </section>
     </>
