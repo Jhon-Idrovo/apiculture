@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response } from "express";
+import Harvest from "../models/Harvest";
 import Hive from "../models/Hive";
-import { IHive } from "../models/interfaces/hives";
+import { IHive, IResponseHive } from "../models/interfaces/hives";
 import { RequestEnhanced } from "../models/interfaces/utils";
 
 export async function create(req: Request, res: Response, next: NextFunction) {
   const { userID } = (req as RequestEnhanced).decodedToken;
   const { date, name } = req.body;
-  await Hive.create({ installationDate: date, name, userID });
+  await Hive.create({ installationDate: date, name, userID, totalHarvests: 0 });
   return res.sendStatus(201);
 }
 export async function readOne(req: Request, res: Response, next: NextFunction) {
@@ -14,7 +15,7 @@ export async function readOne(req: Request, res: Response, next: NextFunction) {
 }
 export async function readAll(req: Request, res: Response, next: NextFunction) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;
-  const hives = await Hive.find({ userID });
+  const hives = await Hive.find({ userID }).lean();
   return res.json({ hives });
 }
 export async function updateOne(

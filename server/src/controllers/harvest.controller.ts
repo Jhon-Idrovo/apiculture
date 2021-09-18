@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import Harvest from "../models/harvest";
+import Harvest from "../models/Harvest";
+import Hive from "../models/Hive";
 import { RequestEnhanced } from "../models/interfaces/utils";
 
 export async function create(
@@ -9,6 +10,10 @@ export async function create(
 ) {
   const { userID } = req.decodedToken;
   await Harvest.create({ ...req.body, userID });
+  const hive = await Hive.findById(req.body.hive);
+  if (!hive) throw new Error("Hive not found");
+  hive.totalHarvests = hive.totalHarvests + req.body.amount;
+  await hive.save();
   return res.sendStatus(201);
 }
 export async function readOne(

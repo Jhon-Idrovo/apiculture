@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import Table from "../components/Table";
+import Donut from "../components/Donut";
 import {
   getHarvests,
   loadHarvests,
@@ -29,6 +30,7 @@ function Production() {
   if (hives.list.length === 0) return <div>empty</div>;
   return (
     <div>
+      <Donut />
       <div className="hives-container">
         {hives.list.map((hive) => (
           <div

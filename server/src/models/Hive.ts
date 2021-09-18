@@ -8,6 +8,7 @@ const scheme = new Schema<IHive>({
   },
   name: { type: String, required: true },
   installationDate: { type: Date, required: true },
+  totalHarvests: Number,
 });
 
 export default model<IHive>("Hive", scheme);
