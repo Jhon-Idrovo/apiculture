@@ -8,7 +8,7 @@ export async function create(
   next: NextFunction
 ) {
   const { userID } = req.decodedToken;
-  await Harvest.create({ ...req.body }, userID);
+  await Harvest.create({ ...req.body, userID });
   return res.sendStatus(201);
 }
 export async function readOne(
