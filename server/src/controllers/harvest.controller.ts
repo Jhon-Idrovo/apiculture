@@ -10,6 +10,7 @@ export async function create(
 ) {
   const { userID } = req.decodedToken;
   await Harvest.create({ ...req.body, userID });
+  // Update the total on the hive
   const hive = await Hive.findById(req.body.hive);
   if (!hive) throw new Error("Hive not found");
   hive.totalHarvests = hive.totalHarvests + req.body.amount;
