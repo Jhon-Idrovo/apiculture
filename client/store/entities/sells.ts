@@ -1,23 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "../../config/axiosInstance";
 import { SELLS_ENDPOINT } from "../../config/config";
-import {
-  compareRows,
-  errorToMessage,
-  Order,
-  rowsMergeSort,
-} from "../../utils/utils";
+import { compareRows, errorToMessage, Order } from "../../utils/utils";
 import { RootState } from "../configureStore";
 import { AppThunk } from "../middleware/thunkMiddleware";
+import { IProduct } from "./products";
 
 export declare interface ISell {
   // client:string,
   _id: string;
-  userID: string;
   totalAmount: number;
   totalPrice: number;
-  productID: string;
+  productID: Pick<IProduct, "name" | "_id">;
 }
+export const sellsKeysToHeaders = {
+  _id: "id",
+  totalAmount: "Total Amount",
+  totalPrice: "Income",
+  productID: "Procduct",
+};
 const sellsInitialState = {
   loading: false,
   error: "",
@@ -38,7 +39,9 @@ const sellsSlice = createSlice({
       sells.loading = false;
       sells.list = action.payload;
       sells.error = "";
-      sells.fields = Object.keys(action.payload[0]);
+      sells.fields = Object.keys(action.payload[0]).filter(
+        (field) => field !== "userID" && field !== "__v"
+      );
     },
     sellsLoadFailed: (sells, action: PayloadAction<string>) => {
       sells.loading = false;

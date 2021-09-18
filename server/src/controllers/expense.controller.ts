@@ -14,7 +14,9 @@ export async function readOne(req: Request, res: Response, next: NextFunction) {
 }
 export async function readAll(req: Request, res: Response, next: NextFunction) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;
-  const expenses = await Expense.find({ userID });
+  const expenses = await Expense.find({ userID })
+    .populate("hive", "name")
+    .exec();
   return res.json({ expenses });
 }
 export async function updateOne(

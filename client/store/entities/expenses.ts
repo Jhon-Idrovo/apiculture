@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
 import axiosInstance from "../../config/axiosInstance";
 import { EXPENSES_ENDPOINT } from "../../config/config";
 import { compareRows, errorToMessage, Order } from "../../utils/utils";
 import { RootState } from "../configureStore";
 import { AppThunk } from "../middleware/thunkMiddleware";
+import { IHive } from "./hives";
 
 export declare interface IExpense {
   _id: string;
-  hive?: string;
+  hive?: Pick<IHive, "_id" | "name">;
   amount: number;
   description: string;
-  date: string;
+  date: string; // yy/mm/dd
 }
 const expensesInitialState = {
   loading: false,
@@ -30,7 +30,9 @@ const expensesSlice = createSlice({
     },
     expensesLoaded: (expenses, action: PayloadAction<IExpense[]>) => {
       expenses.list = action.payload;
-      expenses.fields = Object.keys(action.payload[0]);
+      expenses.fields = Object.keys(action.payload[0]).filter(
+        (field) => field !== "__v" && field !== "userID"
+      );
       expenses.loading = false;
       expenses.error = "";
     },

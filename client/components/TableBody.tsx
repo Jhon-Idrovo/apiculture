@@ -6,24 +6,24 @@ function TableBody({
   rows,
   displayRowKeys,
 }: {
-  rows: (IHarvest | ISell | IExpense)[];
+  rows: (IHarvest | ISell | IExpense | IHive)[];
   displayRowKeys: string[];
 }) {
   return (
-    <tbody className="t-body">
+    <>
       {rows.map((row) => (
-        <tr className="text-txt-base border-2" key={row._id}>
-          <td className="">
+        <div className="t-row py-2">
+          <div className="t-cell">
             <Link href={`${row._id}`}>
               <a>
                 <i className="fas fa-eye" />
               </a>
             </Link>
-          </td>
+          </div>
           {displayRowKeys.map((key) => (
-            <td
+            <div
               key={key + row._id}
-              className="text-right pl-4 whitespace-nowrap"
+              className="text-right pl-4 whitespace-nowrap t-cell"
             >
               {/* since typeof 'a'[0] = string we don't have to 
               care about hancling it separately
@@ -33,13 +33,13 @@ function TableBody({
               typeof [{some obj}][0] = object
               */}
               {typeof row[key as any] === "object"
-                ? null
+                ? row[key].name
                 : (row[key] as string)}
-            </td>
+            </div>
           ))}
-        </tr>
+        </div>
       ))}
-    </tbody>
+    </>
   );
 }
 

@@ -47,13 +47,6 @@ function NavBar() {
             </a>
           </Link>
         </li>
-        <li className={`${router.pathname === "/hives" && "nav-list-active"}`}>
-          <Link href="/hives">
-            <a>
-              <FormattedMessage defaultMessage="Hives"></FormattedMessage>
-            </a>
-          </Link>
-        </li>
       </ul>
     </nav>
   );

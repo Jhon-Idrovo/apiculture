@@ -3,6 +3,7 @@ import { IHarvest, IHive } from "./interfaces/hives";
 const harvestSchema = new Schema<IHarvest>({
   date: Number,
   amount: Number,
+  product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
 });
 const scheme = new Schema<IHive>({
   userID: {

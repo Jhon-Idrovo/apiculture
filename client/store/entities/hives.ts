@@ -28,6 +28,7 @@ const hivesInitialState = {
   loading: false,
   list: [] as IHive[],
   error: "",
+  activeHiveID: "",
 };
 
 const hivesSlice = createSlice({
@@ -41,9 +42,12 @@ const hivesSlice = createSlice({
       console.log(action.payload);
 
       state.list = action.payload;
-      state.fields = Object.keys(action.payload[0]);
-      state.loading = false;
+      state.fields = Object.keys(action.payload[0]).filter(
+        (key) => key !== "__v" && key !== "harvests" && key !== "userID"
+      );
+      state.activeHiveID = action.payload[0]._id;
       state.error = "";
+      state.loading = false;
     },
     hivesLoadFailed: (state, action: PayloadAction<string>) => {
       state.loading = false;
@@ -59,14 +63,20 @@ const hivesSlice = createSlice({
       hives.list.sort(compareRows<IHive>(sortBy, order));
       hives.loading = false;
     },
+    setHive: (hives, action: PayloadAction<string>) => {
+      hives.activeHiveID = action.payload;
+      hives.loading = false;
+    },
   },
 });
 
 export default hivesSlice.reducer;
-const { hivesLoading, hivesLoadFailed, hivesLoaded, hivesSort } =
+const { hivesLoading, hivesLoadFailed, hivesLoaded, hivesSort, setHive } =
   hivesSlice.actions;
 // SELECTORS
 export const getHives = (state: RootState) => state.entities.hives;
+export const getProductionFromHive = (hiveId: string) => (state: RootState) =>
+  state.entities.hives.list.find((hive) => hive._id === hiveId)?.harvests;
 // FUNCTION ACTIONS
 export const loadHives = (): AppThunk => async (dispatch) => {
   // set loading
@@ -106,3 +116,10 @@ function runAsyncAction(func: Function) {
   try {
   } catch (error) {}
 }
+
+export const changeActiveHive =
+  (hiveID: string): AppThunk =>
+  (dispatch) => {
+    dispatch(hivesLoading());
+    dispatch(setHive(hiveID));
+  };

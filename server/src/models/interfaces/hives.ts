@@ -2,8 +2,10 @@ export declare interface IHive {
   userID: string;
   name: string;
   installationDate: number;
+  harvests?: IHarvest[];
 }
 export declare interface IHarvest {
   date: number;
-  amoutn: number;
+  amount: number;
+  product: string;
 }
