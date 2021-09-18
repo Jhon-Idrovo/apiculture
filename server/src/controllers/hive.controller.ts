@@ -38,18 +38,3 @@ export async function deleteOne(
   await Hive.findByIdAndDelete(req.params.id);
   return res.send();
 }
-
-export async function createHarvest(
-  req: RequestEnhanced,
-  res: Response,
-  next: NextFunction
-) {
-  const { userID } = req.decodedToken;
-
-  const hive = await Hive.findById(req.params.id);
-  if (!hive || hive.userID.toString() !== userID)
-    throw new Error("Hive not found");
-  hive.harvests?.push(req.body);
-  await hive.save();
-  res.sendStatus(201);
-}

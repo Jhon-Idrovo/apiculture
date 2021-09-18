@@ -1,10 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IHarvest, IHive } from "./interfaces/hives";
-const harvestSchema = new Schema<IHarvest>({
-  date: Number,
-  amount: Number,
-  product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
-});
+import { IHive } from "./interfaces/hives";
 const scheme = new Schema<IHive>({
   userID: {
     ref: "User",
@@ -13,7 +8,6 @@ const scheme = new Schema<IHive>({
   },
   name: { type: String, required: true },
   installationDate: { type: Date, required: true },
-  harvests: [harvestSchema],
 });
 
 export default model<IHive>("Hive", scheme);

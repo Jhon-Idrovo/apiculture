@@ -15,6 +15,5 @@ router.get("/:id", runAsync(HiveCtlr.readOne)); //one
 router.put("/:id", runAsync(HiveCtlr.updateOne));
 //D
 router.delete("/:id", runAsync(HiveCtlr.deleteOne));
-// PRODUCTION RELATED
-router.post("/create-harvest/:id", runAsync(HiveCtlr.createHarvest));
+
 export default router;

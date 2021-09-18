@@ -11,7 +11,7 @@ import userRouter from "./user.routes";
 import hiveRouter from "./hive.routes";
 import expenseRouter from "./expense.routes";
 import sellRouter from "./sell.routes";
-
+import harvestRouter from "./harvest.routes";
 import { basePath } from "../config/config";
 import passport from "passport";
 
@@ -29,6 +29,7 @@ app.use(`${basePath}/product`, productRouter);
 app.use(`${basePath}/hive`, hiveRouter);
 app.use(`${basePath}/expense`, expenseRouter);
 app.use(`${basePath}/sell`, sellRouter);
+app.use(`${basePath}/harvest`, harvestRouter);
 //handle wrong paths
 app.use("*", (req: Request, res: Response) =>
   res.status(404).json({ error: "Page not found" })
