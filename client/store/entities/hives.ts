@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios, { AxiosError } from "axios";
 import axiosInstance from "../../config/axiosInstance";
-import { HIVES_ENDPOTINT } from "../../config/config";
+import { HIVES_ENDPOINT } from "../../config/config";
 import { compareRows, errorToMessage, Order } from "../../utils/utils";
 import { RootState } from "../configureStore";
 import { AppThunk } from "../middleware/thunkMiddleware";
@@ -11,13 +10,8 @@ export declare interface IHive {
   userID: string;
   name: string;
   installationDate: string;
-  harvests: IHarvest[];
 }
-export declare interface IHarvest {
-  _id: string;
-  date: string;
-  amoutn: number;
-}
+
 export declare interface IHivesResponse {
   hives: IHive[];
 }
@@ -45,7 +39,7 @@ const hivesSlice = createSlice({
       state.fields = Object.keys(action.payload[0]).filter(
         (key) => key !== "__v" && key !== "harvests" && key !== "userID"
       );
-      state.activeHiveID = action.payload[0]._id;
+      // state.activeHiveID = action.payload[0]._id;
       state.error = "";
       state.loading = false;
     },
@@ -75,15 +69,13 @@ const { hivesLoading, hivesLoadFailed, hivesLoaded, hivesSort, setHive } =
   hivesSlice.actions;
 // SELECTORS
 export const getHives = (state: RootState) => state.entities.hives;
-export const getProductionFromHive = (hiveId: string) => (state: RootState) =>
-  state.entities.hives.list.find((hive) => hive._id === hiveId)?.harvests;
 // FUNCTION ACTIONS
 export const loadHives = (): AppThunk => async (dispatch) => {
   // set loading
   dispatch(hivesLoading());
   try {
     // call to the api
-    const res = await axiosInstance.get(HIVES_ENDPOTINT);
+    const res = await axiosInstance.get(HIVES_ENDPOINT);
     // update the state
     dispatch(hivesLoaded(res.data.hives));
     dispatch(sortHives("installationDate"));
@@ -111,11 +103,6 @@ export const sortHives =
           "asc";
     dispatch(hivesSort({ order: o, sortBy }));
   };
-
-function runAsyncAction(func: Function) {
-  try {
-  } catch (error) {}
-}
 
 export const changeActiveHive =
   (hiveID: string): AppThunk =>

@@ -111,9 +111,8 @@ body {
 
 /* HIVES */
 .hives-container {
-  @apply grid;
-  grid-template-columns: repeat(auto-fill, minmax(1fr, 150px));
+  @apply flex flex-col;
 }
 .hive {
-  @apply bg-primary text-txt-primary;
+  @apply bg-primary text-txt-primary m-2 rounded-md px-2;
 }

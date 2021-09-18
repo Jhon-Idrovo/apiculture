@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import Table from "../components/Table";
-import hives, {
+import {
+  getHarvests,
+  loadHarvests,
+  sortHarvests,
+} from "../store/entities/harvests";
+import {
   changeActiveHive,
   getHives,
-  getProductionFromHive,
   loadHives,
   sortHives,
 } from "../store/entities/hives";
@@ -15,11 +19,13 @@ import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
  */
 function Production() {
   const dispatch = useAppDispatch();
+  let harvests = useAppSelector(getHarvests);
   let hives = useAppSelector(getHives);
   useEffect(() => {
+    dispatch(loadHarvests());
     dispatch(loadHives());
   }, []);
-  if (hives.loading) return <Loading />;
+  if (harvests.loading || hives.loading) return <Loading />;
   if (hives.list.length === 0) return <div>empty</div>;
   return (
     <div>
@@ -33,11 +39,11 @@ function Production() {
             <h2>{hive.installationDate}</h2>
           </div>
         ))}
+        <div className="hive" onClick={() => dispatch(changeActiveHive(""))}>
+          <h2>All Hives</h2>
+        </div>
       </div>
-      <Table
-        rowsSelector={getProductionFromHive(hives.activeHiveID)}
-        rowsSort={sortHives}
-      />
+      <Table rowsSelector={getHarvests} rowsSort={sortHarvests} />
     </div>
   );
 }

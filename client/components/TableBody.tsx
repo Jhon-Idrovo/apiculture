@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { IHarvest, IHive } from "../store/entities/hives";
+import { IHive } from "../store/entities/hives";
 import { ISell } from "../store/entities/sells";
 import { IExpense } from "../store/entities/expenses";
+import { IHarvest } from "../store/entities/harvests";
 function TableBody({
   rows,
   displayRowKeys,

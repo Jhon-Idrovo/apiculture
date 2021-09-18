@@ -2,13 +2,11 @@ import Head from "next/head";
 
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
 import { getUser, logIn, logOut } from "../store/user/user";
-import { getAlbums, loadAlbums } from "../store/entities/albums";
 import { loadHives } from "../store/entities/hives";
 
 import { FormattedMessage } from "react-intl";
 export default function Home() {
   const user = useAppSelector(getUser);
-  const albums = useAppSelector(getAlbums);
 
   const dispatch = useAppDispatch();
   return (
@@ -29,7 +27,6 @@ export default function Home() {
           <FormattedMessage defaultMessage="Log Out" />
         </button>
         <button onClick={() => dispatch(loadHives())}></button>
-        {albums?.list && albums.list.map(({ title }) => <div>{title}</div>)}
       </section>
     </>
   );
