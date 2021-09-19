@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "../../config/axiosInstance";
 import { HIVES_ENDPOINT } from "../../config/config";
 import { compareRows, errorToMessage, Order } from "../../utils/utils";
-import { RootState } from "../configureStore";
+import store, { RootState } from "../configureStore";
 import { AppThunk } from "../middleware/thunkMiddleware";
 
 export declare interface IHive {
@@ -38,7 +38,7 @@ const hivesSlice = createSlice({
 
       state.list = action.payload;
       state.fields = Object.keys(action.payload[0]).filter(
-        (key) => key !== "__v" && key !== "userID"
+        (key) => key !== "__v" && key !== "userID" && key !== "_id"
       );
       // state.activeHiveID = action.payload[0]._id;
       state.error = "";
@@ -111,3 +111,9 @@ export const changeActiveHive =
     dispatch(hivesLoading());
     dispatch(setHive(hiveID));
   };
+
+// UTILS
+export const getHiveById = (id: string): IHive => {
+  const state: RootState = store.getState();
+  return state.entities.hives.list.filter((hive: IHive) => hive._id === id)[0];
+};

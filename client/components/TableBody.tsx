@@ -5,10 +5,10 @@ import { IExpense } from "../store/entities/expenses";
 import { IHarvest } from "../store/entities/harvests";
 function TableBody({
   rows,
-  displayRowKeys,
+  keysMapping,
 }: {
   rows: (IHarvest | ISell | IExpense | IHive)[];
-  displayRowKeys: string[];
+  keysMapping: any;
 }) {
   return (
     <>
@@ -21,7 +21,7 @@ function TableBody({
               </a>
             </Link>
           </div>
-          {displayRowKeys.map((key) => (
+          {Object.keys(keysMapping).map((key) => (
             <div
               key={key + row._id}
               className="text-right pl-4 whitespace-nowrap t-cell"
@@ -33,9 +33,7 @@ function TableBody({
               typeof ['some string'][0] = string
               typeof [{some obj}][0] = object
               */}
-              {typeof row[key as any] === "object"
-                ? row[key].name
-                : (row[key] as string)}
+              {keysMapping[key].transform(row[key])}
             </div>
           ))}
         </div>

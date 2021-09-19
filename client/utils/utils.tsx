@@ -9,7 +9,10 @@ export declare interface TokenPayloadInterface extends JwtPayload {
   userID: string;
   role: RoleName;
 }
-
+export declare interface IField {
+  header: string;
+  transform: () => string;
+}
 export function verifyToken(token: string) {
   //   try {
   //     const payload = jwt.verify(token, process.env.JWT_TOKEN_SECRET as Secret);

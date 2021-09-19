@@ -16,6 +16,7 @@ import {
 } from "../store/entities/hives";
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
 import { getDonutData } from "../utils/utils";
+import { loadProducts } from "../store/entities/products";
 /**
  * Hives and their production. Either individualized or total
  * @returns
@@ -26,6 +27,7 @@ function Production() {
   let hives = useAppSelector(getHives);
   useEffect(() => {
     dispatch(loadHarvests());
+    dispatch(loadProducts());
     dispatch(loadHives());
   }, []);
   //const donutData = useMemo(() => getDonutData(hives.list), hives.list);

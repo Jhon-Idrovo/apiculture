@@ -26,7 +26,9 @@ function Table({ rowsSelector, rowsSort }: TablePropsInterface) {
     useAppSelector(rowsSelector);
   //-----------------DISPLAY---------------------
   //displayed rows and headers
-  const [displayRowKeys, setDisplayRowKeys] = useState<string[]>([...fields]);
+  const [displayRowKeys, setDisplayRowKeys] = useState<string[]>([
+    ...Object.keys(fields),
+  ]);
 
   const handleDisplayCheck = (key: string) => {
     const kIndex = displayRowKeys.indexOf(key);
@@ -36,7 +38,7 @@ function Table({ rowsSelector, rowsSort }: TablePropsInterface) {
     setDisplayRowKeys(newHiddenRows);
   };
   useEffect(() => {
-    setDisplayRowKeys([...fields]);
+    setDisplayRowKeys([...Object.keys(fields)]);
   }, [fields]);
   //-------------TABLE MENU--------------
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -61,7 +63,7 @@ function Table({ rowsSelector, rowsSort }: TablePropsInterface) {
                   : "max-h-0 max-w-0 overflow-hidden "
               }`}
             >
-              {fields.map((field: string) => (
+              {Object.keys(fields).map((field) => (
                 <li className="px-2" key={"menu-" + field}>
                   <input
                     type="checkbox"
@@ -73,7 +75,7 @@ function Table({ rowsSelector, rowsSort }: TablePropsInterface) {
                     className="text-txt-primary pl-2"
                     htmlFor={field + "checkbox"}
                   >
-                    {field}
+                    {fields[field].header}
                   </label>
                 </li>
               ))}
@@ -94,13 +96,13 @@ function Table({ rowsSelector, rowsSort }: TablePropsInterface) {
                       }`}
                     ></i>
                   ) : null}
-                  {k}
+                  {fields[k].header}
                 </button>
               </div>
             );
           })}
         </div>
-        <TableBody rows={list} displayRowKeys={displayRowKeys} />
+        <TableBody rows={list} keysMapping={fields} />
       </div>
     </div>
   );

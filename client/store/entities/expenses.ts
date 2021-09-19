@@ -31,7 +31,7 @@ const expensesSlice = createSlice({
     expensesLoaded: (expenses, action: PayloadAction<IExpense[]>) => {
       expenses.list = action.payload;
       expenses.fields = Object.keys(action.payload[0]).filter(
-        (field) => field !== "__v" && field !== "userID"
+        (field) => field !== "__v" && field !== "userID" && field!=='_id'
       );
       expenses.loading = false;
       expenses.error = "";

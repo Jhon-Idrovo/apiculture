@@ -40,7 +40,7 @@ const sellsSlice = createSlice({
       sells.list = action.payload;
       sells.error = "";
       sells.fields = Object.keys(action.payload[0]).filter(
-        (field) => field !== "userID" && field !== "__v"
+        (field) => field !== "userID" && field !== "__v" && field !== "_id"
       );
     },
     sellsLoadFailed: (sells, action: PayloadAction<string>) => {

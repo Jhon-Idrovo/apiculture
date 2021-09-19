@@ -99,4 +99,5 @@ describe("Utils", () => {
     expect(data.labels).toStrictEqual(expected.labels);
     expect(data.datasets[0].data).toStrictEqual(expected.datasets[0].data);
   });
+  
 });

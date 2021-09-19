@@ -4,6 +4,8 @@ import { HARVESTS_ENDPOINT } from "../../config/config";
 import { compareRows, errorToMessage, Order } from "../../utils/utils";
 import { RootState } from "../configureStore";
 import { AppThunk } from "../middleware/thunkMiddleware";
+import { getHiveById, IHive } from "./hives";
+import { getProductById, IProduct } from "./products";
 
 export declare interface IHarvest {
   _id: string;
@@ -12,10 +14,28 @@ export declare interface IHarvest {
   product: string;
   hive: string;
 }
+export const harvestPropsMapping = {
+  date: {
+    header: "Date",
+    transform: (date: number) => new Date(date).toLocaleDateString(),
+  },
+  amount: { header: "Amount", transform: (amount: number) => `$ ${amount}` },
+  // get the product name
+  product: {
+    header: "Product",
+    transform: (productID: string) => getProductById(productID).name,
+  },
+  // get the hive name
+  hive: {
+    header: "Hive",
+    transform: (hiveID: string) => getHiveById(hiveID).name,
+  },
+};
+
 const initialHarvests = {
   loading: false,
   list: [] as IHarvest[],
-  fields: [""],
+  fields: harvestPropsMapping,
   sortBy: "",
   order: "" as Order,
   error: "",
@@ -30,9 +50,7 @@ const harvestSlice = createSlice({
     harvestsLoaded: (harvests, action: PayloadAction<IHarvest[]>) => {
       harvests.list = action.payload;
       harvests.error = "";
-      harvests.fields = Object.keys(action.payload[0]).filter(
-        (key) => key !== "__v" && key !== "userID"
-      );
+
       harvests.error = "";
       harvests.loading = false;
     },
@@ -102,3 +120,5 @@ export const sortHarvests =
           "asc";
     dispatch(harvestsSort({ order: o, sortBy }));
   };
+// UTILS
+//TODO:Implement this
