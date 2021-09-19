@@ -16,17 +16,7 @@ export const productsInitialState = {
   loading: false,
   error: "",
   list: [] as IProduct[],
-  fields: {
-    name: { header: "Name", transform: (name: string) => name } as IField,
-    description: {
-      header: "Description",
-      transform: (description: string) => description,
-    } as IField,
-    price: {
-      header: "Price",
-      transform: (price: string) => "$ " + price,
-    } as IField,
-  },
+
   sortBy: "",
   order: "" as Order,
 };
@@ -70,4 +60,21 @@ export const getProductById = (id: string): IProduct => {
   return state.entities.products.list.filter(
     (product) => product._id === id
   )[0];
+};
+
+export declare type SellsMappingType = Record<
+  keyof Omit<IProduct, "_id">,
+  IField
+>;
+
+export const productsKeysMapping = {
+  name: { header: "Name", transform: (name: string) => name } as IField,
+  description: {
+    header: "Description",
+    transform: (description: string) => description,
+  } as IField,
+  price: {
+    header: "Price",
+    transform: (price: string) => "$ " + price,
+  } as IField,
 };

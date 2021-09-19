@@ -17,14 +17,6 @@ export declare interface IHivesResponse {
   hives: IHive[];
 }
 const hivesInitialState = {
-  fields: {
-    name: { header: "Name", transform: (t: string) => t } as IField,
-    installationDate: {
-      header: "Installated At",
-      transform: (d: string) => new Date(d).toLocaleDateString(),
-    } as IField,
-    totalHarvests: { header: "Name", transform: (t: string) => t } as IField,
-  },
   sortBy: "",
   order: "" as Order,
   loading: false,
@@ -120,4 +112,15 @@ export const changeActiveHive =
 export const getHiveById = (id: string): IHive => {
   const state: RootState = store.getState();
   return state.entities.hives.list.filter((hive: IHive) => hive._id === id)[0];
+};
+
+export declare type SellsMappingType = Record<keyof Omit<IHive, "_id">, IField>;
+
+export const hivesKeysMapping = {
+  name: { header: "Name", transform: (t: string) => t } as IField,
+  installationDate: {
+    header: "Installated At",
+    transform: (d: string) => new Date(d).toLocaleDateString(),
+  } as IField,
+  totalHarvests: { header: "Name", transform: (t: string) => t } as IField,
 };
