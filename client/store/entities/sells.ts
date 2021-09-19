@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "../../config/axiosInstance";
 import { SELLS_ENDPOINT } from "../../config/config";
-import { compareRows, errorToMessage, Order } from "../../utils/utils";
+import { compareRows, errorToMessage, IField, Order } from "../../utils/utils";
 import { RootState } from "../configureStore";
 import { AppThunk } from "../middleware/thunkMiddleware";
-import { IProduct } from "./products";
+import { getProductById, IProduct } from "./products";
 
 export declare interface ISell {
   // client:string,
@@ -25,7 +25,20 @@ const sellsInitialState = {
   list: [] as ISell[],
   sortBy: "" as keyof ISell,
   order: "asc" as Order,
-  fields: [""],
+  fields: {
+    totalAmount: {
+      header: "Quantity",
+      transform: (t: string) => t + " ml",
+    } as IField,
+    totalPrice: {
+      header: "Income",
+      transform: (t: string) => "$ " + t,
+    } as IField,
+    productID: {
+      header: "Product",
+      transform: (t: string) => getProductById(t).name,
+    } as IField,
+  },
 };
 
 const sellsSlice = createSlice({
@@ -39,9 +52,6 @@ const sellsSlice = createSlice({
       sells.loading = false;
       sells.list = action.payload;
       sells.error = "";
-      sells.fields = Object.keys(action.payload[0]).filter(
-        (field) => field !== "userID" && field !== "__v" && field !== "_id"
-      );
     },
     sellsLoadFailed: (sells, action: PayloadAction<string>) => {
       sells.loading = false;

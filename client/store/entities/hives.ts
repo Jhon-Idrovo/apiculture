@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "../../config/axiosInstance";
 import { HIVES_ENDPOINT } from "../../config/config";
-import { compareRows, errorToMessage, Order } from "../../utils/utils";
+import { compareRows, errorToMessage, IField, Order } from "../../utils/utils";
 import store, { RootState } from "../configureStore";
 import { AppThunk } from "../middleware/thunkMiddleware";
 
@@ -17,7 +17,14 @@ export declare interface IHivesResponse {
   hives: IHive[];
 }
 const hivesInitialState = {
-  fields: [""],
+  fields: {
+    name: { header: "Name", transform: (t: string) => t } as IField,
+    installationDate: {
+      header: "Installated At",
+      transform: (d: string) => new Date(d).toLocaleDateString(),
+    } as IField,
+    totalHarvests: { header: "Name", transform: (t: string) => t } as IField,
+  },
   sortBy: "",
   order: "" as Order,
   loading: false,
@@ -37,9 +44,6 @@ const hivesSlice = createSlice({
       console.log(action.payload);
 
       state.list = action.payload;
-      state.fields = Object.keys(action.payload[0]).filter(
-        (key) => key !== "__v" && key !== "userID" && key !== "_id"
-      );
       // state.activeHiveID = action.payload[0]._id;
       state.error = "";
       state.loading = false;

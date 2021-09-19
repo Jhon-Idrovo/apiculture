@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Table from "../components/Table";
+import { loadProducts } from "../store/entities/products";
 import { getSells, loadSells, sortSells } from "../store/entities/sells";
 import { useAppDispatch } from "../store/hooks/hooks";
 /**
@@ -9,6 +10,7 @@ import { useAppDispatch } from "../store/hooks/hooks";
 function Sells() {
   const dispatch = useAppDispatch();
   useEffect(() => {
+    dispatch(loadProducts());
     dispatch(loadSells());
   }, []);
   return (

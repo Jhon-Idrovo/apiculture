@@ -14,9 +14,7 @@ export async function readOne(req: Request, res: Response, next: NextFunction) {
 }
 export async function readAll(req: Request, res: Response, next: NextFunction) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;
-  const sells = await Sell.find({ userID })
-    .populate("productID", "name")
-    .exec();
+  const sells = await Sell.find({ userID });
   return res.json({ sells });
 }
 export async function updateOne(
