@@ -1,8 +1,8 @@
 import axios, { AxiosError } from "axios";
 import jwt, { Secret, JwtPayload } from "jsonwebtoken";
-import { IExpense } from "../store/entities/expenses";
-import { IHarvest, IHive } from "../store/entities/hives";
-import { ISell } from "../store/entities/sells";
+
+import { IHive } from "../store/entities/hives";
+
 export declare type RoleName = "Admin" | "User" | "Guest";
 //for the payload being sent into the token
 export declare interface TokenPayloadInterface extends JwtPayload {
@@ -11,7 +11,7 @@ export declare interface TokenPayloadInterface extends JwtPayload {
 }
 export declare interface IField {
   header: string;
-  transform: () => string;
+  transform: ((a: string) => string) | ((b: number) => string);
 }
 export function verifyToken(token: string) {
   //   try {

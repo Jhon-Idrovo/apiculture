@@ -4,6 +4,7 @@ import Table from "../components/Table";
 import Donut from "../components/Donut";
 import {
   getHarvests,
+  harvestKeyssMapping,
   loadHarvests,
   sortHarvests,
 } from "../store/entities/harvests";
@@ -67,7 +68,11 @@ function Production() {
           <h2>All Hives</h2>
         </div>
       </div>
-      <Table rowsSelector={getHarvests} rowsSort={sortHarvests} />
+      <Table
+        rowsSelector={getHarvests}
+        rowsSort={sortHarvests}
+        mapping={harvestKeyssMapping}
+      />
       <div className="row-create t-row">
         {/* date */}
         <input type="date" name="" id="date-in" className="t-cell" />

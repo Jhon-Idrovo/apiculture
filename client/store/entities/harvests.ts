@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "../../config/axiosInstance";
 import { HARVESTS_ENDPOINT } from "../../config/config";
-import { compareRows, errorToMessage, Order } from "../../utils/utils";
+import { compareRows, errorToMessage, IField, Order } from "../../utils/utils";
 import { RootState } from "../configureStore";
 import { AppThunk } from "../middleware/thunkMiddleware";
 import { getHiveById, IHive } from "./hives";
@@ -14,28 +14,10 @@ export declare interface IHarvest {
   product: string;
   hive: string;
 }
-export const harvestPropsMapping = {
-  date: {
-    header: "Date",
-    transform: (date: number) => new Date(date).toLocaleDateString(),
-  },
-  amount: { header: "Amount", transform: (amount: number) => `${amount} L` },
-  // get the product name
-  product: {
-    header: "Product",
-    transform: (productID: string) => getProductById(productID).name,
-  },
-  // get the hive name
-  hive: {
-    header: "Hive",
-    transform: (hiveID: string) => getHiveById(hiveID).name,
-  },
-};
 
 const initialHarvests = {
   loading: false,
   list: [] as IHarvest[],
-  fields: harvestPropsMapping,
   sortBy: "",
   order: "" as Order,
   error: "",
@@ -121,4 +103,25 @@ export const sortHarvests =
     dispatch(harvestsSort({ order: o, sortBy }));
   };
 // UTILS
-//TODO:Implement this
+export declare type HarvestsMappingType = Record<
+  keyof Omit<IHarvest, "_id">,
+  IField
+>;
+
+export const harvestKeyssMapping: HarvestsMappingType = {
+  date: {
+    header: "Date",
+    transform: (date: number) => new Date(date).toLocaleDateString(),
+  },
+  amount: { header: "Amount", transform: (amount: number) => `${amount} L` },
+  // get the product name
+  product: {
+    header: "Product",
+    transform: (productID: string) => getProductById(productID).name,
+  },
+  // get the hive name
+  hive: {
+    header: "Hive",
+    transform: (hiveID: string) => getHiveById(hiveID).name,
+  },
+};

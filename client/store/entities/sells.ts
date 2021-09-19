@@ -25,20 +25,6 @@ const sellsInitialState = {
   list: [] as ISell[],
   sortBy: "" as keyof ISell,
   order: "asc" as Order,
-  fields: {
-    totalAmount: {
-      header: "Quantity",
-      transform: (t: string) => t + " ml",
-    } as IField,
-    totalPrice: {
-      header: "Income",
-      transform: (t: string) => "$ " + t,
-    } as IField,
-    productID: {
-      header: "Product",
-      transform: (t: string) => getProductById(t).name,
-    } as IField,
-  },
 };
 
 const sellsSlice = createSlice({
@@ -108,3 +94,21 @@ export const sortSells =
           "asc";
     dispatch(sellsSort({ sortBy, order: o }));
   };
+// UTILS
+
+export declare type SellsMappingType = Record<keyof Omit<ISell, "_id">, IField>;
+
+export const sellsKeyMapping: SellsMappingType = {
+  totalAmount: {
+    header: "Quantity",
+    transform: (t: string) => t + " ml",
+  } as IField,
+  totalPrice: {
+    header: "Income",
+    transform: (t: string) => "$ " + t,
+  } as IField,
+  productID: {
+    header: "Product",
+    transform: (t: string) => getProductById(t).name,
+  } as IField,
+};

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import TableBody from "../components/TableBody";
 import { ExpensesMappingType } from "../store/entities/expenses";
+import { HarvestsMappingType } from "../store/entities/harvests";
+import { SellsMappingType } from "../store/entities/sells";
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
 import Error from "./Error";
 
@@ -19,7 +21,7 @@ export declare interface TablePropsInterface {
   //   list: IHarvest[] | ISell[] | IExpense[];
   // };
   rowsSort: Function;
-  mapping: ExpensesMappingType;
+  mapping: ExpensesMappingType | HarvestsMappingType | SellsMappingType;
 }
 
 function Table({ rowsSelector, rowsSort, mapping }: TablePropsInterface) {

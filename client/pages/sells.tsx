@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import Table from "../components/Table";
 import { loadProducts } from "../store/entities/products";
-import { getSells, loadSells, sortSells } from "../store/entities/sells";
+import {
+  getSells,
+  loadSells,
+  sellsKeyMapping,
+  sortSells,
+} from "../store/entities/sells";
 import { useAppDispatch } from "../store/hooks/hooks";
 /**
  * Products and their sales. Either individualized or the total
@@ -15,7 +20,11 @@ function Sells() {
   }, []);
   return (
     <main>
-      <Table rowsSelector={getSells} rowsSort={sortSells}></Table>
+      <Table
+        rowsSelector={getSells}
+        rowsSort={sortSells}
+        mapping={sellsKeyMapping}
+      ></Table>
     </main>
   );
 }
