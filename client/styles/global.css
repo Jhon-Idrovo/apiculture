@@ -114,5 +114,8 @@ body {
   @apply flex flex-col;
 }
 .hive {
-  @apply bg-primary text-txt-primary m-2 rounded-md px-2;
+  @apply bg-base text-txt-base  border-2 border-primary m-2 rounded-md px-2;
+}
+.active-hive {
+  @apply bg-primary text-txt-primary;
 }

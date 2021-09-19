@@ -45,14 +45,19 @@ function Production() {
       <div className="hives-container">
         {hives.list.map((hive) => (
           <div
-            className="hive"
+            className={`hive ${
+              hives.activeHiveID === hive._id && "active-hive"
+            }`}
             onClick={() => dispatch(changeActiveHive(hive._id))}
           >
             <h2>{hive.name}</h2>
             <h2>{hive.installationDate}</h2>
           </div>
         ))}
-        <div className="hive" onClick={() => dispatch(changeActiveHive(""))}>
+        <div
+          className={`hive ${hives.activeHiveID === "" && "active-hive"}`}
+          onClick={() => dispatch(changeActiveHive(""))}
+        >
           <h2>All Hives</h2>
         </div>
       </div>
