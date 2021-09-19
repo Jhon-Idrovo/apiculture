@@ -10,6 +10,7 @@ export declare interface IHive {
   userID: string;
   name: string;
   installationDate: string;
+  totalHarvests: number;
 }
 
 export declare interface IHivesResponse {
@@ -37,7 +38,7 @@ const hivesSlice = createSlice({
 
       state.list = action.payload;
       state.fields = Object.keys(action.payload[0]).filter(
-        (key) => key !== "__v" && key !== "harvests" && key !== "userID"
+        (key) => key !== "__v" && key !== "userID"
       );
       // state.activeHiveID = action.payload[0]._id;
       state.error = "";
@@ -78,7 +79,7 @@ export const loadHives = (): AppThunk => async (dispatch) => {
     const res = await axiosInstance.get(HIVES_ENDPOINT);
     // update the state
     dispatch(hivesLoaded(res.data.hives));
-    dispatch(sortHives("installationDate"));
+    dispatch(sortHives("totalHarvests"));
   } catch (error) {
     console.log(error);
 

@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import jwt, { Secret, JwtPayload } from "jsonwebtoken";
 import { IExpense } from "../store/entities/expenses";
-import { IHarvest } from "../store/entities/hives";
+import { IHarvest, IHive } from "../store/entities/hives";
 import { ISell } from "../store/entities/sells";
 export declare type RoleName = "Admin" | "User" | "Guest";
 //for the payload being sent into the token
@@ -145,3 +145,26 @@ export function compareRows<T>(orderBy: keyof T, order: Order) {
     return order === "desc" ? comparission * -1 : comparission;
   };
 }
+export const getDonutData = (hives: IHive[]) => {
+  let res = {
+    labels: [] as string[], //push name of the hive here
+    datasets: [
+      {
+        label: "Hives",
+        data: [] as number[], //push values here
+        // TODO: generate random colors
+        backgroundColor: [
+          "rgb(255, 99, 132)",
+          "rgb(54, 162, 235)",
+          // "rgb(255, 205, 86)",
+        ],
+        hoverOffset: 50,
+      },
+    ],
+  };
+  hives.map((hive) => {
+    res.labels.push(hive.name);
+    res.datasets[0].data.push(hive.totalHarvests);
+  });
+  return res;
+};
