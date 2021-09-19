@@ -19,7 +19,7 @@ export const harvestPropsMapping = {
     header: "Date",
     transform: (date: number) => new Date(date).toLocaleDateString(),
   },
-  amount: { header: "Amount", transform: (amount: number) => `$ ${amount}` },
+  amount: { header: "Amount", transform: (amount: number) => `${amount} L` },
   // get the product name
   product: {
     header: "Product",

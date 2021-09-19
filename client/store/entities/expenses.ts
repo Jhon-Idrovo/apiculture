@@ -20,7 +20,7 @@ const expensesInitialState = {
   order: "asc" as Order,
   list: [] as IExpense[],
   fields: {
-    amount: { header: "Amount", transform: (t: string) => t + " l" } as IField,
+    amount: { header: "Amount", transform: (t: string) => "$ " + t } as IField,
     description: {
       header: "Description",
       transform: (t: string) => t,

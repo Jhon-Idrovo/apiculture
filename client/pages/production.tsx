@@ -53,7 +53,7 @@ function Production() {
             onClick={() => dispatch(changeActiveHive(hive._id))}
           >
             <h2>{hive.name}</h2>
-            <h2>{hive.installationDate}</h2>
+            <h2>{new Date(hive.installationDate).toLocaleDateString()}</h2>
           </div>
         ))}
         <div
