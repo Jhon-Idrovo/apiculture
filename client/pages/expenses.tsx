@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import FSMessage from "../components/FSMessage";
 import Table from "../components/Table";
 import {
+  expensesKeyMapping,
   getExpenes,
   loadExpenses,
   sortExpenses,
@@ -24,7 +25,11 @@ function Expenses() {
     );
   return (
     <main>
-      <Table rowsSelector={getExpenes} rowsSort={sortExpenses} />
+      <Table
+        rowsSelector={getExpenes}
+        rowsSort={sortExpenses}
+        mapping={expensesKeyMapping}
+      />
     </main>
   );
 }

@@ -19,22 +19,6 @@ const expensesInitialState = {
   sortBy: "" as keyof IExpense,
   order: "asc" as Order,
   list: [] as IExpense[],
-  fields: {
-    amount: { header: "Amount", transform: (t: string) => "$ " + t } as IField,
-    description: {
-      header: "Description",
-      transform: (t: string) => t,
-    } as IField,
-    date: {
-      header: "Date",
-      transform: (d: number) => new Date(d).toLocaleDateString(),
-    } as IField,
-    hive: {
-      header: "Hive",
-      transform: (hiveId: string) =>
-        hiveId ? getHiveById(hiveId).name : "N/A",
-    } as IField,
-  },
 };
 const expensesSlice = createSlice({
   name: "expenses",
@@ -102,3 +86,24 @@ export const sortExpenses =
           "asc";
     dispatch(expensesSort({ order: o, sortBy }));
   };
+
+// UTILS
+export declare type ExpensesMappingType = Record<
+  keyof Omit<IExpense, "_id">,
+  IField
+>;
+export const expensesKeyMapping: ExpensesMappingType = {
+  amount: { header: "Amount", transform: (t: string) => "$ " + t } as IField,
+  description: {
+    header: "Description",
+    transform: (t: string) => t,
+  } as IField,
+  date: {
+    header: "Date",
+    transform: (d: number) => new Date(d).toLocaleDateString(),
+  } as IField,
+  hive: {
+    header: "Hive",
+    transform: (hiveId: string) => (hiveId ? getHiveById(hiveId).name : "N/A"),
+  } as IField,
+};

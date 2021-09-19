@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import TableBody from "../components/TableBody";
+import { ExpensesMappingType } from "../store/entities/expenses";
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
 import Error from "./Error";
 
@@ -18,16 +19,16 @@ export declare interface TablePropsInterface {
   //   list: IHarvest[] | ISell[] | IExpense[];
   // };
   rowsSort: Function;
+  mapping: ExpensesMappingType;
 }
 
-function Table({ rowsSelector, rowsSort }: TablePropsInterface) {
+function Table({ rowsSelector, rowsSort, mapping }: TablePropsInterface) {
   const dispatch = useAppDispatch();
-  const { loading, sortBy, order, error, fields, list } =
-    useAppSelector(rowsSelector);
+  const { loading, sortBy, order, error, list } = useAppSelector(rowsSelector);
   //-----------------DISPLAY---------------------
   //displayed rows and headers
   const [displayRowKeys, setDisplayRowKeys] = useState<string[]>([
-    ...Object.keys(fields),
+    ...Object.keys(mapping),
   ]);
 
   const handleDisplayCheck = (key: string) => {
@@ -38,8 +39,8 @@ function Table({ rowsSelector, rowsSort }: TablePropsInterface) {
     setDisplayRowKeys(newHiddenRows);
   };
   useEffect(() => {
-    setDisplayRowKeys([...Object.keys(fields)]);
-  }, [fields]);
+    setDisplayRowKeys([...Object.keys(mapping)]);
+  }, [mapping]);
   //-------------TABLE MENU--------------
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   if (loading) return <div>Loading</div>;
@@ -63,7 +64,7 @@ function Table({ rowsSelector, rowsSort }: TablePropsInterface) {
                   : "max-h-0 max-w-0 overflow-hidden "
               }`}
             >
-              {Object.keys(fields).map((field) => (
+              {Object.keys(mapping).map((field) => (
                 <li className="px-2" key={"menu-" + field}>
                   <input
                     type="checkbox"
@@ -75,7 +76,7 @@ function Table({ rowsSelector, rowsSort }: TablePropsInterface) {
                     className="text-txt-primary pl-2"
                     htmlFor={field + "checkbox"}
                   >
-                    {fields[field].header}
+                    {mapping[field].header}
                   </label>
                 </li>
               ))}
@@ -96,13 +97,13 @@ function Table({ rowsSelector, rowsSort }: TablePropsInterface) {
                       }`}
                     ></i>
                   ) : null}
-                  {fields[k].header}
+                  {mapping[k].header}
                 </button>
               </div>
             );
           })}
         </div>
-        <TableBody rows={list} keysMapping={fields} />
+        <TableBody rows={list} keysMapping={mapping} />
       </div>
     </div>
   );
