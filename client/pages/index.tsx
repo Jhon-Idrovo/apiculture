@@ -15,7 +15,7 @@ export default function Home() {
         <title>Trivia App</title>
       </Head>
 
-      <section className="game-board">
+      <main >
         <div className="">{}</div>
         <div>Name:{user.name}</div>
         <button
@@ -27,7 +27,7 @@ export default function Home() {
           <FormattedMessage defaultMessage="Log Out" />
         </button>
         <button onClick={() => dispatch(loadHives())}></button>
-      </section>
+      </main>
     </>
   );
 }

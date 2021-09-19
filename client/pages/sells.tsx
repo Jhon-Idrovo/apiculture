@@ -14,9 +14,9 @@ function Sells() {
     dispatch(loadSells());
   }, []);
   return (
-    <div>
+    <main>
       <Table rowsSelector={getSells} rowsSort={sortSells}></Table>
-    </div>
+    </main>
   );
 }
 

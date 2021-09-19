@@ -10,3 +10,6 @@ export const EXPENSES_ENDPOINT = "/expense";
 export const SELLS_ENDPOINT = "/sell";
 export const BUGS_CACHING_TIMEOUT = 5000;
 export const ALBUMS_CACHING_TIMEOUT = 5000;
+// CLIENT URLS
+export const SIGNUP_URL = '/signup'
+export const LOGIN_URL = '/login'

@@ -21,3 +21,7 @@ I restricted the usage of this method due to the lack of flexibility to handle t
   This is better since reduces coupling between tests and implementation.
 
 - Tests follow the patter of AAA (Arrange, Act and Assert)
+
+## NOTES
+
+Create a flag on each list element to signal modified and new elements

@@ -1,8 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import axiosInstance from "../../config/axiosInstance";
-import { LOGIN_ENDPOINT, RELOAD_USER_ENDPOINT } from "../../config/config";
-import { verifyToken } from "../../utils/utils";
+import {
+  LOGIN_ENDPOINT,
+  RELOAD_USER_ENDPOINT,
+  SIGNUP_ENDPOINT,
+} from "../../config/config";
+import { errorToMessage, verifyToken } from "../../utils/utils";
 import { RootState } from "../configureStore";
 import { AppThunk } from "../middleware/thunkMiddleware";
 
@@ -41,17 +45,48 @@ export const userSlice = createSlice({
       state.name = action.payload.name;
     },
     userLoggedOut: () => {
+      //DELETE TOKENS AND AXIOS
+      localStorage.removeItem("ss");
+      localStorage.removeItem("rr");
+      axiosInstance.defaults.headers = {};
       return { ...userInitialState };
     },
     userLogInFailed: (user, action: PayloadAction<string>) => {
       user.error = action.payload;
       user.loading = false;
     },
+    userSignUpFailed: (user, action: PayloadAction<string>) => {
+      user.error = action.payload;
+      user.loading = false;
+    },
+    userSignedUp: (
+      user,
+      action: PayloadAction<{
+        accessToken: string;
+        refreshToken: string;
+        user: IUser;
+      }>
+    ) => {
+      const { user: reciviedUser, accessToken, refreshToken } = action.payload;
+      user.name = reciviedUser.name;
+      user.id = reciviedUser.id;
+      localStorage.setItem("ss", accessToken);
+      localStorage.setItem("rr", refreshToken);
+      axiosInstance.defaults.headers = { Authorization: `JWT ${accessToken}` };
+      user.error = "";
+      user.loading = false;
+    },
   },
 });
 
-const { userLogged, userLoggedOut, userLoading, userLogInFailed } =
-  userSlice.actions;
+const {
+  userLogged,
+  userLoggedOut,
+  userLoading,
+  userLogInFailed,
+  userSignUpFailed,
+  userSignedUp,
+} = userSlice.actions;
 export default userSlice.reducer;
 
 // Other code such as selectors can use the imported `RootState` type
@@ -106,3 +141,19 @@ export const logIn =
     }
   };
 export const logOut = () => userLoggedOut();
+
+export const signUp =
+  (email: string, password: string, username: string): AppThunk =>
+  async (dispatch) => {
+    dispatch(userLoading());
+    try {
+      const res = await axiosInstance.post(SIGNUP_ENDPOINT, {
+        username,
+        email,
+        password,
+      });
+      dispatch(userSignedUp(res.data));
+    } catch (error) {
+      dispatch(userSignUpFailed(errorToMessage(error)));
+    }
+  };

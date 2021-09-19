@@ -1,21 +1,31 @@
 import { useEffect } from "react";
+import FSMessage from "../components/FSMessage";
 import Table from "../components/Table";
 import {
   getExpenes,
   loadExpenses,
   sortExpenses,
 } from "../store/entities/expenses";
-import { useAppDispatch } from "../store/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
+import { getUser } from "../store/user/user";
 
 function Expenses() {
   const dispatch = useAppDispatch();
+  const user = useAppSelector(getUser);
   useEffect(() => {
     dispatch(loadExpenses());
   }, []);
+  if (user.id === "")
+    return (
+      <FSMessage>
+        {" "}
+        <p>You're not logged in</p>
+      </FSMessage>
+    );
   return (
-    <div>
+    <main>
       <Table rowsSelector={getExpenes} rowsSort={sortExpenses} />
-    </div>
+    </main>
   );
 }
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_BASE_URL } from "./config";
+import { API_BASE_URL, LOGIN_URL } from "./config";
 
 const baseURL = API_BASE_URL;
 const axiosInstance = axios.create({
@@ -33,7 +33,7 @@ axiosInstance.interceptors.response.use(
       error.response.status === 401 &&
       originalRequest.url === baseURL + "/auth/get-new-access-token"
     ) {
-      window.location.href = "/signin/";
+      window.location.href = LOGIN_URL;
       return Promise.reject(error);
     }
     //if the access token has expired
@@ -72,11 +72,11 @@ axiosInstance.interceptors.response.use(
             });
         } else {
           console.log("Refresh token is expired", tokenParts.exp, now);
-          window.location.href = "/signin/";
+          window.location.href = LOGIN_URL;
         }
       } else {
         console.log("Refresh token not available.");
-        window.location.href = "/signin/";
+        window.location.href = LOGIN_URL;
       }
     }
   }
