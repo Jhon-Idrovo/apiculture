@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "../../config/axiosInstance";
 import { EXPENSES_ENDPOINT } from "../../config/config";
-import { compareRows, errorToMessage, Order } from "../../utils/utils";
+import { compareRows, errorToMessage, IField, Order } from "../../utils/utils";
 import { RootState } from "../configureStore";
 import { AppThunk } from "../middleware/thunkMiddleware";
-import { IHive } from "./hives";
+import { getHiveById, IHive } from "./hives";
 
 export declare interface IExpense {
   _id: string;
@@ -19,7 +19,22 @@ const expensesInitialState = {
   sortBy: "" as keyof IExpense,
   order: "asc" as Order,
   list: [] as IExpense[],
-  fields: [""],
+  fields: {
+    amount: { header: "Amount", transform: (t: string) => t + " l" } as IField,
+    description: {
+      header: "Description",
+      transform: (t: string) => t,
+    } as IField,
+    date: {
+      header: "Date",
+      transform: (d: number) => new Date(d).toLocaleDateString(),
+    } as IField,
+    hive: {
+      header: "Hive",
+      transform: (hiveId: string) =>
+        hiveId ? getHiveById(hiveId).name : "N/A",
+    } as IField,
+  },
 };
 const expensesSlice = createSlice({
   name: "expenses",
@@ -30,9 +45,6 @@ const expensesSlice = createSlice({
     },
     expensesLoaded: (expenses, action: PayloadAction<IExpense[]>) => {
       expenses.list = action.payload;
-      expenses.fields = Object.keys(action.payload[0]).filter(
-        (field) => field !== "__v" && field !== "userID" && field!=='_id'
-      );
       expenses.loading = false;
       expenses.error = "";
     },
