@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { FormattedMessage } from 'react-intl';
 
 import { loadHives } from '../store/entities/hives';
 import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';

@@ -1,6 +1,7 @@
 {
   "test": "Test",
   "errorMsg": "Sorry, it seems like there is a problem. We're working on it ASAP",
+  "ingresoNecesario": "Please log in to use this functionality",
   "ldng": "Loading",
   "nv1": "Sells",
   "nv2": "Expenses",

@@ -1,4 +1,3 @@
-import Loading from '../components/Loading';
 import { translate } from '../utils/utils';
 
 function Tests() {

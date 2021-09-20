@@ -1,6 +1,7 @@
 {
   "test": "Prueba",
   "errorMsg": "Lo siento, parece que hay un problema. Estamos trabajando en ello lo antes posible",
+  "ingresoNecesario": "Porfavor ingresa para poder ver esta página",
   "ldng": "Cargando",
   "nv1": "Ventas",
   "nv2": "Gastos",

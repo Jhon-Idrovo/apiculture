@@ -1,5 +1,4 @@
-import Loading from "./Loading";
-import { Doughnut, defaults } from "react-chartjs-2";
+import { defaults, Doughnut } from 'react-chartjs-2';
 
 /**
  * Note that this only works with one dataset, wich contains all the values for a group of datapoints.
@@ -27,7 +26,7 @@ function Donut({
         }}
         plugins={{
           ...defaults.plugins,
-          selectClicked: (event, elements, chart) => console.log("on plugin"),
+          // selectClicked: (event, elements, chart) => console.log("on plugin"),
         }}
       />
     </div>

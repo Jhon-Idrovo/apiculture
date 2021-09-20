@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
-import Reducer from "./mainReducer";
-import logger from "./middleware/logger";
+import { configureStore } from '@reduxjs/toolkit';
+
+import Reducer from './mainReducer';
 
 /**
  * Calls configure store and returns it

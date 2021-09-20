@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
+import { JwtPayload } from 'jsonwebtoken';
 import { FormattedMessage } from 'react-intl';
 
 import { IHive } from '../store/entities/hives';

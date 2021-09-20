@@ -1,8 +1,10 @@
-import Link from "next/link";
-import { IHive } from "../store/entities/hives";
-import { ISell } from "../store/entities/sells";
-import { IExpense } from "../store/entities/expenses";
-import { IHarvest } from "../store/entities/harvests";
+import Link from 'next/link';
+
+import { IExpense } from '../store/entities/expenses';
+import { IHarvest } from '../store/entities/harvests';
+import { IHive } from '../store/entities/hives';
+import { ISell } from '../store/entities/sells';
+
 function TableBody({
   rows,
   keysMapping,
@@ -33,7 +35,7 @@ function TableBody({
               typeof ['some string'][0] = string
               typeof [{some obj}][0] = object
               */}
-              {keysMapping[key].transform(row[key])}
+              {keysMapping[key].transform(row[key as keyof typeof row])}
             </div>
           ))}
         </div>

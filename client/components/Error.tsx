@@ -1,14 +1,8 @@
-import { FormattedMessage } from 'react-intl';
-
 import { translate } from '../utils/utils';
 import FSMessage from './FSMessage';
 
 function Error() {
-  return (
-    <FSMessage>
-      {translate('errorMsg')}
-    </FSMessage>
-  );
+  return <FSMessage>{translate("errorMsg")}</FSMessage>;
 }
 
 export default Error;

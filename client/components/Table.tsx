@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
-import TableBody from "../components/TableBody";
-import { ExpensesMappingType } from "../store/entities/expenses";
-import { HarvestsMappingType } from "../store/entities/harvests";
-import { SellsMappingType } from "../store/entities/sells";
-import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
-import Error from "./Error";
-import Loading from "./Loading";
+import { useEffect, useState } from 'react';
+
+import TableBody from '../components/TableBody';
+import { ExpensesMappingType } from '../store/entities/expenses';
+import { HarvestsMappingType } from '../store/entities/harvests';
+import { SellsMappingType } from '../store/entities/sells';
+import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
+import Error from './Error';
+import Loading from './Loading';
 
 export declare interface HeaderMappingInterface {
   header: string;
@@ -85,7 +86,7 @@ function Table({
                     className="text-txt-primary pl-2"
                     htmlFor={field + "checkbox"}
                   >
-                    {mapping[field].header}
+                    {mapping[field as keyof typeof mapping].header}
                   </label>
                 </li>
               ))}
@@ -106,7 +107,7 @@ function Table({
                       }`}
                     ></i>
                   ) : null}
-                  {mapping[k].header}
+                  {mapping[k as keyof typeof mapping].header}
                 </button>
               </div>
             );

@@ -3,9 +3,9 @@ import '../styles/global.css';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo } from 'react';
-import { FormattedMessage, IntlProvider } from 'react-intl';
-import { Provider, useDispatch } from 'react-redux';
+import { useMemo } from 'react';
+import { IntlProvider } from 'react-intl';
+import { Provider } from 'react-redux';
 
 import NavBar from '../components/NavBar';
 // i18n
