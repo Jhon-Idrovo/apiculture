@@ -48,7 +48,7 @@ export const userSlice = createSlice({
       //DELETE TOKENS AND AXIOS
       localStorage.removeItem("ss");
       localStorage.removeItem("rr");
-      axiosInstance.defaults.headers = {};
+      axiosInstance.defaults.headers.Authorization = "";
       return { ...userInitialState };
     },
     userLogInFailed: (user, action: PayloadAction<string>) => {
@@ -72,7 +72,7 @@ export const userSlice = createSlice({
       user.id = reciviedUser.id;
       localStorage.setItem("ss", accessToken);
       localStorage.setItem("rr", refreshToken);
-      axiosInstance.defaults.headers = { Authorization: `JWT ${accessToken}` };
+      axiosInstance.defaults.headers.Authorization = `JWT ${accessToken}`;
       user.error = "";
       user.loading = false;
     },
@@ -97,16 +97,20 @@ export const getUser = (state: RootState) => state.user;
 
 // FUNCTION ACTIONS
 export const reloadUserFromToken = (): AppThunk => async (dispatch) => {
-  dispatch(userLoading);
+  dispatch(userLoading());
   const token = localStorage.getItem("rr");
   if (!token) return dispatch(userLogInFailed(""));
-  axiosInstance.defaults.headers = { Authorization: `JWT ${token}` };
+  axiosInstance.defaults.headers.Authorization = `JWT ${token}`;
   try {
     const res = await axiosInstance.post(RELOAD_USER_ENDPOINT);
     const { _id, username } = res.data.user;
     localStorage.setItem("rr", res.data.refreshToken);
     dispatch(userLogged({ id: _id, name: username }));
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+
+    dispatch(userLogInFailed(errorToMessage(error)));
+  }
 };
 export const logIn =
   (email: string, password: string): AppThunk =>
@@ -125,7 +129,7 @@ export const logIn =
       console.log(r);
       if (!r) throw new Error("Error verifying session, please log in again");
       const { userID } = r;
-      axiosInstance.defaults.headers = { Authorization: `JWT ${accessToken}` };
+      axiosInstance.defaults.headers.Authorization = `JWT ${accessToken}`;
       // pass the error to override previous errors
       return dispatch(
         userLogged({ id: userID, name, error: "", loading: false })

@@ -19,17 +19,19 @@ function Expenses() {
   if (user.id === "")
     return (
       <FSMessage>
-        {" "}
         <p>You're not logged in</p>
       </FSMessage>
     );
+
   return (
     <main>
       <Table
         rowsSelector={getExpenes}
         rowsSort={sortExpenses}
         mapping={expensesKeyMapping}
-      />
+      >
+        {null}
+      </Table>
     </main>
   );
 }
