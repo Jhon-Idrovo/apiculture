@@ -4,8 +4,8 @@ import Sell from "../models/Sell";
 
 export async function create(req: Request, res: Response, next: NextFunction) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;
-  await Sell.create({ ...req.body, userID });
-  return res.sendStatus(201);
+  const newSell = await Sell.create({ ...req.body, userID });
+  return res.status(201).json({ sell: newSell });
 }
 export async function readOne(req: Request, res: Response, next: NextFunction) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;

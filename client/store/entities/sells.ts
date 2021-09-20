@@ -12,6 +12,7 @@ export declare interface ISell {
   totalAmount: number;
   totalPrice: number;
   productID: Pick<IProduct, "name" | "_id">;
+  date: number;
 }
 export const sellsKeysToHeaders = {
   _id: "id",
@@ -55,10 +56,14 @@ const sellsSlice = createSlice({
       sells.order = order;
       sells.loading = false;
     },
+    sellSaved: (sells, action: PayloadAction<ISell>) => {
+      sells.list.push(action.payload);
+      sells.loading = false;
+    },
   },
 });
 
-const { sellsLoading, sellsLoaded, sellsLoadFailed, sellsSort } =
+const { sellsLoading, sellsLoaded, sellsLoadFailed, sellsSort, sellSaved } =
   sellsSlice.actions;
 export default sellsSlice.reducer;
 
@@ -94,6 +99,30 @@ export const sortSells =
           "asc";
     dispatch(sellsSort({ sortBy, order: o }));
   };
+export const saveSell =
+  (
+    amount: number | "",
+    price: number | "",
+    date: string | number,
+    productID: string | ""
+  ): AppThunk =>
+  async (dispatch) => {
+    dispatch(sellsLoading(true));
+    try {
+      if (!(amount && price && date && productID))
+        throw new Error("Please fill all the fields");
+      const r = await axiosInstance.post(SELLS_ENDPOINT + "/create", {
+        totalAmount: amount,
+        totalPrice: price,
+        productID,
+        date,
+      });
+      dispatch(sellSaved(r.data.sell));
+    } catch (error) {
+      console.log(error);
+      dispatch(sellsLoadFailed(errorToMessage(error)));
+    }
+  };
 // UTILS
 
 export declare type SellsMappingType = Record<keyof Omit<ISell, "_id">, IField>;
@@ -110,5 +139,9 @@ export const sellsKeyMapping: SellsMappingType = {
   productID: {
     header: "Product",
     transform: (t: string) => getProductById(t).name,
+  } as IField,
+  date: {
+    header: "Date",
+    transform: (d: number) => new Date(d).toLocaleDateString(),
   } as IField,
 };

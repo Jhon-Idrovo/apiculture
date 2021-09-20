@@ -46,11 +46,20 @@ const expensesSlice = createSlice({
       expenses.order = order;
       expenses.loading = false;
     },
+    expenseSaved: (expenses, action: PayloadAction<IExpense>) => {
+      expenses.list.push(action.payload);
+      expenses.loading = false;
+    },
   },
 });
 
-const { expensesLoading, expensesLoaded, expensesLoadFailed, expensesSort } =
-  expensesSlice.actions;
+const {
+  expensesLoading,
+  expensesLoaded,
+  expensesLoadFailed,
+  expensesSort,
+  expenseSaved,
+} = expensesSlice.actions;
 export default expensesSlice.reducer;
 // GET FUNCTIONS
 export const getExpenes = (state: RootState) => state.entities.expenses;
@@ -86,7 +95,29 @@ export const sortExpenses =
           "asc";
     dispatch(expensesSort({ order: o, sortBy }));
   };
+export const saveExpense =
+  (
+    amount: number,
+    description: string,
+    date: string | number,
+    hive: string
+  ): AppThunk =>
+  async (dispatch) => {
+    dispatch(expensesLoading());
+    try {
+      const r = await axiosInstance.post(EXPENSES_ENDPOINT + "/create", {
+        amount,
+        description,
+        date: new Date(date).getTime(),
+        hive: hive === "N/A" ? null : hive,
+      });
+      dispatch(expenseSaved(r.data.expense));
+    } catch (error) {
+      console.log(error);
 
+      dispatch(expensesLoadFailed(errorToMessage(error)));
+    }
+  };
 // UTILS
 export declare type ExpensesMappingType = Record<
   keyof Omit<IExpense, "_id">,

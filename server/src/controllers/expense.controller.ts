@@ -4,8 +4,12 @@ import { RequestEnhanced } from "../models/interfaces/utils";
 
 export async function create(req: Request, res: Response, next: NextFunction) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;
-  await Expense.create({ ...req.body, userID });
-  return res.sendStatus(201);
+  const { amount, date, description, hive } = req.body;
+  const newExpense = await Expense.create({
+    ...req.body,
+    userID,
+  });
+  return res.status(201).json({ expense: newExpense });
 }
 export async function readOne(req: Request, res: Response, next: NextFunction) {
   const { userID, role } = (req as RequestEnhanced).decodedToken;

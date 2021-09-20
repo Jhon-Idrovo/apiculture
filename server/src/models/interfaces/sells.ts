@@ -3,4 +3,5 @@ export declare interface ISell {
   userID: string;
   amount: number;
   productID: string;
+  date:number
 }

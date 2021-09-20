@@ -6,6 +6,7 @@ const sellSchema = new Schema<ISell>({
   productID: { ref: "Product", type: Schema.Types.ObjectId },
   totalPrice: { type: Number, required: true },
   totalAmount: { type: Number, required: true },
+  date: { type: Date, required: true },
 });
 
 export default model<ISell>("Sell", sellSchema);
