@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import ButtonSpinner from '../components/ButtonSpinner';
+import Loading from '../components/Loading';
 import Table from '../components/Table';
 import { getProducts, loadProducts } from '../store/entities/products';
 import { getSells, loadSells, saveSell, sellsKeyMapping, sortSells } from '../store/entities/sells';
@@ -26,6 +27,7 @@ function Sells() {
   useEffect(() => {
     if (products.list.length > 0) setProduct(products.list[0]._id);
   }, [products.loading]);
+  if (products.loading || sells.loading) return <Loading />;
   return (
     <main>
       <Table

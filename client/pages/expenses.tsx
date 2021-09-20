@@ -1,17 +1,14 @@
-import { useEffect, useState } from "react";
-import ButtonSpinner from "../components/ButtonSpinner";
-import FSMessage from "../components/FSMessage";
-import Table from "../components/Table";
+import { useEffect, useState } from 'react';
+
+import ButtonSpinner from '../components/ButtonSpinner';
+import FSMessage from '../components/FSMessage';
+import Table from '../components/Table';
 import {
-  expensesKeyMapping,
-  getExpenes,
-  loadExpenses,
-  saveExpense,
-  sortExpenses,
-} from "../store/entities/expenses";
-import { getHives } from "../store/entities/hives";
-import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
-import { getUser } from "../store/user/user";
+    expensesKeyMapping, getExpenes, loadExpenses, saveExpense, sortExpenses
+} from '../store/entities/expenses';
+import { getHives } from '../store/entities/hives';
+import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
+import { getUser } from '../store/user/user';
 
 function Expenses() {
   const dispatch = useAppDispatch();
@@ -21,17 +18,17 @@ function Expenses() {
   useEffect(() => {
     dispatch(loadExpenses());
   }, []);
+  const [isNewOpen, setIsNewOpen] = useState(false);
+  const [amount, setAmount] = useState(0);
+  const [description, setDescription] = useState("");
+  const [date, setDate] = useState(new Date().toISOString());
+  const [hive, setHive] = useState("");
   if (user.id === "")
     return (
       <FSMessage>
         <p>You're not logged in</p>
       </FSMessage>
     );
-  const [isNewOpen, setIsNewOpen] = useState(false);
-  const [amount, setAmount] = useState(0);
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState(new Date().toISOString());
-  const [hive, setHive] = useState("");
   return (
     <main>
       <Table
