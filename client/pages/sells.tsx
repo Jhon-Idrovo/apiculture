@@ -6,6 +6,7 @@ import Table from '../components/Table';
 import { getProducts, loadProducts } from '../store/entities/products';
 import { getSells, loadSells, saveSell, sellsKeyMapping, sortSells } from '../store/entities/sells';
 import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
+import { translate } from '../utils/utils';
 
 /**
  * Products and their sales. Either individualized or the total
@@ -85,7 +86,7 @@ function Sells() {
           className="btn btn-primary table mx-auto"
           onClick={() => setIsNewOpen((prev) => !prev)}
         >
-          Add Harvest
+          {translate("grdrVenta")}
         </button>
       )}
       {isNewOpen && (
@@ -95,7 +96,7 @@ function Sells() {
             onClick={() => dispatch(saveSell(amount, price, date, product))}
           >
             {sells.loading && <ButtonSpinner />}
-            Save
+            {translate("sv")}
           </button>
         </div>
       )}

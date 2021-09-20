@@ -1,9 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axiosInstance from "../../config/axiosInstance";
-import { PRODUCTS_ENDPOINT } from "../../config/config";
-import { errorToMessage, IField, Order } from "../../utils/utils";
-import store, { RootState } from "../configureStore";
-import { AppThunk } from "../middleware/thunkMiddleware";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import axiosInstance from '../../config/axiosInstance';
+import { PRODUCTS_ENDPOINT } from '../../config/config';
+import { errorToMessage, IField, Order, translate } from '../../utils/utils';
+import store, { RootState } from '../configureStore';
+import { AppThunk } from '../middleware/thunkMiddleware';
 
 export declare interface IProduct {
   _id: string;
@@ -68,13 +69,16 @@ export declare type SellsMappingType = Record<
 >;
 
 export const productsKeysMapping = {
-  name: { header: "Name", transform: (name: string) => name } as IField,
+  name: {
+    header: translate("nombre"),
+    transform: (name: string) => name,
+  } as IField,
   description: {
-    header: "Description",
+    header: translate("descripcion"),
     transform: (description: string) => description,
   } as IField,
   price: {
-    header: "Price",
+    header: translate("precio"),
     transform: (price: string) => "$ " + price,
   } as IField,
 };

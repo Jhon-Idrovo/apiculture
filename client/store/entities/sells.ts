@@ -1,10 +1,11 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axiosInstance from "../../config/axiosInstance";
-import { SELLS_ENDPOINT } from "../../config/config";
-import { compareRows, errorToMessage, IField, Order } from "../../utils/utils";
-import { RootState } from "../configureStore";
-import { AppThunk } from "../middleware/thunkMiddleware";
-import { getProductById, IProduct } from "./products";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import axiosInstance from '../../config/axiosInstance';
+import { SELLS_ENDPOINT } from '../../config/config';
+import { compareRows, errorToMessage, IField, Order, translate } from '../../utils/utils';
+import { RootState } from '../configureStore';
+import { AppThunk } from '../middleware/thunkMiddleware';
+import { getProductById, IProduct } from './products';
 
 export declare interface ISell {
   // client:string,
@@ -129,19 +130,19 @@ export declare type SellsMappingType = Record<keyof Omit<ISell, "_id">, IField>;
 
 export const sellsKeyMapping: SellsMappingType = {
   totalAmount: {
-    header: "Quantity",
+    header: translate("cantidad"),
     transform: (t: string) => t + " ml",
   } as IField,
   totalPrice: {
-    header: "Income",
+    header: translate("ingreso"),
     transform: (t: string) => "$ " + t,
   } as IField,
   productID: {
-    header: "Product",
+    header: translate("producto"),
     transform: (t: string) => getProductById(t).name,
   } as IField,
   date: {
-    header: "Date",
+    header: translate("fecha"),
     transform: (d: number) => new Date(d).toLocaleDateString(),
   } as IField,
 };

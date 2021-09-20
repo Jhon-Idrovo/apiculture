@@ -11,7 +11,7 @@ export declare interface TokenPayloadInterface extends JwtPayload {
   role: RoleName;
 }
 export declare interface IField {
-  header: string;
+  header: JSX.Element;
   transform: ((a: string) => string) | ((b: number) => string);
 }
 export function verifyToken(token: string) {

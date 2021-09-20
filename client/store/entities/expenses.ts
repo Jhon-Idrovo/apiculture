@@ -1,10 +1,11 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axiosInstance from "../../config/axiosInstance";
-import { EXPENSES_ENDPOINT } from "../../config/config";
-import { compareRows, errorToMessage, IField, Order } from "../../utils/utils";
-import { RootState } from "../configureStore";
-import { AppThunk } from "../middleware/thunkMiddleware";
-import { getHiveById, IHive } from "./hives";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import axiosInstance from '../../config/axiosInstance';
+import { EXPENSES_ENDPOINT } from '../../config/config';
+import { compareRows, errorToMessage, IField, Order, translate } from '../../utils/utils';
+import { RootState } from '../configureStore';
+import { AppThunk } from '../middleware/thunkMiddleware';
+import { getHiveById, IHive } from './hives';
 
 export declare interface IExpense {
   _id: string;
@@ -124,17 +125,20 @@ export declare type ExpensesMappingType = Record<
   IField
 >;
 export const expensesKeyMapping: ExpensesMappingType = {
-  amount: { header: "Amount", transform: (t: string) => "$ " + t } as IField,
+  amount: {
+    header: translate("cantidad"),
+    transform: (t: string) => "$ " + t,
+  } as IField,
   description: {
-    header: "Description",
+    header: translate("descripcion"),
     transform: (t: string) => t,
   } as IField,
   date: {
-    header: "Date",
+    header: translate("fecha"),
     transform: (d: number) => new Date(d).toLocaleDateString(),
   } as IField,
   hive: {
-    header: "Hive",
+    header: translate("colmena"),
     transform: (hiveId: string) => (hiveId ? getHiveById(hiveId).name : "N/A"),
   } as IField,
 };

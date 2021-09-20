@@ -1,8 +1,10 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { FormEvent, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
-import { getUser, logIn } from "../store/user/user";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FormEvent, useState } from 'react';
+
+import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
+import { getUser, logIn } from '../store/user/user';
+import { translate } from '../utils/utils';
 
 function Login() {
   const router = useRouter();
@@ -19,8 +21,8 @@ function Login() {
   return (
     <main className="fullscreen-form-container">
       <form className="form" onSubmit={submitHandler}>
-        <h1 className="form-title">LOGIN</h1>
-        <label htmlFor="email-in">Email</label>
+        <h1 className="form-title uppercase">{translate("lgI")}</h1>
+        <label htmlFor="email-in">{translate("correo")}</label>
         <input
           type="email"
           name=""
@@ -28,7 +30,7 @@ function Login() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <label htmlFor="password-in">Password</label>
+        <label htmlFor="password-in">{translate("clave")}</label>
         <input
           type="password"
           name=""
@@ -40,12 +42,12 @@ function Login() {
         <button className="btn btn-primary">Login</button>
         <p className="info-message">
           <Link href="/signup">
-            <a>Don't have an account yet?</a>
+            <a>{translate("sinCuenta")}</a>
           </Link>
         </p>
         <p className="info-message">
           <Link href="">
-            <a>Forgot password?</a>
+            <a>{translate("claveOlvidada")}</a>
           </Link>
         </p>
       </form>

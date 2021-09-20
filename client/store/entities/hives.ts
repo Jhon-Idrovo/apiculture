@@ -1,9 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axiosInstance from "../../config/axiosInstance";
-import { HIVES_ENDPOINT } from "../../config/config";
-import { compareRows, errorToMessage, IField, Order } from "../../utils/utils";
-import store, { RootState } from "../configureStore";
-import { AppThunk } from "../middleware/thunkMiddleware";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import axiosInstance from '../../config/axiosInstance';
+import { HIVES_ENDPOINT } from '../../config/config';
+import { compareRows, errorToMessage, IField, Order, translate } from '../../utils/utils';
+import store, { RootState } from '../configureStore';
+import { AppThunk } from '../middleware/thunkMiddleware';
 
 export declare interface IHive {
   _id: string;
@@ -117,10 +118,13 @@ export const getHiveById = (id: string): IHive => {
 export declare type SellsMappingType = Record<keyof Omit<IHive, "_id">, IField>;
 
 export const hivesKeysMapping = {
-  name: { header: "Name", transform: (t: string) => t } as IField,
+  name: { header: translate("nombre"), transform: (t: string) => t } as IField,
   installationDate: {
-    header: "Installated At",
+    header: translate("fechaInstalacion"),
     transform: (d: string) => new Date(d).toLocaleDateString(),
   } as IField,
-  totalHarvests: { header: "Name", transform: (t: string) => t } as IField,
+  totalHarvests: {
+    header: translate("cosecha"),
+    transform: (t: string) => t,
+  } as IField,
 };

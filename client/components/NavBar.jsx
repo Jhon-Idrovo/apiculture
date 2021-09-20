@@ -4,6 +4,7 @@ import { getUser, reloadUserFromToken } from "../store/user/user";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
 import { FormattedMessage } from "react-intl";
+import { translate } from "../utils/utils";
 function NavBar() {
   const router = useRouter();
   const user = useAppSelector(getUser);
@@ -22,18 +23,14 @@ function NavBar() {
       <ul className="nav-list">
         <li className={`${router.pathname === "/sells" && "nav-list-active"}`}>
           <Link href="/sells">
-            <a>
-              <FormattedMessage defaultMessage="Sells"></FormattedMessage>
-            </a>
+            <a>{translate("nv1")}</a>
           </Link>
         </li>
         <li
           className={`${router.pathname === "/expenses" && "nav-list-active"}`}
         >
           <Link href="/expenses">
-            <a>
-              <FormattedMessage defaultMessage="Expenses"></FormattedMessage>
-            </a>
+            <a>{translate("nv2")}</a>
           </Link>
         </li>
         <li
@@ -42,9 +39,7 @@ function NavBar() {
           }`}
         >
           <Link href="/production">
-            <a>
-              <FormattedMessage defaultMessage="Production"></FormattedMessage>
-            </a>
+            <a>{translate("nv3")}</a>
           </Link>
         </li>
       </ul>

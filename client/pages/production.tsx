@@ -1,21 +1,19 @@
-import { useEffect, useState } from "react";
-import Loading from "../components/Loading";
-import Table from "../components/Table";
-import Donut from "../components/Donut";
+import { useEffect, useState } from 'react';
+
+import ButtonSpinner from '../components/ButtonSpinner';
+import Donut from '../components/Donut';
+import FSMessage from '../components/FSMessage';
+import Loading from '../components/Loading';
+import Table from '../components/Table';
 import {
-  getHarvests,
-  harvestKeyssMapping,
-  loadHarvests,
-  saveHarvest,
-  sortHarvests,
-} from "../store/entities/harvests";
-import { changeActiveHive, getHives, loadHives } from "../store/entities/hives";
-import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
-import { getDonutData } from "../utils/utils";
-import { getProducts, loadProducts } from "../store/entities/products";
-import { getUser } from "../store/user/user";
-import FSMessage from "../components/FSMessage";
-import ButtonSpinner from "../components/ButtonSpinner";
+    getHarvests, harvestKeyssMapping, loadHarvests, saveHarvest, sortHarvests
+} from '../store/entities/harvests';
+import { changeActiveHive, getHives, loadHives } from '../store/entities/hives';
+import { getProducts, loadProducts } from '../store/entities/products';
+import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
+import { getUser } from '../store/user/user';
+import { getDonutData, translate } from '../utils/utils';
+
 /**
  * Hives and their production. Either individualized or total
  * @returns
@@ -72,7 +70,7 @@ function Production() {
           className={`hive ${hives.activeHiveID === "" && "active-hive"}`}
           onClick={() => dispatch(changeActiveHive(""))}
         >
-          <h2>All Hives</h2>
+          <h2>{translate("colmenasTodas")}</h2>
         </div>
       </div>
       <Table
@@ -137,7 +135,7 @@ function Production() {
           className="btn btn-primary table mx-auto"
           onClick={() => setIsNewOpen((prev) => !prev)}
         >
-          Add Harvest
+          {translate("grdrCosecha")}
         </button>
       )}
       {isNewOpen && (
@@ -149,7 +147,7 @@ function Production() {
             }
           >
             {harvests.loading && <ButtonSpinner />}
-            Save
+            {translate("sv")}
           </button>
         </div>
       )}

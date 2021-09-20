@@ -1,13 +1,13 @@
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from 'react-intl';
+
+import { translate } from '../utils/utils';
+import FSMessage from './FSMessage';
+
 function Error() {
   return (
-    <div>
-      <FormattedMessage
-        defaultMessage={
-          "Sorry, it seems like there is a problem. Please reload the page, if still it doesn't work, contact us"
-        }
-      />
-    </div>
+    <FSMessage>
+      {translate('errorMsg')}
+    </FSMessage>
   );
 }
 

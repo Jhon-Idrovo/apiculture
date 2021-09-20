@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import axiosInstance from '../../config/axiosInstance';
 import { HARVESTS_ENDPOINT } from '../../config/config';
-import { compareRows, errorToMessage, IField, Order } from '../../utils/utils';
+import { compareRows, errorToMessage, IField, Order, translate } from '../../utils/utils';
 import { RootState } from '../configureStore';
 import { AppThunk } from '../middleware/thunkMiddleware';
 import { getHiveById } from './hives';
@@ -144,18 +144,21 @@ export declare type HarvestsMappingType = Record<
 
 export const harvestKeyssMapping: HarvestsMappingType = {
   date: {
-    header: "Date",
+    header: translate("fecha"),
     transform: (date: number) => new Date(date).toLocaleDateString(),
   },
-  amount: { header: "Amount", transform: (amount: number) => `${amount} L` },
+  amount: {
+    header: translate("cantidad"),
+    transform: (amount: number) => `${amount} L`,
+  },
   // get the product name
   product: {
-    header: "Product",
+    header: translate("producto"),
     transform: (productID: string) => getProductById(productID).name,
   },
   // get the hive name
   hive: {
-    header: "Hive",
+    header: translate("colmena"),
     transform: (hiveID: string) => getHiveById(hiveID).name,
   },
 };

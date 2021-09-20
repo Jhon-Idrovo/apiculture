@@ -9,6 +9,7 @@ import {
 import { getHives } from '../store/entities/hives';
 import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
 import { getUser } from '../store/user/user';
+import { translate } from '../utils/utils';
 
 function Expenses() {
   const dispatch = useAppDispatch();
@@ -87,7 +88,7 @@ function Expenses() {
           className="btn btn-primary table mx-auto"
           onClick={() => setIsNewOpen((prev) => !prev)}
         >
-          Add Harvest
+          {translate("exp1")}
         </button>
       )}
       {isNewOpen && (
@@ -100,7 +101,7 @@ function Expenses() {
             }
           >
             {expenses.loading && <ButtonSpinner />}
-            Save
+            {translate("sv")}
           </button>
         </div>
       )}
