@@ -5,6 +5,7 @@ import { HarvestsMappingType } from "../store/entities/harvests";
 import { SellsMappingType } from "../store/entities/sells";
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
 import Error from "./Error";
+import Loading from "./Loading";
 
 export declare interface HeaderMappingInterface {
   header: string;
@@ -51,7 +52,7 @@ function Table({
   }, [mapping]);
   //-------------TABLE MENU--------------
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  if (loading) return <div>Loading</div>;
+  if (loading) return <Loading />;
   if (error) return <Error />;
   return (
     <div className="w-full overflow-x-show" style={{ height: "max-content" }}>

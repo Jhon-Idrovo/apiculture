@@ -25,7 +25,7 @@ function Sells() {
         rowsSort={sortSells}
         mapping={sellsKeyMapping}
       >
-        {}
+        {null}
       </Table>
     </main>
   );

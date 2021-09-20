@@ -29,7 +29,9 @@ function Expenses() {
         rowsSelector={getExpenes}
         rowsSort={sortExpenses}
         mapping={expensesKeyMapping}
-      />
+      >
+        {null}
+      </Table>
     </main>
   );
 }
