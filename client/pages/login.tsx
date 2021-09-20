@@ -24,6 +24,7 @@ function Login() {
           type="email"
           name=""
           id="email-in"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <label htmlFor="password-in">Password</label>
@@ -31,6 +32,7 @@ function Login() {
           type="password"
           name=""
           id="password-in"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         {user.error && <p className="error-message">{user.error}</p>}
