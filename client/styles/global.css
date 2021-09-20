@@ -149,7 +149,7 @@ body {
 /* Add Record */
 .t-cell input,
 .t-cell select {
-  @apply text-right w-full;
+  @apply text-right w-full overflow-scroll;
   background-color: inherit;
   color: inherit;
 }

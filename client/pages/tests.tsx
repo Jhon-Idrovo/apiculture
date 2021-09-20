@@ -1,4 +1,3 @@
-import Donut from "../components/Donut";
 import Loading from "../components/Loading";
 
 function Tests() {

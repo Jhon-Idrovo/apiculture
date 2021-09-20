@@ -1,15 +1,11 @@
-import { useEffect, useState } from "react";
-import ButtonSpinner from "../components/ButtonSpinner";
-import Table from "../components/Table";
-import { getProducts, loadProducts } from "../store/entities/products";
-import {
-  getSells,
-  loadSells,
-  saveSell,
-  sellsKeyMapping,
-  sortSells,
-} from "../store/entities/sells";
-import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
+import { useEffect, useState } from 'react';
+
+import ButtonSpinner from '../components/ButtonSpinner';
+import Table from '../components/Table';
+import { getProducts, loadProducts } from '../store/entities/products';
+import { getSells, loadSells, saveSell, sellsKeyMapping, sortSells } from '../store/entities/sells';
+import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
+
 /**
  * Products and their sales. Either individualized or the total
  * @returns
@@ -40,7 +36,7 @@ function Sells() {
         {isNewOpen && (
           <div className="t-row">
             <div className="t-cell"></div>
-            <div className="t-cell">
+            <div className="t-cell" style={{ maxWidth: "5vw" }}>
               <input
                 type="number"
                 name=""
@@ -49,7 +45,7 @@ function Sells() {
                 onChange={(e) => setAmount(parseFloat(e.target.value))}
               />
             </div>
-            <div className="t-cell">
+            <div className="t-cell" style={{ maxWidth: "5vw" }}>
               <input
                 type="number"
                 name=""
@@ -58,7 +54,7 @@ function Sells() {
                 onChange={(e) => setPrice(parseFloat(e.target.value))}
               />
             </div>
-            <div className="t-cell">
+            <div className="t-cell" style={{ maxWidth: "10vw" }}>
               <select
                 name=""
                 id="hive-in"
@@ -70,7 +66,7 @@ function Sells() {
                 ))}
               </select>
             </div>
-            <div className="t-cell">
+            <div className="t-cell" style={{ maxWidth: "10vw" }}>
               <input
                 type="date"
                 name=""

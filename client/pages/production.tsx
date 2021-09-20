@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import Table from "../components/Table";
 import Donut from "../components/Donut";
@@ -9,13 +9,7 @@ import {
   saveHarvest,
   sortHarvests,
 } from "../store/entities/harvests";
-import {
-  changeActiveHive,
-  getHives,
-  IHive,
-  loadHives,
-  sortHives,
-} from "../store/entities/hives";
+import { changeActiveHive, getHives, loadHives } from "../store/entities/hives";
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
 import { getDonutData } from "../utils/utils";
 import { getProducts, loadProducts } from "../store/entities/products";

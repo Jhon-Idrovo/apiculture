@@ -1,11 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axiosInstance from "../../config/axiosInstance";
-import { HARVESTS_ENDPOINT } from "../../config/config";
-import { compareRows, errorToMessage, IField, Order } from "../../utils/utils";
-import { RootState } from "../configureStore";
-import { AppThunk } from "../middleware/thunkMiddleware";
-import { getHiveById, IHive } from "./hives";
-import { getProductById, IProduct } from "./products";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import axiosInstance from '../../config/axiosInstance';
+import { HARVESTS_ENDPOINT } from '../../config/config';
+import { compareRows, errorToMessage, IField, Order } from '../../utils/utils';
+import { RootState } from '../configureStore';
+import { AppThunk } from '../middleware/thunkMiddleware';
+import { getHiveById } from './hives';
+import { getProductById } from './products';
 
 export declare interface IHarvest {
   _id: string;

@@ -42,7 +42,7 @@ function Expenses() {
         {isNewOpen && (
           <div className="t-row">
             <div className="t-cell"></div>
-            <div className="t-cell">
+            <div className="t-cell" style={{ maxWidth: "5vw" }}>
               <input
                 type="number"
                 name=""
@@ -51,7 +51,7 @@ function Expenses() {
                 onChange={(e) => setAmount(parseFloat(e.target.value))}
               />
             </div>
-            <div className="t-cell">
+            <div className="t-cell" style={{ maxWidth: "10vw" }}>
               <input
                 type="text"
                 name=""
@@ -60,7 +60,7 @@ function Expenses() {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-            <div className="t-cell">
+            <div className="t-cell" style={{ maxWidth: "10vw" }}>
               <input
                 type="date"
                 name=""
@@ -69,7 +69,7 @@ function Expenses() {
                 onChange={(e) => setDate(e.target.value)}
               />
             </div>
-            <div className="t-cell">
+            <div className="t-cell" style={{ maxWidth: "10vw" }}>
               <select
                 name=""
                 id="hive-in"
