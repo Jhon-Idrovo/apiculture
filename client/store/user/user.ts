@@ -40,9 +40,9 @@ export const userSlice = createSlice({
       state.loading = true;
     },
     userLogged: (state, action: PayloadAction<IUser>) => {
-      state.loading = false;
       (state.error = ""), (state.id = action.payload.id);
       state.name = action.payload.name;
+      state.loading = false;
     },
     userLoggedOut: () => {
       //DELETE TOKENS AND AXIOS
@@ -96,22 +96,27 @@ export default userSlice.reducer;
 export const getUser = (state: RootState) => state.user;
 
 // FUNCTION ACTIONS
-export const reloadUserFromToken = (): AppThunk => async (dispatch) => {
-  dispatch(userLoading());
-  const token = localStorage.getItem("rr");
-  if (!token) return dispatch(userLogInFailed(""));
-  axiosInstance.defaults.headers.Authorization = `JWT ${token}`;
-  try {
-    const res = await axiosInstance.post(RELOAD_USER_ENDPOINT);
-    const { _id, username } = res.data.user;
-    localStorage.setItem("rr", res.data.refreshToken);
-    dispatch(userLogged({ id: _id, name: username }));
-  } catch (error) {
-    console.log(error);
+export const reloadUserFromToken =
+  (): AppThunk => async (dispatch, getState) => {
+    const state = getState();
+    console.log(state);
 
-    dispatch(userLogInFailed(errorToMessage(error)));
-  }
-};
+    if (state.user.id !== "") return;
+    dispatch(userLoading());
+    const token = localStorage.getItem("rr");
+    if (!token) return dispatch(userLogInFailed(""));
+    axiosInstance.defaults.headers.Authorization = `JWT ${token}`;
+    try {
+      const res = await axiosInstance.post(RELOAD_USER_ENDPOINT);
+      const { _id, username } = res.data.user;
+      localStorage.setItem("rr", res.data.refreshToken);
+      dispatch(userLogged({ id: _id, name: username }));
+    } catch (error) {
+      console.log(error);
+
+      dispatch(userLogInFailed(errorToMessage(error)));
+    }
+  };
 export const logIn =
   (email: string, password: string): AppThunk =>
   async (dispatch) => {

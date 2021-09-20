@@ -50,7 +50,7 @@ function Production() {
   }, [products]);
   //const donutData = useMemo(() => getDonutData(hives.list), hives.list);
   if (user.id === "") return <FSMessage>test</FSMessage>;
-  if (harvests.loading || hives.loading) return <Loading />;
+  if (harvests.loading || hives.loading || products.loading) return <Loading />;
   return (
     <main>
       <Donut

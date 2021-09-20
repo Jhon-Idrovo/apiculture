@@ -34,6 +34,8 @@ export async function signInHandler(
   res: Response,
   next: NextFunction
 ) {
+  console.log(req);
+
   try {
     //use email because the username is not unique when using third party auth providers
     const { email, password } = req.body;

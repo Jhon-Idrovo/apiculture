@@ -25,11 +25,10 @@ describe("User", () => {
     await store.dispatch(logIn("TestEmail", "TestPassword"));
     const state = store.getState();
     const user = getUser(state);
-    console.log(state);
     const r = verifyToken(expectedUserResponse.accessToken);
     expect(user).toStrictEqual({
       name: expectedUserResponse.name,
-      id: r ? r.userID : "",
+      id: r.userID,
       loading: false,
       error: "",
     } as IUser);

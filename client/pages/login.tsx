@@ -10,9 +10,10 @@ function Login() {
   const user = useAppSelector(getUser);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const submitHandler = (e: FormEvent) => {
+  const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
-    dispatch(logIn(email, password));
+    // the login operation is asyncronous by definition
+    await dispatch(logIn(email, password));
     router.push("/expenses");
   };
   return (
