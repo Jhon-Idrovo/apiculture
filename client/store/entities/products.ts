@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "../../config/axiosInstance";
 import { PRODUCTS_ENDPOINT } from "../../config/config";
 import { errorToMessage, IField, Order } from "../../utils/utils";
-import store from "../configureStore";
+import store, { RootState } from "../configureStore";
 import { AppThunk } from "../middleware/thunkMiddleware";
 
 export declare interface IProduct {
@@ -43,7 +43,7 @@ export default productsSlice.reducer;
 const { prodsLoadFailed, prodsLoaded, prodsLoading } = productsSlice.actions;
 
 // SELECTORS
-
+export const getProducts = (state: RootState) => state.entities.products;
 // FUNCTION ACTIONS
 export const loadProducts = (): AppThunk => async (dispatch) => {
   dispatch(prodsLoading(true));

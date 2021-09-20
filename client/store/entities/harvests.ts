@@ -49,12 +49,21 @@ const harvestSlice = createSlice({
       harvests.list.sort(compareRows<IHarvest>(sortBy, order));
       harvests.loading = false;
     },
+    harvestSaved: (harvests, action: PayloadAction<IHarvest>) => {
+      harvests.list.push(action.payload);
+      harvests.loading = false;
+    },
   },
 });
 
 export default harvestSlice.reducer;
-const { harvestsLoading, harvestsLoadFailed, harvestsLoaded, harvestsSort } =
-  harvestSlice.actions;
+const {
+  harvestsLoading,
+  harvestsLoadFailed,
+  harvestsLoaded,
+  harvestsSort,
+  harvestSaved,
+} = harvestSlice.actions;
 
 // SELECTORS
 export const getHarvests = (state: RootState) => {
@@ -84,6 +93,30 @@ export const loadHarvests = (): AppThunk => async (dispatch) => {
     dispatch(harvestsLoadFailed(errorToMessage(error)));
   }
 };
+export const saveHarvest =
+  (
+    amount: number,
+    date: number | string,
+    product: string,
+    hive: string
+  ): AppThunk =>
+  async (dispatch) => {
+    dispatch(harvestsLoading());
+    try {
+      const res = await axiosInstance.post(HARVESTS_ENDPOINT + "/create", {
+        amount,
+        date: new Date(date).getTime(),
+        product,
+        hive,
+      });
+      if (!amount || !date || !product || !hive)
+        throw new Error("Please fill all the fields");
+
+      dispatch(harvestSaved(res.data.harvest));
+    } catch (error) {
+      dispatch(harvestsLoadFailed(errorToMessage(error)));
+    }
+  };
 
 export const sortHarvests =
   (sortBy: keyof IHarvest): AppThunk =>

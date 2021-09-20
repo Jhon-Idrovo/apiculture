@@ -22,9 +22,15 @@ export declare interface TablePropsInterface {
   // };
   rowsSort: Function;
   mapping: ExpensesMappingType | HarvestsMappingType | SellsMappingType;
+  children: any;
 }
 
-function Table({ rowsSelector, rowsSort, mapping }: TablePropsInterface) {
+function Table({
+  rowsSelector,
+  rowsSort,
+  mapping,
+  children = {},
+}: TablePropsInterface) {
   const dispatch = useAppDispatch();
   const { loading, sortBy, order, error, list } = useAppSelector(rowsSelector);
   //-----------------DISPLAY---------------------
@@ -106,6 +112,7 @@ function Table({ rowsSelector, rowsSort, mapping }: TablePropsInterface) {
           })}
         </div>
         <TableBody rows={list} keysMapping={mapping} />
+        {children}
       </div>
     </div>
   );

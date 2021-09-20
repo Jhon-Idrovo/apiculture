@@ -24,7 +24,9 @@ function Sells() {
         rowsSelector={getSells}
         rowsSort={sortSells}
         mapping={sellsKeyMapping}
-      ></Table>
+      >
+        {}
+      </Table>
     </main>
   );
 }

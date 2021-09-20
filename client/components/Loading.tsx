@@ -1,5 +1,14 @@
+import FSMessage from "./FSMessage";
+
 function Loading() {
-  return <div className="bg-base text-txt-base">Loading</div>;
+  return (
+    <FSMessage>
+      <div className="flex flex-col justify-center items-center ">
+        <div className="spinner"></div>
+        <p>Loading</p>
+      </div>
+    </FSMessage>
+  );
 }
 
 export default Loading;

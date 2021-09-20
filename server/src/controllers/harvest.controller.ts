@@ -9,13 +9,13 @@ export async function create(
   next: NextFunction
 ) {
   const { userID } = req.decodedToken;
-  await Harvest.create({ ...req.body, userID });
+  const newHarvest = await Harvest.create({ ...req.body, userID });
   // Update the total on the hive
   const hive = await Hive.findById(req.body.hive);
   if (!hive) throw new Error("Hive not found");
   hive.totalHarvests = hive.totalHarvests + req.body.amount;
   await hive.save();
-  return res.sendStatus(201);
+  return res.status(201).json({ harvest: newHarvest });
 }
 export async function readOne(
   req: RequestEnhanced,

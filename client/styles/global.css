@@ -21,7 +21,7 @@ body {
 }
 /* UTILS */
 .btn {
-  @apply rounded-md px-2 py-0;
+  @apply rounded-md px-2 py-0 flex w-min whitespace-nowrap;
   border-width: 1px;
 }
 .btn-primary {
@@ -29,6 +29,26 @@ body {
 }
 .btn-accent-primary {
   @apply bg-accent-primary text-txt-accent-primary hover:bg-opacity-100;
+}
+.spinner {
+  @apply border-4;
+  border-color: inherit;
+
+  width: 3vh;
+  height: 3vh;
+  border-radius: 50%;
+
+  border-left-color: transparent;
+  animation: spin 0.2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .nav-logo {
@@ -111,11 +131,11 @@ body {
   border-spacing: 0 10px;
 }
 .t-row {
-  @apply table-row w-full rounded-md bg-secondary text-txt-secondary;
+  @apply table-row w-full py-2 rounded-md bg-secondary text-txt-secondary;
   border-radius: 50%;
 }
 .t-cell {
-  @apply table-cell px-2;
+  @apply table-cell px-2 w-min overflow-scroll;
   border: solid 1px #000;
   border-style: solid none;
   padding: 0px;
@@ -126,7 +146,13 @@ body {
 .t-body {
   @apply mt-0 w-full;
 }
-
+/* Add Record */
+.t-cell input,
+.t-cell select {
+  @apply text-right w-full;
+  background-color: inherit;
+  color: inherit;
+}
 /* HIVES */
 .hives-container {
   @apply flex flex-col;
@@ -148,10 +174,10 @@ body {
 .form-title {
   @apply font-semibold text-2xl mb-2;
 }
-input {
+.form input {
   @apply rounded-md bg-accent-primary w-full;
 }
-button:last-of-type {
+form button:last-of-type {
   @apply mt-2 mb-6;
 }
 label {
@@ -163,5 +189,5 @@ label {
   @apply flex flex-col justify-center items-center;
 }
 .msg-box {
-  @apply rounded-md bg-secondary text-txt-secondary;
+  @apply rounded-md bg-secondary text-txt-secondary p-4;
 }

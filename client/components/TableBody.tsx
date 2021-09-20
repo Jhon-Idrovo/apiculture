@@ -13,7 +13,7 @@ function TableBody({
   return (
     <>
       {rows.map((row) => (
-        <div className="t-row py-2">
+        <div className="t-row ">
           <div className="t-cell">
             <Link href={`${row._id}`}>
               <a>
