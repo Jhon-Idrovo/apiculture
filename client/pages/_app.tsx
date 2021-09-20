@@ -1,20 +1,19 @@
-import Head from "next/head";
+import '../styles/global.css';
 
-import "../styles/global.css";
-import NavBar from "../components/NavBar";
+import { AppProps } from 'next/dist/next-server/lib/router/router';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect, useMemo } from 'react';
+import { FormattedMessage, IntlProvider } from 'react-intl';
+import { Provider, useDispatch } from 'react-redux';
 
-// redux
-import store from "../store/configureStore";
-import { Provider, useDispatch } from "react-redux";
-import { AppProps } from "next/dist/next-server/lib/router/router";
-
-import { useEffect, useMemo } from "react";
-
+import NavBar from '../components/NavBar';
 // i18n
-import EN from "../content/locales/en.json";
-import ES from "../content/locales/es.json";
-import { useRouter } from "next/router";
-import { IntlProvider, FormattedMessage } from "react-intl";
+import EN from '../content/locales/en.json';
+import ES from '../content/locales/es.json';
+// redux
+import store from '../store/configureStore';
+
 export default function App({
   Component,
   pageProps,
@@ -23,6 +22,8 @@ export default function App({
   pageProps: AppProps;
 }) {
   const { locale } = useRouter();
+  console.log(locale);
+
   const [shortLocale] = locale ? locale.split("-") : ["en"];
   const messages = useMemo(() => {
     switch (shortLocale) {

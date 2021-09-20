@@ -1,7 +1,8 @@
-import axios, { AxiosError } from "axios";
-import jwt, { Secret, JwtPayload } from "jsonwebtoken";
+import axios, { AxiosError } from 'axios';
+import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
+import { FormattedMessage } from 'react-intl';
 
-import { IHive } from "../store/entities/hives";
+import { IHive } from '../store/entities/hives';
 
 export declare type RoleName = "Admin" | "User" | "Guest";
 //for the payload being sent into the token
@@ -171,3 +172,7 @@ export const getDonutData = (hives: IHive[]) => {
   });
   return res;
 };
+
+export const translate = (id: string, values = {}) => (
+  <FormattedMessage id={id} values={values} />
+);

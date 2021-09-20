@@ -1,7 +1,8 @@
-import Loading from "../components/Loading";
+import Loading from '../components/Loading';
+import { translate } from '../utils/utils';
 
 function Tests() {
-  return <Loading />;
+  return <div className="text-txt-base">{translate("test")}</div>;
 }
 
 export default Tests;
