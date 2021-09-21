@@ -3,7 +3,6 @@ import cors from 'cors';
  * express app configuration
  */
 import express, { Request, Response } from 'express';
-import morgan from 'morgan';
 import passport from 'passport';
 
 import { basePath } from '../config/config';
