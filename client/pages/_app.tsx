@@ -3,7 +3,7 @@ import '../styles/global.css';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 
@@ -58,6 +58,7 @@ export default function App({
         <IntlProvider
           locale={shortLocale}
           messages={messages}
+          textComponent={Fragment}
           // To not see errors on missing translations
           onError={() => null}
         >
