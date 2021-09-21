@@ -1,4 +1,9 @@
-export const API_BASE_URL = "http://localhost:8000/api/v4";
+console.log({ NODE_ENV: process.env.NODE_ENV });
+
+export const API_BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8000/api/v4"
+    : "https://apiculture-326002.ue.r.appspot.com/api/v4";
 // API ENDPOINTS
 export const SIGNUP_ENDPOINT = "/auth/signup";
 export const RELOAD_USER_ENDPOINT = "/auth/get-user";
@@ -11,5 +16,5 @@ export const SELLS_ENDPOINT = "/sell";
 export const BUGS_CACHING_TIMEOUT = 5000;
 export const ALBUMS_CACHING_TIMEOUT = 5000;
 // CLIENT URLS
-export const SIGNUP_URL = '/signup'
-export const LOGIN_URL = '/login'
+export const SIGNUP_URL = "/signup";
+export const LOGIN_URL = "/login";
