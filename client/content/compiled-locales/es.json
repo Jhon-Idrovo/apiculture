@@ -1,0 +1,194 @@
+{
+  "cantidad": [
+    {
+      "type": 0,
+      "value": "Cantidad"
+    }
+  ],
+  "clave": [
+    {
+      "type": 0,
+      "value": "Contraseña"
+    }
+  ],
+  "claveOlvidada": [
+    {
+      "type": 0,
+      "value": "¿Olvidaste tu contraseña?"
+    }
+  ],
+  "colmena": [
+    {
+      "type": 0,
+      "value": "Colmena"
+    }
+  ],
+  "colmenasTodas": [
+    {
+      "type": 0,
+      "value": "Todas las colmenas"
+    }
+  ],
+  "correo": [
+    {
+      "type": 0,
+      "value": "Correo Electrónico"
+    }
+  ],
+  "cosecha": [
+    {
+      "type": 0,
+      "value": "Cosecha"
+    }
+  ],
+  "cosechas": [
+    {
+      "type": 0,
+      "value": "Cosechas"
+    }
+  ],
+  "descripcion": [
+    {
+      "type": 0,
+      "value": "Descripción"
+    }
+  ],
+  "errorMsg": [
+    {
+      "type": 0,
+      "value": "Lo siento, parece que hay un problema. Estamos trabajando en ello lo antes posible"
+    }
+  ],
+  "exp1": [
+    {
+      "type": 0,
+      "value": "Agregar gasto"
+    }
+  ],
+  "fecha": [
+    {
+      "type": 0,
+      "value": "Fecha"
+    }
+  ],
+  "fechaInstalacion": [
+    {
+      "type": 0,
+      "value": "Fecha de Instalación"
+    }
+  ],
+  "grdrCosecha": [
+    {
+      "type": 0,
+      "value": "Agregar Cosecha"
+    }
+  ],
+  "grdrGasto": [
+    {
+      "type": 0,
+      "value": "Agregar Gasto"
+    }
+  ],
+  "grdrVenta": [
+    {
+      "type": 0,
+      "value": "Agregar Venta"
+    }
+  ],
+  "ingreso": [
+    {
+      "type": 0,
+      "value": "Cobrado"
+    }
+  ],
+  "ingresoNecesario": [
+    {
+      "type": 0,
+      "value": "Porfavor ingresa para poder ver esta página"
+    }
+  ],
+  "ldng": [
+    {
+      "type": 0,
+      "value": "Cargando"
+    }
+  ],
+  "lgI": [
+    {
+      "type": 0,
+      "value": "Iniciar Sesión"
+    }
+  ],
+  "lgO": [
+    {
+      "type": 0,
+      "value": "Cerrar Sesión"
+    }
+  ],
+  "nombre": [
+    {
+      "type": 0,
+      "value": "Nombre"
+    }
+  ],
+  "nv1": [
+    {
+      "type": 0,
+      "value": "Ventas"
+    }
+  ],
+  "nv2": [
+    {
+      "type": 0,
+      "value": "Gastos"
+    }
+  ],
+  "nv3": [
+    {
+      "type": 0,
+      "value": "Producción"
+    }
+  ],
+  "precio": [
+    {
+      "type": 0,
+      "value": "Precio"
+    }
+  ],
+  "producto": [
+    {
+      "type": 0,
+      "value": "Producto"
+    }
+  ],
+  "registrarse": [
+    {
+      "type": 0,
+      "value": "Registrarse"
+    }
+  ],
+  "sinCuenta": [
+    {
+      "type": 0,
+      "value": "¿Aún no tienes una cuenta?"
+    }
+  ],
+  "sv": [
+    {
+      "type": 0,
+      "value": "Guardar"
+    }
+  ],
+  "test": [
+    {
+      "type": 0,
+      "value": "Prueba"
+    }
+  ],
+  "tieneCuenta": [
+    {
+      "type": 0,
+      "value": "¿Ya tienes una cuenta?"
+    }
+  ]
+}

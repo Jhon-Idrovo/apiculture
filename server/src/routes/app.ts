@@ -1,25 +1,24 @@
+import cors from 'cors';
 /**
  * express app configuration
  */
-import express, { Response, Request } from "express";
-import cors from "cors";
-import morgan from "morgan";
+import express, { Request, Response } from 'express';
+import morgan from 'morgan';
+import passport from 'passport';
 
-import authRouter from "./auth.routes";
-import productRouter from "./products.routes";
-import userRouter from "./user.routes";
-import hiveRouter from "./hive.routes";
-import expenseRouter from "./expense.routes";
-import sellRouter from "./sell.routes";
-import harvestRouter from "./harvest.routes";
-import { basePath } from "../config/config";
-import passport from "passport";
+import { basePath } from '../config/config';
+import authRouter from './auth.routes';
+import expenseRouter from './expense.routes';
+import harvestRouter from './harvest.routes';
+import hiveRouter from './hive.routes';
+import productRouter from './products.routes';
+import sellRouter from './sell.routes';
+import userRouter from './user.routes';
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use(morgan("dev"));
 //initialize passport
 app.use(passport.initialize());
 
