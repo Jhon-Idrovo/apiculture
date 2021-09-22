@@ -60,7 +60,7 @@ export default function App({
           messages={messages}
           textComponent={Fragment}
           // To not see errors on missing translations
-          onError={() => null}
+          //onError={() => null}
         >
           <NavBar />
           <Component {...pageProps} />

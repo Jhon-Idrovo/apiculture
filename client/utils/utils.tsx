@@ -173,6 +173,4 @@ export const getDonutData = (hives: IHive[]) => {
   return res;
 };
 
-export const translate = (id: string, values = {}) => (
-  <FormattedMessage id={id} values={values} />
-);
+export const translate = (id: string) => <FormattedMessage id={id} />;

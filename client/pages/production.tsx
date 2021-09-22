@@ -41,7 +41,7 @@ function Production() {
     if (products.list.length > 0) setProductID(products.list[0]._id);
   }, [products]);
   //const donutData = useMemo(() => getDonutData(hives.list), hives.list);
-  if (user.id === "") return <LogingNeeded/>
+  if (user.id === "") return <LogingNeeded />;
   if (harvests.loading || hives.loading || products.loading) return <Loading />;
   return (
     <main>
@@ -156,3 +156,9 @@ function Production() {
 }
 
 export default Production;
+
+export async function getServerSideProps() {
+  return {
+    props: {}, // will be passed to the page component as props
+  };
+}
