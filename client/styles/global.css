@@ -94,6 +94,9 @@ body {
   .nav-bar {
     @apply left-0 right-0 top-auto w-full;
   }
+  .nav-bar hr {
+    display: none;
+  }
   .nav-list {
     @apply flex justify-between;
   }
