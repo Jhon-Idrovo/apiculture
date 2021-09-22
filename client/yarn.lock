@@ -439,7 +439,7 @@
     intl-messageformat "9.9.1"
     tslib "^2.1.0"
 
-"@formatjs/ts-transformer@3.4.10":
+"@formatjs/ts-transformer@3.4.10", "@formatjs/ts-transformer@^3.4.10":
   version "3.4.10"
   resolved "https://registry.yarnpkg.com/@formatjs/ts-transformer/-/ts-transformer-3.4.10.tgz#f623c5db5eaea4f6da34124f620f043d5ea3970a"
   integrity sha512-5fu8x+8CtyrFe8zdwHvFsYLx9TEPjeJSODRS1ZJxkMVpTBHaNsPqsPkN1TuTk5x3+tSczxXmN1LGrAzUxNN3nQ==

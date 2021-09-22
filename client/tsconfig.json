@@ -3,7 +3,7 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
-    "lib": ["dom", "es2017"],
+    "lib": ["dom", "es2017", "esnext.intl", "es2017.intl", "es2018.intl"],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -20,6 +20,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "exclude": ["node_modules"],
+  "plugins": [
+    {
+      "transform": "@formatjs/ts-transformer",
+      "import": "transform",
+      "type": "config",
+      "overrideIdFn": "[sha512:contenthash:base64:6]",
+      "ast": true
+    }
+  ],
+  "exclude": [
+    "node_modules",
+    "/node_modules/(?!react-intl|intl-messageformat|@formatjs/icu-messageformat-parser)/"
+  ],
   "include": ["**/*.test.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

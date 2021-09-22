@@ -13,6 +13,7 @@
     "i18n": "yarn extract:i18n && yarn compile:i18n"
   },
   "dependencies": {
+    "@formatjs/ts-transformer": "^3.4.10",
     "@reduxjs/toolkit": "^1.6.1",
     "@types/jsonwebtoken": "^8.5.5",
     "apexcharts": "^3.28.3",
