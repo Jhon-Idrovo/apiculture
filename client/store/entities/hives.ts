@@ -59,12 +59,22 @@ const hivesSlice = createSlice({
       hives.activeHiveID = action.payload;
       hives.loading = false;
     },
+    hiveSaved: (hives, action: PayloadAction<IHive>) => {
+      hives.list.push(action.payload);
+      hives.loading = false;
+    },
   },
 });
 
 export default hivesSlice.reducer;
-const { hivesLoading, hivesLoadFailed, hivesLoaded, hivesSort, setHive } =
-  hivesSlice.actions;
+const {
+  hivesLoading,
+  hivesLoadFailed,
+  hivesLoaded,
+  hivesSort,
+  setHive,
+  hiveSaved,
+} = hivesSlice.actions;
 // SELECTORS
 export const getHives = (state: RootState) => state.entities.hives;
 // FUNCTION ACTIONS
@@ -107,6 +117,22 @@ export const changeActiveHive =
   (dispatch) => {
     dispatch(hivesLoading());
     dispatch(setHive(hiveID));
+  };
+export const saveHive =
+  (name: string, date: string | number): AppThunk =>
+  async (dispatch) => {
+    dispatch(hivesLoading());
+    try {
+      if (!(name && date)) throw new Error("errMsg1");
+
+      const r = await axiosInstance.post(HIVES_ENDPOINT + "/create", {
+        date: new Date(date).getTime(),
+        name,
+      });
+      dispatch(hiveSaved(r.data.hive));
+    } catch (error) {
+      dispatch(hivesLoadFailed(errorToMessage(error)));
+    }
   };
 
 // UTILS

@@ -37,11 +37,16 @@ const productsSlice = createSlice({
       products.error = action.payload;
       products.loading = false;
     },
+    prodSaved: (producst, action: PayloadAction<IProduct>) => {
+      producst.list.push(action.payload);
+      producst.loading = false;
+    },
   },
 });
 
 export default productsSlice.reducer;
-const { prodsLoadFailed, prodsLoaded, prodsLoading } = productsSlice.actions;
+const { prodsLoadFailed, prodsLoaded, prodsLoading, prodSaved } =
+  productsSlice.actions;
 
 // SELECTORS
 export const getProducts = (state: RootState) => state.entities.products;
@@ -55,6 +60,21 @@ export const loadProducts = (): AppThunk => async (dispatch) => {
     dispatch(prodsLoadFailed(errorToMessage(error)));
   }
 };
+export const saveProduct =
+  (name: string, price: number, description: string): AppThunk =>
+  async (dispatch) => {
+    dispatch(prodsLoading(true));
+    try {
+      const r = await axiosInstance.post(PRODUCTS_ENDPOINT + "/create", {
+        name,
+        price,
+        description,
+      });
+      dispatch(prodSaved(r.data.product));
+    } catch (error) {
+      dispatch(prodsLoadFailed(errorToMessage(error)));
+    }
+  };
 // UTILS
 export const getProductById = (id: string): IProduct => {
   const state = store.getState();

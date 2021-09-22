@@ -8,7 +8,7 @@ import Table from '../components/Table';
 import {
     getHarvests, harvestKeyssMapping, loadHarvests, saveHarvest, sortHarvests
 } from '../store/entities/harvests';
-import { changeActiveHive, getHives, loadHives } from '../store/entities/hives';
+import { changeActiveHive, getHives, loadHives, saveHive } from '../store/entities/hives';
 import { getProducts, loadProducts } from '../store/entities/products';
 import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
 import { getUser } from '../store/user/user';
@@ -41,6 +41,11 @@ function Production() {
     if (products.list.length > 0) setProductID(products.list[0]._id);
   }, [products]);
   //const donutData = useMemo(() => getDonutData(hives.list), hives.list);
+  const [isNewHiveOpen, setIsNewHiveOpen] = useState(false);
+  const [hiveName, setHiveName] = useState("");
+  const [hiveDate, setHiveDate] = useState<string | number>(
+    new Date().getTime()
+  );
   if (user.id === "") return <LogingNeeded />;
   if (harvests.loading || hives.loading || products.loading) return <Loading />;
   return (
@@ -73,6 +78,41 @@ function Production() {
           <h2>{translate("colmenasTodas")}</h2>
         </div>
       </div>
+      {isNewHiveOpen && (
+        <div className="new-in-form">
+          <label htmlFor="name-in" id="name-in-label">
+            {translate("nombre")}
+          </label>
+          <input
+            type="text"
+            name=""
+            id="name-in"
+            value={hiveName}
+            onChange={(e) => setHiveName(e.target.value)}
+          />
+          <label htmlFor="date-in" id="date-in-label">
+            {translate("fecha")}
+          </label>
+
+          <input
+            type="date"
+            name=""
+            id="date-in"
+            value={hiveDate}
+            onChange={(e) => setHiveDate(e.target.value)}
+          />
+        </div>
+      )}
+      <button
+        className="btn btn-accent-primary mx-auto"
+        onClick={
+          isNewHiveOpen
+            ? () => dispatch(saveHive(hiveName, hiveDate))
+            : () => setIsNewHiveOpen(true)
+        }
+      >
+        {translate(isNewHiveOpen ? "sv" : "grdrColmena")}
+      </button>
       <Table
         rowsSelector={getHarvests}
         rowsSort={sortHarvests}
@@ -132,7 +172,7 @@ function Production() {
       </Table>
       {!isNewOpen && (
         <button
-          className="btn btn-primary table mx-auto"
+          className="btn btn-accent-primary table mx-auto"
           onClick={() => setIsNewOpen((prev) => !prev)}
         >
           {translate("grdrCosecha")}
@@ -141,7 +181,7 @@ function Production() {
       {isNewOpen && (
         <div className="flex w-full">
           <button
-            className="btn btn-primary mx-auto"
+            className="btn btn-accent-primary mx-auto"
             onClick={() =>
               dispatch(saveHarvest(amount, date, productID, hiveID))
             }
@@ -157,6 +197,7 @@ function Production() {
 
 export default Production;
 
+// To avoid error with react-intl
 export async function getServerSideProps() {
   return {
     props: {}, // will be passed to the page component as props

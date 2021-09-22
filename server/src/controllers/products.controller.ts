@@ -2,10 +2,12 @@
  * logic for handling requests
  */
 
-import { NextFunction, Request, Response } from "express";
-import { IProduct } from "../models/interfaces/products";
-import { RequestEnhanced } from "../models/interfaces/utils";
-import Product from "../models/Product";
+import { NextFunction, Request, Response } from 'express';
+
+import { IProduct } from '../models/interfaces/products';
+import { RequestEnhanced } from '../models/interfaces/utils';
+import Product from '../models/Product';
+
 //models
 export async function readAll(req: Request, res: Response, next: NextFunction) {
   const products = await Product.find();
@@ -32,14 +34,14 @@ export async function createOne(
 ) {
   const { userID } = (req as RequestEnhanced).decodedToken;
   const { price, name, description } = req.body as unknown as IProduct;
-  console.log("creating product", req.body);
-  await Product.create({
+  console.log("creating product", { ...req.body });
+  const product = await Product.create({
     price,
     name,
     description,
     userID,
   });
-  return res.sendStatus(201);
+  return res.status(201).json({ product });
 }
 
 export async function updateOne(

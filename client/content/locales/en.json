@@ -20,6 +20,8 @@
   "grdrCosecha": "Add Harvest",
   "grdrVenta": "Add Sell",
   "grdrGasto": "Add Expense",
+  "grdrColmena": "Add Hive",
+  "grdrProducto": "Add Product",
   "cantidad": "Amount",
   "precio": "Price",
   "ingreso": "Income",
@@ -30,5 +32,6 @@
   "cosechas": "Harvests",
   "producto": "Product",
   "fechaInstalacion": "Installation Date",
-  "nombre": "Name"
+  "nombre": "Name",
+  "errMsg1": "Please fill all the fields"
 }

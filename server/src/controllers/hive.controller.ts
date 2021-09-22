@@ -1,14 +1,20 @@
-import { NextFunction, Request, Response } from "express";
-import Harvest from "../models/Harvest";
-import Hive from "../models/Hive";
-import { IHive, IResponseHive } from "../models/interfaces/hives";
-import { RequestEnhanced } from "../models/interfaces/utils";
+import { NextFunction, Request, Response } from 'express';
+
+import Harvest from '../models/Harvest';
+import Hive from '../models/Hive';
+import { IHive, IResponseHive } from '../models/interfaces/hives';
+import { RequestEnhanced } from '../models/interfaces/utils';
 
 export async function create(req: Request, res: Response, next: NextFunction) {
   const { userID } = (req as RequestEnhanced).decodedToken;
   const { date, name } = req.body;
-  await Hive.create({ installationDate: date, name, userID, totalHarvests: 0 });
-  return res.sendStatus(201);
+  const hive = await Hive.create({
+    installationDate: date,
+    name,
+    userID,
+    totalHarvests: 0,
+  });
+  return res.status(201).json({ hive });
 }
 export async function readOne(req: Request, res: Response, next: NextFunction) {
   res.json({ hive: await Hive.findById(req.params.id) });

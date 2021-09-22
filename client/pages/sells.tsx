@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import ButtonSpinner from '../components/ButtonSpinner';
 import Loading from '../components/Loading';
 import Table from '../components/Table';
-import { getProducts, loadProducts } from '../store/entities/products';
+import { getProducts, loadProducts, saveProduct } from '../store/entities/products';
 import { getSells, loadSells, saveSell, sellsKeyMapping, sortSells } from '../store/entities/sells';
 import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
 import { translate } from '../utils/utils';
@@ -28,9 +28,59 @@ function Sells() {
   useEffect(() => {
     if (products.list.length > 0) setProduct(products.list[0]._id);
   }, [products.loading]);
+  const [isNewProductOpen, setIsNewProductOpen] = useState(false);
+  const [productPrice, setProductPrice] = useState(0);
+  const [productName, setProductName] = useState("");
+  const [productDescription, setProductDescription] = useState("");
   if (products.loading || sells.loading) return <Loading />;
   return (
     <main>
+      {isNewProductOpen && (
+        <div className="new-in-form">
+          <label htmlFor="name-in" id="name-in-label">
+            {translate("nombre")}
+          </label>
+          <input
+            type="text"
+            name=""
+            id="name-in"
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
+          />
+          <label htmlFor="date-in" id="date-in-label">
+            {translate("precio")}
+          </label>
+
+          <input
+            type="number"
+            name=""
+            id="date-in"
+            value={productPrice}
+            onChange={(e) => setProductPrice(parseFloat(e.target.value))}
+          />
+          <label htmlFor="desc-in">{translate("descripcion")}</label>
+          <input
+            type="text"
+            name=""
+            id="desc-in"
+            value={productDescription}
+            onChange={(e) => setProductDescription(e.target.value)}
+          />
+        </div>
+      )}
+      <button
+        className="btn btn-accent-primary mx-auto"
+        onClick={
+          isNewProductOpen
+            ? () =>
+                dispatch(
+                  saveProduct(productName, productPrice, productDescription)
+                )
+            : () => setIsNewProductOpen(true)
+        }
+      >
+        {translate(isNewProductOpen ? "sv" : "grdrProducto")}
+      </button>
       <Table
         rowsSelector={getSells}
         rowsSort={sortSells}

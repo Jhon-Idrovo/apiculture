@@ -181,7 +181,31 @@ form button:last-of-type {
   @apply mt-2 mb-6;
 }
 label {
-  @apply w-full text-left;
+  @apply w-full text-left self-center;
+}
+.new-in-form {
+  @apply text-txt-base grid grid-rows-2 m-2;
+  grid-template-columns: minmax(50px, 1fr) minmax(100px, 4fr);
+  grid-template-areas:
+    "nameLabel name"
+    "dateLabel date";
+}
+.new-in-form input {
+  @apply rounded-md bg-accent-primary w-full pl-2 my-2;
+}
+
+/* PRODUCTION */
+.new-in-form #name-in {
+  grid-area: name;
+}
+.new-in-form #date-in {
+  grid-area: date;
+}
+.new-in-form #name-in-label {
+  grid-area: nameLabel;
+}
+.new-in-form #date-in-label {
+  grid-area: dateLabel;
 }
 
 /* FULL SCREEN MESSAGE  */

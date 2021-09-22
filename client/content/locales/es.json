@@ -20,6 +20,8 @@
   "grdrCosecha": "Agregar Cosecha",
   "grdrVenta": "Agregar Venta",
   "grdrGasto": "Agregar Gasto",
+  "grdrColmena": "Agregar Colmena",
+  "grdrProducto": "Agregar Producto",
   "cantidad": "Cantidad",
   "precio": "Precio",
   "ingreso": "Cobrado",
@@ -30,5 +32,6 @@
   "cosechas": "Cosechas",
   "producto": "Producto",
   "fechaInstalacion": "Fecha de Instalación",
-  "nombre": "Nombre"
+  "nombre": "Nombre",
+  "errMsg1": "Please fill all the fields"
 }
