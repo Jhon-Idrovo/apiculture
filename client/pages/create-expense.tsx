@@ -1,9 +1,9 @@
 import { FormEvent } from 'hoist-non-react-statics/node_modules/@types/react';
-import { useEffect, useState } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 
 import ButtonSpinner from '../components/ButtonSpinner';
 import Loading from '../components/Loading';
-import { getExpenes, saveExpense } from '../store/entities/expenses';
+import { expensesToDefault, getExpenes, saveExpense } from '../store/entities/expenses';
 import { getHives, loadHives } from '../store/entities/hives';
 import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
 import { translate } from '../utils/utils';
@@ -23,9 +23,17 @@ function CreateExpense() {
     e.preventDefault();
     dispatch(saveExpense(amount, description, date, hive));
   };
-  if (hives.loading) return <Loading />;
+  const saveMoreHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    setAmount("");
+    setDescription("");
+    setHive("");
+    setDate(new Date().getTime());
+    dispatch(expensesToDefault());
+  };
+  if (hives.state) return <Loading />;
   return (
-    <main className="text-txt-base">
+    <main className="">
       <form className="exp-form form-secondary" onSubmit={handleSubmit}>
         <h1 className="form-title">{translate("nuevoGasto")}</h1>
         <label htmlFor="amount-in">{translate("cantidad")}</label>
@@ -64,12 +72,20 @@ function CreateExpense() {
           ))}
           <option value="N/A">N/A</option>
         </select>
-        {expenses.error && <p className="err-msg">{expenses.error}</p>}
-        <button className="btn btn-primary mx-auto">
+        {expenses.error && (
+          <p className="err-msg">{translate(expenses.error)}</p>
+        )}
+        <button
+          className="btn btn-primary mx-auto"
+          onClick={expenses.state === "saved" ? saveMoreHandler : undefined}
+        >
           {expenses.state === "saving" && <ButtonSpinner />}
 
           {expenses.state === "saved" ? (
-            <i className="fas fa-check"></i>
+            <>
+              <i className="fas fa-check"></i>
+              {translate("unoMas")}
+            </>
           ) : (
             translate("sv")
           )}

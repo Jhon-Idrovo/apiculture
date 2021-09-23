@@ -47,7 +47,7 @@ function Production() {
     new Date().getTime()
   );
   if (user.id === "") return <LogingNeeded />;
-  if (harvests.loading || hives.loading || products.loading) return <Loading />;
+  if (harvests.loading || hives.state || products.loading) return <Loading />;
   return (
     <main>
       <Donut

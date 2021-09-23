@@ -20,6 +20,9 @@ body {
   outline: none;
 }
 /* UTILS */
+main {
+  @apply text-txt-base;
+}
 input,
 select {
   @apply rounded-md pl-2;
@@ -246,7 +249,8 @@ label {
 }
 
 /* CREATE EXPENSE */
-.exp-form {
+.exp-form,
+.hive-form {
   @apply grid grid-cols-1;
 }
 .exp-form input,

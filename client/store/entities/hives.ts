@@ -5,6 +5,7 @@ import { HIVES_ENDPOINT } from '../../config/config';
 import { compareRows, errorToMessage, IField, Order, translate } from '../../utils/utils';
 import store, { RootState } from '../configureStore';
 import { AppThunk } from '../middleware/thunkMiddleware';
+import { EntityStateType } from './expenses';
 
 export declare interface IHive {
   _id: string;
@@ -20,7 +21,7 @@ export declare interface IHivesResponse {
 const hivesInitialState = {
   sortBy: "",
   order: "" as Order,
-  loading: false,
+  state: "init" as EntityStateType,
   list: [] as IHive[],
   error: "",
   activeHiveID: "",
@@ -30,8 +31,8 @@ const hivesSlice = createSlice({
   name: "hives",
   initialState: hivesInitialState,
   reducers: {
-    hivesLoading: (state) => {
-      state.loading = true;
+    hivesLoading: (state, action: PayloadAction<EntityStateType>) => {
+      state.state = action.payload;
     },
     hivesLoaded: (state, action: PayloadAction<IHive[]>) => {
       console.log(action.payload);
@@ -39,10 +40,10 @@ const hivesSlice = createSlice({
       state.list = action.payload;
       // state.activeHiveID = action.payload[0]._id;
       state.error = "";
-      state.loading = false;
+      state.state = "loaded";
     },
     hivesLoadFailed: (state, action: PayloadAction<string>) => {
-      state.loading = false;
+      state.state = "load-failed";
       state.error = action.payload;
     },
     hivesSort: (
@@ -53,15 +54,19 @@ const hivesSlice = createSlice({
       hives.order = order;
       hives.sortBy = sortBy;
       hives.list.sort(compareRows<IHive>(sortBy, order));
-      hives.loading = false;
+      hives.state = "init";
     },
     setHive: (hives, action: PayloadAction<string>) => {
       hives.activeHiveID = action.payload;
-      hives.loading = false;
+      hives.state = "init";
     },
     hiveSaved: (hives, action: PayloadAction<IHive>) => {
       hives.list.push(action.payload);
-      hives.loading = false;
+      hives.state = "saved";
+    },
+    hivesRestart: (hives) => {
+      hives.state = "init";
+      hives.error = "";
     },
   },
 });
@@ -74,13 +79,14 @@ const {
   hivesSort,
   setHive,
   hiveSaved,
+  hivesRestart,
 } = hivesSlice.actions;
 // SELECTORS
 export const getHives = (state: RootState) => state.entities.hives;
 // FUNCTION ACTIONS
 export const loadHives = (): AppThunk => async (dispatch) => {
   // set loading
-  dispatch(hivesLoading());
+  dispatch(hivesLoading("loading"));
   try {
     // call to the api
     const res = await axiosInstance.get(HIVES_ENDPOINT);
@@ -97,7 +103,7 @@ export const loadHives = (): AppThunk => async (dispatch) => {
 export const sortHives =
   (sortBy: keyof IHive): AppThunk =>
   (dispatch, getState) => {
-    dispatch(hivesLoading());
+    dispatch(hivesLoading("loading"));
     const state = getState();
     const hives = state.entities.hives;
     // If we have the colum already sorted we only need to change the order.
@@ -115,13 +121,13 @@ export const sortHives =
 export const changeActiveHive =
   (hiveID: string): AppThunk =>
   (dispatch) => {
-    dispatch(hivesLoading());
+    dispatch(hivesLoading("loading"));
     dispatch(setHive(hiveID));
   };
 export const saveHive =
   (name: string, date: string | number): AppThunk =>
   async (dispatch) => {
-    dispatch(hivesLoading());
+    dispatch(hivesLoading("saving"));
     try {
       if (!(name && date)) throw new Error("errMsg1");
 
@@ -134,7 +140,9 @@ export const saveHive =
       dispatch(hivesLoadFailed(errorToMessage(error)));
     }
   };
-
+export const hivesToDefault = (): AppThunk => (dispatch) => {
+  dispatch(hivesRestart());
+};
 // UTILS
 export const getHiveById = (id: string): IHive => {
   const state: RootState = store.getState();

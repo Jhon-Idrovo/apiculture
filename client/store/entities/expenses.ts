@@ -61,6 +61,10 @@ const expensesSlice = createSlice({
       expenses.error = "";
       expenses.state = "saved";
     },
+    expensesReestart: (expenses) => {
+      expenses.error = "";
+      expenses.state = "init";
+    },
   },
 });
 
@@ -70,6 +74,7 @@ const {
   expensesLoadFailed,
   expensesSort,
   expenseSaved,
+  expensesReestart,
 } = expensesSlice.actions;
 export default expensesSlice.reducer;
 // GET FUNCTIONS
@@ -131,6 +136,10 @@ export const saveExpense =
       dispatch(expensesLoadFailed(errorToMessage(error)));
     }
   };
+
+export const expensesToDefault = (): AppThunk => (dispatch) => {
+  dispatch(expensesReestart());
+};
 // UTILS
 export declare type ExpensesMappingType = Record<
   keyof Omit<IExpense, "_id">,
