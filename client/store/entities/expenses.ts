@@ -5,7 +5,7 @@ import { EXPENSES_ENDPOINT } from '../../config/config';
 import { compareRows, errorToMessage, IField, Order, translate } from '../../utils/utils';
 import { RootState } from '../configureStore';
 import { AppThunk } from '../middleware/thunkMiddleware';
-import { getHiveById, IHive } from './hives';
+import { IHive } from './hives';
 
 export declare interface IExpense {
   _id: string;

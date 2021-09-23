@@ -3,7 +3,7 @@ import { MouseEventHandler, useEffect, useState } from 'react';
 
 import ButtonSpinner from '../components/ButtonSpinner';
 import Loading from '../components/Loading';
-import { expensesToDefault, getExpenes, saveExpense } from '../store/entities/expenses';
+import { expensesToDefault, saveExpense } from '../store/entities/expenses';
 import { getHarvests } from '../store/entities/harvests';
 import { getHives, loadHives } from '../store/entities/hives';
 import { getProducts } from '../store/entities/products';
