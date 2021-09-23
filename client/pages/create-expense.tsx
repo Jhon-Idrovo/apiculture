@@ -31,7 +31,7 @@ function CreateExpense() {
     setDate(new Date().getTime());
     dispatch(expensesToDefault());
   };
-  if (hives.state) return <Loading />;
+  if (hives.state === "loading") return <Loading />;
   return (
     <main className="">
       <form className="exp-form form-secondary" onSubmit={handleSubmit}>

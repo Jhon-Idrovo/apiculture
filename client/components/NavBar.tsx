@@ -2,7 +2,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import { CREATE_EXPENSE_URL, CREATE_PRODUCT_URL, CREATE_SELL_URL } from '../config/config';
+import {
+    CREATE_EXPENSE_URL, CREATE_HIVE_URL, CREATE_PRODUCT_URL, CREATE_SELL_URL
+} from '../config/config';
 import { useAppDispatch } from '../store/hooks/hooks';
 import { reloadUserFromToken } from '../store/user/user';
 import { translate } from '../utils/utils';
@@ -104,6 +106,15 @@ function NavBar() {
         >
           <Link href={CREATE_SELL_URL}>
             <a>{translate("nv6")}</a>
+          </Link>
+        </li>
+        <li
+          className={`${
+            router.pathname === CREATE_HIVE_URL && "list-el-active"
+          }`}
+        >
+          <Link href={CREATE_HIVE_URL}>
+            <a>{translate("nv7")}</a>
           </Link>
         </li>
       </ul>

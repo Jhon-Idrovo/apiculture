@@ -27,12 +27,12 @@ function Sells() {
   const [product, setProduct] = useState<"" | string>("");
   useEffect(() => {
     if (products.list.length > 0) setProduct(products.list[0]._id);
-  }, [products.loading]);
+  }, [products.state]);
   const [isNewProductOpen, setIsNewProductOpen] = useState(false);
   const [productPrice, setProductPrice] = useState(0);
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
-  if (products.loading || sells.loading) return <Loading />;
+  if (products.state || sells.state) return <Loading />;
   return (
     <main>
       {isNewProductOpen && (
@@ -145,7 +145,7 @@ function Sells() {
             className="btn btn-primary mx-auto"
             onClick={() => dispatch(saveSell(amount, price, date, product))}
           >
-            {sells.loading && <ButtonSpinner />}
+            {sells.state && <ButtonSpinner />}
             {translate("sv")}
           </button>
         </div>

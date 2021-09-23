@@ -5,6 +5,7 @@ import { SELLS_ENDPOINT } from '../../config/config';
 import { compareRows, errorToMessage, IField, Order, translate } from '../../utils/utils';
 import { RootState } from '../configureStore';
 import { AppThunk } from '../middleware/thunkMiddleware';
+import { EntityStateType } from './expenses';
 import { getProductById, IProduct } from './products';
 
 export declare interface ISell {
@@ -22,7 +23,7 @@ export const sellsKeysToHeaders = {
   productID: "Procduct",
 };
 const sellsInitialState = {
-  loading: false,
+  state: "init" as EntityStateType,
   error: "",
   list: [] as ISell[],
   sortBy: "" as keyof ISell,
@@ -33,16 +34,16 @@ const sellsSlice = createSlice({
   name: "sells",
   initialState: sellsInitialState,
   reducers: {
-    sellsLoading: (sells, action: PayloadAction<boolean>) => {
-      sells.loading = action.payload;
+    sellsLoading: (sells, action: PayloadAction<EntityStateType>) => {
+      sells.state = action.payload;
     },
     sellsLoaded: (sells, action: PayloadAction<ISell[]>) => {
-      sells.loading = false;
+      sells.state = "init";
       sells.list = action.payload;
       sells.error = "";
     },
     sellsLoadFailed: (sells, action: PayloadAction<string>) => {
-      sells.loading = false;
+      sells.state = "load-failed";
       sells.error = action.payload;
     },
     sellsSort: (
@@ -55,17 +56,27 @@ const sellsSlice = createSlice({
       sells.list.sort(compareRows<ISell>(sortBy, order));
       sells.sortBy = sortBy;
       sells.order = order;
-      sells.loading = false;
+      sells.state = "init";
     },
     sellSaved: (sells, action: PayloadAction<ISell>) => {
       sells.list.push(action.payload);
-      sells.loading = false;
+      sells.state = "saved";
+    },
+    sellsReestart: (sells) => {
+      sells.error = "";
+      sells.state = "init";
     },
   },
 });
 
-const { sellsLoading, sellsLoaded, sellsLoadFailed, sellsSort, sellSaved } =
-  sellsSlice.actions;
+const {
+  sellsLoading,
+  sellsLoaded,
+  sellsLoadFailed,
+  sellsSort,
+  sellSaved,
+  sellsReestart,
+} = sellsSlice.actions;
 export default sellsSlice.reducer;
 
 // GETTERS
@@ -86,7 +97,7 @@ export const loadSells = (): AppThunk => async (dispatch) => {
 export const sortSells =
   (sortBy: keyof ISell): AppThunk =>
   (dispatch, getState) => {
-    dispatch(sellsLoading(true));
+    dispatch(sellsLoading("loading"));
     const state = getState();
     const sells = state.entities.sells;
     // If we have the colum already sorted we only need to change the order.
@@ -108,7 +119,7 @@ export const saveSell =
     productID: string | ""
   ): AppThunk =>
   async (dispatch) => {
-    dispatch(sellsLoading(true));
+    dispatch(sellsLoading("saving"));
     try {
       if (!(amount && price && date && productID))
         throw new Error("Please fill all the fields");
@@ -124,6 +135,10 @@ export const saveSell =
       dispatch(sellsLoadFailed(errorToMessage(error)));
     }
   };
+
+export const sellsToDefault = (): AppThunk => (dispatch) => {
+  dispatch(sellsReestart());
+};
 // UTILS
 
 export declare type SellsMappingType = Record<keyof Omit<ISell, "_id">, IField>;

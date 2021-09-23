@@ -5,6 +5,7 @@ import { PRODUCTS_ENDPOINT } from '../../config/config';
 import { errorToMessage, IField, Order, translate } from '../../utils/utils';
 import store, { RootState } from '../configureStore';
 import { AppThunk } from '../middleware/thunkMiddleware';
+import { EntityStateType } from './expenses';
 
 export declare interface IProduct {
   _id: string;
@@ -14,7 +15,7 @@ export declare interface IProduct {
   imgUri?: string;
 }
 export const productsInitialState = {
-  loading: false,
+  state: "init" as EntityStateType,
   error: "",
   list: [] as IProduct[],
 
@@ -25,34 +26,38 @@ const productsSlice = createSlice({
   name: "products",
   initialState: productsInitialState,
   reducers: {
-    prodsLoading: (products, action: PayloadAction<boolean>) => {
-      products.loading = action.payload;
+    prodsLoading: (products, action: PayloadAction<EntityStateType>) => {
+      products.state = action.payload;
     },
     prodsLoaded: (products, action: PayloadAction<IProduct[]>) => {
       products.list = action.payload;
       products.error = "";
-      products.loading = false;
+      products.state = "init";
     },
     prodsLoadFailed: (products, action: PayloadAction<string>) => {
       products.error = action.payload;
-      products.loading = false;
+      products.state = "load-failed";
     },
     prodSaved: (producst, action: PayloadAction<IProduct>) => {
       producst.list.push(action.payload);
-      producst.loading = false;
+      producst.state = "saved";
+    },
+    prodsReestart: (products) => {
+      products.state = "init";
+      products.error = "";
     },
   },
 });
 
 export default productsSlice.reducer;
-const { prodsLoadFailed, prodsLoaded, prodsLoading, prodSaved } =
+const { prodsLoadFailed, prodsLoaded, prodsLoading, prodSaved, prodsReestart } =
   productsSlice.actions;
 
 // SELECTORS
 export const getProducts = (state: RootState) => state.entities.products;
 // FUNCTION ACTIONS
 export const loadProducts = (): AppThunk => async (dispatch) => {
-  dispatch(prodsLoading(true));
+  dispatch(prodsLoading("loading"));
   try {
     const res = await axiosInstance.get(PRODUCTS_ENDPOINT);
     dispatch(prodsLoaded(res.data.products));
@@ -61,10 +66,12 @@ export const loadProducts = (): AppThunk => async (dispatch) => {
   }
 };
 export const saveProduct =
-  (name: string, price: number, description: string): AppThunk =>
+  (name: string, price: number | "", description: string): AppThunk =>
   async (dispatch) => {
-    dispatch(prodsLoading(true));
+    dispatch(prodsLoading("saving"));
     try {
+      if (!(name && price && description)) throw new Error("errMsg01");
+
       const r = await axiosInstance.post(PRODUCTS_ENDPOINT + "/create", {
         name,
         price,
@@ -75,6 +82,10 @@ export const saveProduct =
       dispatch(prodsLoadFailed(errorToMessage(error)));
     }
   };
+
+export const productsToDefault = (): AppThunk => (dispatch) => {
+  dispatch(prodsReestart());
+};
 // UTILS
 export const getProductById = (id: string): IProduct => {
   const state = store.getState();
