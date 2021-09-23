@@ -81,29 +81,30 @@ main {
 }
 .left-list,
 .right-list {
-  @apply flex overflow-hidden w-full;
+  @apply flex overflow-hidden w-full transition-all;
 }
 .list-el-active {
   @apply bg-base text-txt-base rounded-md relative;
 }
 /* CENTER */
 .list-standby li {
-  @apply hidden;
+  width: 0%;
+  overflow: hidden;
 }
 /* Show only the headers */
 .list-standby li:first-of-type {
-  display: initial;
+  width: 100%;
 }
 
 /* SIDES */
 .list-active {
-  max-width: 100vw;
+  width: 100vw;
 }
 .list-active li {
-  display: initial;
+  width: 100%;
 }
 .list-hidden {
-  max-width: 0vw;
+  width: 0vw;
 }
 /* menu list */
 
