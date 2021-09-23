@@ -18,3 +18,7 @@ export const ALBUMS_CACHING_TIMEOUT = 5000;
 // CLIENT URLS
 export const SIGNUP_URL = "/signup";
 export const LOGIN_URL = "/login";
+export const CREATE_PRODUCT_URL = "/create-product";
+export const CREATE_EXPENSE_URL = "/create-expense";
+export const CREATE_SELL_URL = "/create-sell";
+export const CREATE_HIVE_URL = "/create-hive";
