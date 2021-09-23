@@ -29,7 +29,11 @@ function NavBar() {
 
       <ul
         className={`left-list ${
-          navSide === "left" ? "list-active" : "list-hidden"
+          navSide
+            ? navSide === "left"
+              ? "list-active"
+              : "list-hidden"
+            : "list-standby"
         }`}
       >
         <li
@@ -60,7 +64,11 @@ function NavBar() {
       </ul>
       <ul
         className={`right-list ${
-          navSide === "right" ? "list-active" : "list-hidden"
+          navSide
+            ? navSide === "right"
+              ? "list-active"
+              : "list-hidden"
+            : "list-standby"
         }`}
         onClick={() => setNavSide((prev) => (prev === "right" ? "" : "right"))}
       >
