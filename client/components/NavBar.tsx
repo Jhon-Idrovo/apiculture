@@ -42,7 +42,11 @@ function NavBar() {
           className="left-header"
           onClick={() => setNavSide((prev) => (prev === "left" ? "" : "left"))}
         >
-          {translate("panel")}
+          {navSide === "left" ? (
+            <i className="fas fa-chevron-circle-right"></i>
+          ) : (
+            translate("panel")
+          )}
         </li>
         <li className={`${router.pathname === "/sells" && "list-el-active"}`}>
           <Link href="/sells">
@@ -79,7 +83,11 @@ function NavBar() {
             setNavSide((prev) => (prev === "right" ? "" : "right"))
           }
         >
-          {translate("anadir")}
+          {navSide === "right" ? (
+            <i className="fas fa-chevron-circle-left"></i>
+          ) : (
+            translate("anadir")
+          )}
         </li>
         <li
           className={`${

@@ -86,12 +86,13 @@ main {
   display: none;
 }
 .nav-bar {
-  @apply fixed left-0 right-0 top-auto w-full bottom-0 bg-primary overflow-x-hidden flex transition-all;
+  @apply h-9 fixed left-0 right-0 top-auto w-full bottom-0 bg-primary overflow-x-hidden flex transition-all;
   z-index: 9999999;
 }
 .nav-bar li {
-  @apply w-full text-center;
+  @apply w-full text-center self-center;
 }
+
 .left-list li:first-of-type {
   order: 4;
 }
@@ -117,7 +118,11 @@ main {
   width: 100vw;
 }
 .list-active li {
+  @apply px-2;
   width: 100%;
+}
+.list-active li:first-of-type {
+  @apply w-min text-3xl;
 }
 .list-hidden {
   width: 0vw;
