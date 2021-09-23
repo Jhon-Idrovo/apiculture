@@ -70,9 +70,15 @@ function NavBar() {
               : "list-hidden"
             : "list-standby"
         }`}
-        onClick={() => setNavSide((prev) => (prev === "right" ? "" : "right"))}
       >
-        <li className="right-header">{translate("anadir")}</li>
+        <li
+          className="right-header"
+          onClick={() =>
+            setNavSide((prev) => (prev === "right" ? "" : "right"))
+          }
+        >
+          {translate("anadir")}
+        </li>
         <li
           className={`${
             router.pathname === CREATE_PRODUCT_URL && "list-el-active"

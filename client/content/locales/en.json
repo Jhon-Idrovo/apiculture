@@ -38,5 +38,9 @@
   "producto": "Product",
   "fechaInstalacion": "Installation Date",
   "nombre": "Name",
-  "errMsg1": "Please fill all the fields"
+  "errMsg1": "Please fill all the fields",
+  "nuevoGasto": "New Expense",
+  "nuevoProducto": "New Product",
+  "nuevaColmena": "New Hive",
+  "nuevaVenta": "New Sell"
 }

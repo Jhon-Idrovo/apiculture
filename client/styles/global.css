@@ -20,6 +20,10 @@ body {
   outline: none;
 }
 /* UTILS */
+input,
+select {
+  @apply rounded-md pl-2;
+}
 .btn {
   @apply rounded-md px-2 py-0 flex w-min whitespace-nowrap;
   border-width: 1px;
@@ -50,7 +54,16 @@ body {
     transform: rotate(360deg);
   }
 }
-
+.err-msg {
+  @apply font-semibold text-alert;
+}
+.form-secondary {
+  @apply w-full p-2;
+}
+.form-secondary input,
+.form-secondary select {
+  @apply bg-secondary text-txt-secondary;
+}
 .nav-logo {
 }
 
@@ -191,7 +204,7 @@ main {
   @apply font-semibold text-2xl mb-2;
 }
 .form input {
-  @apply rounded-md bg-accent-primary w-full;
+  @apply bg-accent-primary w-full;
 }
 form button:last-of-type {
   @apply mt-2 mb-6;
@@ -207,7 +220,7 @@ label {
     "dateLabel date";
 }
 .new-in-form input {
-  @apply rounded-md bg-accent-primary w-full pl-2 my-2;
+  @apply bg-accent-primary w-full pl-2 my-2;
 }
 
 /* PRODUCTION */
@@ -230,4 +243,12 @@ label {
 }
 .msg-box {
   @apply rounded-md bg-secondary text-txt-secondary p-4;
+}
+
+/* CREATE EXPENSE */
+.exp-form {
+  @apply grid grid-cols-1;
+}
+.exp-form input,
+.exp-form select {
 }

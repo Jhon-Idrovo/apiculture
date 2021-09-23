@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import ButtonSpinner from '../components/ButtonSpinner';
 import FSMessage from '../components/FSMessage';
+import Loading from '../components/Loading';
 import Table from '../components/Table';
 import {
     expensesKeyMapping, getExpenes, loadExpenses, saveExpense, sortExpenses
@@ -24,6 +25,7 @@ function Expenses() {
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(new Date().toISOString());
   const [hive, setHive] = useState("");
+  if (user.loading) return <Loading />;
   if (user.id === "")
     return (
       <FSMessage>
@@ -100,7 +102,7 @@ function Expenses() {
               dispatch(saveExpense(amount, description, date, hive))
             }
           >
-            {expenses.loading && <ButtonSpinner />}
+            {expenses.state && <ButtonSpinner />}
             {translate("sv")}
           </button>
         </div>

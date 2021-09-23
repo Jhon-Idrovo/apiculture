@@ -12,6 +12,7 @@ module.exports = {
       "txt-secondary": "#FFFFFF",
       "accent-primary": "#79A9D1",
       "txt-accent-primary": "#FFFFFF",
+      alert: colors.red[500],
     },
     extend: {},
   },

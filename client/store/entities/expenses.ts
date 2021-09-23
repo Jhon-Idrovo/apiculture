@@ -14,8 +14,16 @@ export declare interface IExpense {
   description: string;
   date: string; // yy/mm/dd
 }
+export declare type EntityStateType =
+  | "init"
+  | "loading"
+  | "loaded"
+  | "load-failed"
+  | "saving"
+  | "saved"
+  | "save-failed";
 const expensesInitialState = {
-  loading: false,
+  state: "init" as EntityStateType,
   error: "",
   sortBy: "" as keyof IExpense,
   order: "asc" as Order,
@@ -25,17 +33,18 @@ const expensesSlice = createSlice({
   name: "expenses",
   initialState: expensesInitialState,
   reducers: {
-    expensesLoading: (expenses) => {
-      expenses.loading = true;
+    expensesLoading: (expenses, action: PayloadAction<EntityStateType>) => {
+      expenses.error = "";
+      expenses.state = action.payload;
     },
     expensesLoaded: (expenses, action: PayloadAction<IExpense[]>) => {
       expenses.list = action.payload;
-      expenses.loading = false;
+      expenses.state = "loaded";
       expenses.error = "";
     },
     expensesLoadFailed: (expenses, action: PayloadAction<string>) => {
       expenses.error = action.payload;
-      expenses.loading = false;
+      expenses.state = "load-failed";
     },
     expensesSort: (
       expenses,
@@ -45,11 +54,12 @@ const expensesSlice = createSlice({
       expenses.list.sort(compareRows<IExpense>(sortBy, order));
       expenses.sortBy = sortBy;
       expenses.order = order;
-      expenses.loading = false;
+      expenses.state = "init";
     },
     expenseSaved: (expenses, action: PayloadAction<IExpense>) => {
       expenses.list.push(action.payload);
-      expenses.loading = false;
+      expenses.error = "";
+      expenses.state = "saved";
     },
   },
 });
@@ -68,7 +78,7 @@ export const getExpenes = (state: RootState) => state.entities.expenses;
 export const loadExpenses = (): AppThunk => async (dispatch) => {
   try {
     // set loading
-    dispatch(expensesLoading());
+    dispatch(expensesLoading("loading"));
     // call to api
     const res = await axiosInstance.get(EXPENSES_ENDPOINT);
     // set the state
@@ -82,7 +92,7 @@ export const loadExpenses = (): AppThunk => async (dispatch) => {
 export const sortExpenses =
   (sortBy: keyof IExpense): AppThunk =>
   (dispatch, getState) => {
-    dispatch(expensesLoading());
+    dispatch(expensesLoading("loading"));
     const state = getState();
     const expenses = state.entities.expenses;
     // If we have the colum already sorted we only need to change the order.
@@ -98,14 +108,16 @@ export const sortExpenses =
   };
 export const saveExpense =
   (
-    amount: number,
+    amount: number | "",
     description: string,
     date: string | number,
     hive: string
   ): AppThunk =>
   async (dispatch) => {
-    dispatch(expensesLoading());
+    dispatch(expensesLoading("saving"));
     try {
+      if (!(amount && description && date && hive)) throw new Error("errMsg01");
+
       const r = await axiosInstance.post(EXPENSES_ENDPOINT + "/create", {
         amount,
         description,
