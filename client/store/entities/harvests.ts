@@ -5,6 +5,7 @@ import { HARVESTS_ENDPOINT } from '../../config/config';
 import { compareRows, errorToMessage, IField, Order, translate } from '../../utils/utils';
 import { RootState } from '../configureStore';
 import { AppThunk } from '../middleware/thunkMiddleware';
+import { EntityStateType } from './expenses';
 import { getHiveById } from './hives';
 import { getProductById } from './products';
 
@@ -17,7 +18,7 @@ export declare interface IHarvest {
 }
 
 const initialHarvests = {
-  loading: false,
+  state: "init" as EntityStateType,
   list: [] as IHarvest[],
   sortBy: "",
   order: "" as Order,
@@ -27,15 +28,15 @@ const harvestSlice = createSlice({
   name: "harvests",
   initialState: initialHarvests,
   reducers: {
-    harvestsLoading: (harvests) => {
-      harvests.loading = true;
+    harvestsLoading: (harvests, action: PayloadAction<EntityStateType>) => {
+      harvests.state = action.payload;
     },
     harvestsLoaded: (harvests, action: PayloadAction<IHarvest[]>) => {
       harvests.list = action.payload;
       harvests.error = "";
 
       harvests.error = "";
-      harvests.loading = false;
+      harvests.state = "loaded";
     },
     harvestsLoadFailed: (harvests, action: PayloadAction<string>) => {
       harvests.error = action.payload;
@@ -48,11 +49,15 @@ const harvestSlice = createSlice({
       harvests.sortBy = sortBy;
       harvests.order = order;
       harvests.list.sort(compareRows<IHarvest>(sortBy, order));
-      harvests.loading = false;
+      harvests.state = "loaded";
     },
     harvestSaved: (harvests, action: PayloadAction<IHarvest>) => {
       harvests.list.push(action.payload);
-      harvests.loading = false;
+      harvests.state = "saved";
+    },
+    harvestReestart: (harvests) => {
+      harvests.error = "";
+      harvests.state = "init";
     },
   },
 });
@@ -64,6 +69,7 @@ const {
   harvestsLoaded,
   harvestsSort,
   harvestSaved,
+  harvestReestart,
 } = harvestSlice.actions;
 
 // SELECTORS
@@ -81,7 +87,7 @@ export const getHarvests = (state: RootState) => {
 // FUNCTION ACTIONS
 export const loadHarvests = (): AppThunk => async (dispatch) => {
   // set loading
-  dispatch(harvestsLoading());
+  dispatch(harvestsLoading("loading"));
   try {
     // call to the api
     const res = await axiosInstance.get(HARVESTS_ENDPOINT);
@@ -102,7 +108,7 @@ export const saveHarvest =
     hive: string
   ): AppThunk =>
   async (dispatch) => {
-    dispatch(harvestsLoading());
+    dispatch(harvestsLoading("saving"));
     try {
       const res = await axiosInstance.post(HARVESTS_ENDPOINT + "/create", {
         amount,
@@ -122,7 +128,7 @@ export const saveHarvest =
 export const sortHarvests =
   (sortBy: keyof IHarvest): AppThunk =>
   (dispatch, getState) => {
-    dispatch(harvestsLoading());
+    dispatch(harvestsLoading("loading"));
     const state = getState();
     const harvests = state.entities.harvests;
     // If we have the colum already sorted we only need to change the order.
@@ -136,6 +142,10 @@ export const sortHarvests =
           "asc";
     dispatch(harvestsSort({ order: o, sortBy }));
   };
+export const harvestsToDefault = (): AppThunk => (dispatch) => {
+  dispatch(harvestReestart());
+};
+
 // UTILS
 export declare type HarvestsMappingType = Record<
   keyof Omit<IHarvest, "_id">,

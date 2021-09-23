@@ -5,7 +5,7 @@ import ButtonSpinner from '../components/ButtonSpinner';
 import Loading from '../components/Loading';
 import { expensesToDefault, getExpenes, saveExpense } from '../store/entities/expenses';
 import { getHives, loadHives } from '../store/entities/hives';
-import { getProducts } from '../store/entities/products';
+import { getProducts, loadProducts } from '../store/entities/products';
 import { getSells, saveSell } from '../store/entities/sells';
 import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
 import { translate } from '../utils/utils';
@@ -19,8 +19,11 @@ function CreateSell() {
   const sells = useAppSelector(getSells);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(loadHives());
+    dispatch(loadProducts());
   }, []);
+  useEffect(() => {
+    if (products.list.length > 0) setProduct(products.list[0]._id);
+  }, [products.list]);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(saveSell(amount, price, date, product));
@@ -33,7 +36,7 @@ function CreateSell() {
     setDate(new Date().getTime());
     dispatch(expensesToDefault());
   };
-  if (products.state) return <Loading />;
+  if (products.state === "loading") return <Loading />;
   return (
     <main className="">
       <form className="exp-form form-secondary" onSubmit={handleSubmit}>
@@ -54,7 +57,7 @@ function CreateSell() {
           value={price}
           onChange={(e) => setPrice(parseFloat(e.target.value))}
         />
-        <label htmlFor="hive-in">{translate("colmena")}</label>
+        <label htmlFor="hive-in">{translate("producto")}</label>
 
         <select
           name=""
@@ -62,8 +65,10 @@ function CreateSell() {
           value={product}
           onChange={(e) => setProduct(e.target.value)}
         >
-          {products.list.map((product) => (
-            <option value={product._id}>{product.name}</option>
+          {products.list.map((product, i) => (
+            <option key={i} value={product._id}>
+              {product.name}
+            </option>
           ))}
         </select>
         <label htmlFor="date-in">{translate("fecha")}</label>

@@ -10,6 +10,7 @@
   "nv5": "Expense",
   "nv6": "Sell",
   "nv7": "Hive",
+  "nv8": "Harvest",
   "panel": "Dashboard",
   "anadir": "Add",
   "exp1": "Add Expense",
@@ -44,5 +45,6 @@
   "nuevoProducto": "New Product",
   "nuevaColmena": "New Hive",
   "nuevaVenta": "New Sell",
+  "nuevaCosecha": "New Harvest",
   "unoMas": "Add More"
 }

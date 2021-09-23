@@ -160,6 +160,6 @@ export const expensesKeyMapping: ExpensesMappingType = {
   } as IField,
   hive: {
     header: translate("colmena"),
-    transform: (hiveId: string) => (hiveId ? getHiveById(hiveId).name : "N/A"),
-  } as IField,
+    transform: (hive: IExpense["hive"]) => (hive ? hive._id : "N/A"),
+  } as unknown as IField,
 };

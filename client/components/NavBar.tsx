@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import {
-    CREATE_EXPENSE_URL, CREATE_HIVE_URL, CREATE_PRODUCT_URL, CREATE_SELL_URL
+    CREATE_EXPENSE_URL, CREATE_HARVEST_URL, CREATE_HIVE_URL, CREATE_PRODUCT_URL, CREATE_SELL_URL
 } from '../config/config';
 import { useAppDispatch } from '../store/hooks/hooks';
 import { reloadUserFromToken } from '../store/user/user';
@@ -115,6 +115,15 @@ function NavBar() {
         >
           <Link href={CREATE_HIVE_URL}>
             <a>{translate("nv7")}</a>
+          </Link>
+        </li>
+        <li
+          className={`${
+            router.pathname === CREATE_HARVEST_URL && "list-el-active"
+          }`}
+        >
+          <Link href={CREATE_HARVEST_URL}>
+            <a>{translate("nv8")}</a>
           </Link>
         </li>
       </ul>

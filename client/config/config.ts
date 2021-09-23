@@ -22,3 +22,4 @@ export const CREATE_PRODUCT_URL = "/create-product";
 export const CREATE_EXPENSE_URL = "/create-expense";
 export const CREATE_SELL_URL = "/create-sell";
 export const CREATE_HIVE_URL = "/create-hive";
+export const CREATE_HARVEST_URL = "/create-harvest";

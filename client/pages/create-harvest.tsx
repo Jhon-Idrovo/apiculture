@@ -4,24 +4,29 @@ import { MouseEventHandler, useEffect, useState } from 'react';
 import ButtonSpinner from '../components/ButtonSpinner';
 import Loading from '../components/Loading';
 import { expensesToDefault, getExpenes, saveExpense } from '../store/entities/expenses';
+import { getHarvests } from '../store/entities/harvests';
 import { getHives, loadHives } from '../store/entities/hives';
+import { getProducts } from '../store/entities/products';
 import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
 import { translate } from '../utils/utils';
 
-function CreateExpense() {
+function CreateHarvest() {
   const [amount, setAmount] = useState<"" | number>("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState<string | number>(new Date().getTime());
+  const [product, setProduct] = useState("");
   const [hive, setHive] = useState("");
+  const products = useAppSelector(getProducts);
   const hives = useAppSelector(getHives);
-  const expenses = useAppSelector(getExpenes);
+  const harvests = useAppSelector(getHarvests);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(loadHives());
   }, []);
   useEffect(() => {
+    if (products.list.length > 0) setProduct(products.list[0]._id);
     if (hives.list.length > 0) setHive(hives.list[0]._id);
-  }, [hives.list]);
+  }, [products.list, hives.list]);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(saveExpense(amount, description, date, hive));
@@ -30,31 +35,16 @@ function CreateExpense() {
     e.preventDefault();
     setAmount("");
     setDescription("");
-    setHive(hives.list[0]?._id);
+    setHive(products.list[0]?._id);
     setDate(new Date().getTime());
     dispatch(expensesToDefault());
   };
-  if (hives.state === "loading") return <Loading />;
+  if (products.state === "loading") return <Loading />;
   return (
     <main className="">
       <form className="exp-form form-secondary" onSubmit={handleSubmit}>
-        <h1 className="form-title">{translate("nuevoGasto")}</h1>
-        <label htmlFor="amount-in">{translate("cantidad")}</label>
-        <input
-          type="number"
-          name=""
-          id="amount-in"
-          value={amount}
-          onChange={(e) => setAmount(parseFloat(e.target.value))}
-        />
-        <label htmlFor="desc-in">{translate("descripcion")}</label>
-        <input
-          type="text"
-          name=""
-          id="desc-in"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+        <h1 className="form-title">{translate("nuevaCosecha")}</h1>
+        {/* date */}
         <label htmlFor="date-in">{translate("fecha")}</label>
         <input
           type="date"
@@ -63,30 +53,51 @@ function CreateExpense() {
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
+        {/* amount */}
+        <label htmlFor="amount-in">{translate("cantidad")}</label>
+        <input
+          type="number"
+          name=""
+          id="amount-in"
+          value={amount}
+          onChange={(e) => setAmount(parseFloat(e.target.value))}
+        />
+        {/* product */}
+        <label htmlFor="product-in">{translate("producto")}</label>
+
+        <select
+          name=""
+          id="product-in"
+          value={product}
+          onChange={(e) => setProduct(e.target.value)}
+        >
+          {products.list.map((prod) => (
+            <option value={prod._id}>{prod.name}</option>
+          ))}
+        </select>
+        {/* hive */}
         <label htmlFor="hive-in">{translate("colmena")}</label>
+
         <select
           name=""
           id="hive-in"
           value={hive}
           onChange={(e) => setHive(e.target.value)}
         >
-          {hives.list.map((hive, index) => (
-            <option key={index} value={hive._id}>
-              {hive.name}
-            </option>
+          {hives.list.map((hive) => (
+            <option value={hive._id}>{hive.name}</option>
           ))}
-          <option value="N/A">N/A</option>
         </select>
-        {expenses.error && (
-          <p className="err-msg">{translate(expenses.error)}</p>
+        {harvests.error && (
+          <p className="err-msg">{translate(harvests.error)}</p>
         )}
         <button
           className="btn btn-primary mx-auto"
-          onClick={expenses.state === "saved" ? saveMoreHandler : undefined}
+          onClick={harvests.state === "saved" ? saveMoreHandler : undefined}
         >
-          {expenses.state === "saving" && <ButtonSpinner />}
+          {harvests.state === "saving" && <ButtonSpinner />}
 
-          {expenses.state === "saved" ? (
+          {harvests.state === "saved" ? (
             <>
               <i className="fas fa-check"></i>
               {translate("unoMas")}
@@ -100,4 +111,4 @@ function CreateExpense() {
   );
 }
 
-export default CreateExpense;
+export default CreateHarvest;
