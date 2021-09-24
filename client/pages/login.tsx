@@ -39,7 +39,7 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         {user.error && <p className="error-message">{user.error}</p>}
-        <button className="btn btn-primary">Login</button>
+        <button className="btn btn-primary">{translate("ingresar")}</button>
         <p className="info-message">
           <Link href="/signup">
             <a>{translate("sinCuenta")}</a>
@@ -56,3 +56,7 @@ function Login() {
 }
 
 export default Login;
+
+export async function getServerSideProps() {
+  return { props: {} };
+}

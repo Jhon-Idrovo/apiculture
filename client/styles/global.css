@@ -115,6 +115,7 @@ main {
 
 /* SIDES */
 .list-active {
+  @apply overflow-scroll;
   width: 100vw;
 }
 .list-active li {

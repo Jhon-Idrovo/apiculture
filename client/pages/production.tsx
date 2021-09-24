@@ -83,9 +83,3 @@ function Production() {
 
 export default Production;
 
-// To avoid error with react-intl
-export async function getServerSideProps() {
-  return {
-    props: {}, // will be passed to the page component as props
-  };
-}
