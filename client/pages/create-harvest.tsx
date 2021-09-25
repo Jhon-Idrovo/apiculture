@@ -4,7 +4,7 @@ import { MouseEventHandler, useEffect, useState } from 'react';
 import ButtonSpinner from '../components/ButtonSpinner';
 import Loading from '../components/Loading';
 import { expensesToDefault, saveExpense } from '../store/entities/expenses';
-import { getHarvests, loadHarvests } from '../store/entities/harvests';
+import { getHarvests } from '../store/entities/harvests';
 import { getHives, loadHives } from '../store/entities/hives';
 import { getProducts, loadProducts } from '../store/entities/products';
 import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
