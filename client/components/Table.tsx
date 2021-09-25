@@ -56,7 +56,10 @@ function Table({
   if (loading) return <Loading />;
   if (error) return <Error />;
   return (
-    <div className="w-full overflow-x-show" style={{ height: "max-content" }}>
+    <div
+      className="w-full overflow-x-show table-wrapper"
+      style={{ height: "max-content" }}
+    >
       <div className="enhanced-table">
         <div className="t-head t-row">
           {/* Menu button */}

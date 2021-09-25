@@ -102,7 +102,7 @@ export const loadHarvests = (): AppThunk => async (dispatch) => {
 };
 export const saveHarvest =
   (
-    amount: number,
+    amount: number | "",
     date: number | string,
     product: string,
     hive: string
@@ -110,6 +110,8 @@ export const saveHarvest =
   async (dispatch) => {
     dispatch(harvestsLoading("saving"));
     try {
+      if (!(amount && date && product && hive)) throw new Error("errMsg1");
+
       const res = await axiosInstance.post(HARVESTS_ENDPOINT + "/create", {
         amount,
         date: new Date(date).getTime(),

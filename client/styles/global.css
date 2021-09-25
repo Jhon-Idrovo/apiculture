@@ -258,6 +258,21 @@ label {
 }
 
 /* PRODUCTION */
+@media only screen and (min-width: 700px) {
+  .production {
+    @apply grid;
+    grid-template-areas: "donut hives" "table table";
+  }
+  .donut {
+    grid-area: donut;
+  }
+  .hives-container {
+    grid-area: hives;
+  }
+  .table-wrapper {
+    grid-area: table;
+  }
+}
 .new-in-form #name-in {
   grid-area: name;
 }

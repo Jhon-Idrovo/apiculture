@@ -16,7 +16,8 @@ function Donut({
 }) {
   console.log(typeof window);
   return (
-    <div className="w-full">
+    <div className="w-full max-w-md mx-auto donut relative">
+      <h1 className="mx-auto w-min">Title</h1>
       <Doughnut
         data={data}
         className="w-full"

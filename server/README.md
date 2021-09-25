@@ -57,3 +57,8 @@ TWITTER_API_SECRET =
 <!-- For nodemailer -->
 
 GOOGLE_APP_KEY =
+
+## TODO
+
+- set up handling of edge cases:
+  - user with previous access/refresh token that has deleted it's account recently

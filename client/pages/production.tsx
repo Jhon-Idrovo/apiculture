@@ -40,7 +40,7 @@ function Production() {
   )
     return <Loading />;
   return (
-    <main>
+    <main className="production">
       <Donut
         data={getDonutData(hives.list)}
         onClickHandler={() => {
@@ -82,4 +82,3 @@ function Production() {
 }
 
 export default Production;
-

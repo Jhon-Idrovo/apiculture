@@ -3,8 +3,7 @@ import { MouseEventHandler, useEffect, useState } from 'react';
 
 import ButtonSpinner from '../components/ButtonSpinner';
 import Loading from '../components/Loading';
-import { expensesToDefault, saveExpense } from '../store/entities/expenses';
-import { getHarvests } from '../store/entities/harvests';
+import { getHarvests, harvestsToDefault, saveHarvest } from '../store/entities/harvests';
 import { getHives, loadHives } from '../store/entities/hives';
 import { getProducts, loadProducts } from '../store/entities/products';
 import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
@@ -12,8 +11,7 @@ import { translate } from '../utils/utils';
 
 function CreateHarvest() {
   const [amount, setAmount] = useState<"" | number>("");
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState<string | number>(new Date().getTime());
+  const [date, setDate] = useState<number | string>(new Date().getTime());
   const [product, setProduct] = useState("");
   const [hive, setHive] = useState("");
   const products = useAppSelector(getProducts);
@@ -30,15 +28,15 @@ function CreateHarvest() {
   }, [products.list, hives.list]);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(saveExpense(amount, description, date, hive));
+
+    dispatch(saveHarvest(amount, date, product, hive));
   };
   const saveMoreHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     setAmount("");
-    setDescription("");
     setHive(products.list[0]?._id);
     setDate(new Date().getTime());
-    dispatch(expensesToDefault());
+    dispatch(harvestsToDefault());
   };
   if (products.state === "loading") return <Loading />;
   return (
