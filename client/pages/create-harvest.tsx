@@ -4,9 +4,9 @@ import { MouseEventHandler, useEffect, useState } from 'react';
 import ButtonSpinner from '../components/ButtonSpinner';
 import Loading from '../components/Loading';
 import { expensesToDefault, saveExpense } from '../store/entities/expenses';
-import { getHarvests } from '../store/entities/harvests';
+import { getHarvests, loadHarvests } from '../store/entities/harvests';
 import { getHives, loadHives } from '../store/entities/hives';
-import { getProducts } from '../store/entities/products';
+import { getProducts, loadProducts } from '../store/entities/products';
 import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
 import { translate } from '../utils/utils';
 
@@ -22,6 +22,7 @@ function CreateHarvest() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(loadHives());
+    dispatch(loadProducts());
   }, []);
   useEffect(() => {
     if (products.list.length > 0) setProduct(products.list[0]._id);
@@ -72,7 +73,9 @@ function CreateHarvest() {
           onChange={(e) => setProduct(e.target.value)}
         >
           {products.list.map((prod) => (
-            <option value={prod._id}>{prod.name}</option>
+            <option key={prod._id} value={prod._id}>
+              {prod.name}
+            </option>
           ))}
         </select>
         {/* hive */}
@@ -85,7 +88,9 @@ function CreateHarvest() {
           onChange={(e) => setHive(e.target.value)}
         >
           {hives.list.map((hive) => (
-            <option value={hive._id}>{hive.name}</option>
+            <option key={hive._id} value={hive._id}>
+              {hive.name}
+            </option>
           ))}
         </select>
         {harvests.error && (

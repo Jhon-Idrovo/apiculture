@@ -38,7 +38,7 @@ function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {user.error && <p className="error-message">{user.error}</p>}
+        {user.error && <p className="err-msg">{user.error}</p>}
         <button className="btn btn-primary">{translate("ingresar")}</button>
         <p className="info-message">
           <Link href="/signup">

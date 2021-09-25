@@ -45,7 +45,7 @@ function SignUp() {
           id="password-in"
           onChange={(e) => setPassword(e.target.value)}
         />
-        {user.error && <p className="error-message">{user.error}</p>}
+        {user.error && <p className="error-msg">{user.error}</p>}
         <button className="btn btn-primary">{translate("registrarse")}</button>
         <p className="info-message">
           <Link href={LOGIN_URL}>

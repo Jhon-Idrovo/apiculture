@@ -15,6 +15,7 @@ function CreateProduct() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(loadHives());
+    
   }, []);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
