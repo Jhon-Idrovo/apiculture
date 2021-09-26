@@ -1,5 +1,6 @@
-import { model, Schema } from "mongoose";
-import { IHarvest } from "./interfaces/harvests";
+import { model, Schema } from 'mongoose';
+
+import { IHarvest } from './interfaces/harvests';
 
 const harvestSchema = new Schema<IHarvest>({
   date: Number,

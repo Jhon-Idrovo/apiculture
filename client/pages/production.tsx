@@ -11,7 +11,7 @@ import { changeActiveHive, getHives, loadHives } from '../store/entities/hives';
 import { getProducts, loadProducts } from '../store/entities/products';
 import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
 import { getUser } from '../store/user/user';
-import { getDonutData, translate } from '../utils/utils';
+import { getDonutDataByProduct, translate } from '../utils/utils';
 
 /**
  * Hives and their production. Either individualized or total
@@ -41,15 +41,20 @@ function Production() {
     return <Loading />;
   return (
     <main className="production">
-      <Donut
-        data={getDonutData(hives.list)}
-        onClickHandler={() => {
-          //console.log(elements[0].index);
-          // dispatch(
-          //   changeActiveHive((hives.list[elements[0].index] as IHive)._id)
-          // );
-        }}
-      />
+      <div className="donuts">
+        {products.list.map((product) => (
+          <Donut
+            data={getDonutDataByProduct(hives.list, product._id)}
+            title={product.name}
+            onClickHandler={() => {
+              //console.log(elements[0].index);
+              // dispatch(
+              //   changeActiveHive((hives.list[elements[0].index] as IHive)._id)
+              // );
+            }}
+          />
+        ))}
+      </div>
       <div className="hives-container">
         {hives.list.map((hive) => (
           <div

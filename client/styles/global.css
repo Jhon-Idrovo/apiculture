@@ -37,6 +37,12 @@ select {
 .btn-accent-primary {
   @apply bg-accent-primary text-txt-accent-primary hover:bg-opacity-100;
 }
+.chart-title {
+  @apply font-semibold text-lg;
+}
+.donut {
+  max-width: 15rem;
+}
 .spinner {
   @apply border-4;
   border-color: inherit;
@@ -263,8 +269,9 @@ label {
     @apply grid;
     grid-template-areas: "donut hives" "table table";
   }
-  .donut {
+  .donuts {
     grid-area: donut;
+    @apply flex;
   }
   .hives-container {
     grid-area: hives;

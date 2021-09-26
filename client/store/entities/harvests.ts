@@ -171,6 +171,7 @@ export const harvestKeyssMapping: HarvestsMappingType = {
   // get the hive name
   hive: {
     header: translate("colmena"),
-    transform: (hiveID: string) => getHiveById(hiveID).name,
+    transform: (hiveID: string) =>
+      getHiveById(hiveID) ? getHiveById(hiveID).name : "N/A",
   },
 };

@@ -1,17 +1,12 @@
-import store from "../store/configureStore";
-import { getUser, IUser, IUserResponse, logIn } from "../store/user/user";
-import MockAdapter from "axios-mock-adapter";
-import { LOGIN_ENDPOINT } from "../config/config";
-import axiosInstance from "../config/axiosInstance";
-import { verifyToken } from "../utils/utils";
+import MockAdapter from 'axios-mock-adapter';
 
-const expectedUserResponse = {
-  accessToken:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MTQxNDZmZmYzN2VjZjFhOTNlOTRlZWEiLCJpYXQiOjE2MzE2Njc5NjcsImV4cCI6NTIzMTY2Nzk2N30.shTuR8CmWJxSJ6S-mpWkb8LI0uUcFaBxlzddh33fvjA",
-  refreshToken:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MTQxNDZmZmYzN2VjZjFhOTNlOTRlZWEiLCJpYXQiOjE2MzE2Njc5NjcsImV4cCI6NTIzMTY2Nzk2N30.shTuR8CmWJxSJ6S-mpWkb8LI0uUcFaBxlzddh33fvjA",
-  name: "Jhon Doe",
-} as IUserResponse;
+import axiosInstance from '../config/axiosInstance';
+import { LOGIN_ENDPOINT } from '../config/config';
+import store from '../store/configureStore';
+import { getUser, IUser, logIn } from '../store/user/user';
+import { verifyToken } from '../utils/utils';
+import { expectedUserResponse } from './response_placeholders';
+
 // UNIT TESTS
 describe("User", () => {
   let fakeAxios: MockAdapter;

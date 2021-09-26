@@ -149,8 +149,14 @@ export function compareRows<T>(orderBy: keyof T, order: Order) {
     return order === "desc" ? comparission * -1 : comparission;
   };
 }
-export const getDonutData = (hives: IHive[]) => {
-  let res = {
+export declare interface IDonutData {
+  productId: string;
+  data: object;
+}
+export const getDonutDataByProduct = (hives: IHive[], productId: string) => {
+  //let res: IDonutData[] = [];
+
+  let data = {
     labels: [] as string[], //push name of the hive here
     datasets: [
       {
@@ -167,10 +173,13 @@ export const getDonutData = (hives: IHive[]) => {
     ],
   };
   hives.map((hive) => {
-    res.labels.push(hive.name);
-    res.datasets[0].data.push(hive.totalHarvests);
+    data.labels.push(hive.name);
+    let total = hive.productionTotals.find(
+      (t) => t.product === productId
+    )?.total;
+    data.datasets[0].data.push(total ? total : 0);
   });
-  return res;
+  return data;
 };
 
 export const translate = (id: string) => <FormattedMessage id={id} />;

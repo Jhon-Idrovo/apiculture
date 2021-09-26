@@ -13,6 +13,7 @@ export declare interface IHive {
   name: string;
   installationDate: string;
   totalHarvests: number;
+  productionTotals: { total: number; product: string }[];
 }
 
 export declare interface IHivesResponse {

@@ -9,21 +9,28 @@ import { defaults, Doughnut } from 'react-chartjs-2';
 function Donut({
   data,
   onClickHandler,
+  title,
 }: {
   data: any;
   onClickHandler: typeof defaults.onClick;
+  title: string;
   //(event: ChartEvent, elements: ActiveElement[], chart: Chart<keyof ChartTypeRegistry, (number | ScatterDataPoint | BubbleDataPoint | null)[], unknown>) => void;
 }) {
-  console.log(typeof window);
   return (
-    <div className="w-full max-w-md mx-auto donut relative">
-      <h1 className="mx-auto w-min">Title</h1>
+    <div className="w-full mx-auto donut relative">
+      <h1 className="mx-auto w-min chart-title">{title}</h1>
       <Doughnut
         data={data}
         className="w-full"
         options={{
           // elements[0] is the first dataset
+          // plugins: {
+          //   title: {
+          //     display: true,
+          //   },
+          // },
           onClick: onClickHandler,
+          color: "#FFFFFF",
         }}
         plugins={{
           ...defaults.plugins,
