@@ -1,4 +1,3 @@
-import axios, { AxiosError } from 'axios';
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 

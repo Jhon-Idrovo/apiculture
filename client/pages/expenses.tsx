@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 
-import FSMessage from '../components/FSMessage';
 import Loading from '../components/Loading';
 import LogingNeeded from '../components/LogingNeeded';
 import Table from '../components/Table';
