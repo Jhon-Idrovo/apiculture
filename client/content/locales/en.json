@@ -35,6 +35,7 @@
   "precio": "Price",
   "ingreso": "Income",
   "fecha": "Date",
+  "fechaDeInstalacion": "Installation Date",
   "descripcion": "Description",
   "colmena": "Hive",
   "cosecha": "Harvest",

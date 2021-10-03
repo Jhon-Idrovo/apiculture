@@ -150,6 +150,9 @@ main {
   body {
     @apply ml-36;
   }
+  #mobile-nav {
+    display: none;
+  }
   .nav-bar hr,
   .nav-logo {
     display: initial;

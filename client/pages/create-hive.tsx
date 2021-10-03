@@ -40,7 +40,7 @@ function CreateHive() {
           onChange={(e) => setName(e.target.value)}
         />
         <label htmlFor="date-in" id="date-in-label">
-          {translate("fecha")}
+          {translate("fechaDeInstalacion")}
         </label>
 
         <input

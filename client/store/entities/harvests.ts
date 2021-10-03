@@ -118,9 +118,6 @@ export const saveHarvest =
         product,
         hive,
       });
-      if (!amount || !date || !product || !hive)
-        throw new Error("Please fill all the fields");
-
       dispatch(harvestSaved(res.data.harvest));
     } catch (error) {
       dispatch(harvestsLoadFailed(errorToMessage(error)));
