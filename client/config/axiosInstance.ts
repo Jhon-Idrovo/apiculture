@@ -1,5 +1,6 @@
-import axios from "axios";
-import { API_BASE_URL, LOGIN_URL } from "./config";
+import axios from 'axios';
+
+import { API_BASE_URL, LOGIN_URL } from './config';
 
 const baseURL = API_BASE_URL;
 const axiosInstance = axios.create({
@@ -17,7 +18,7 @@ axiosInstance.interceptors.response.use(
   (res) => res,
   //on reject
   async (error) => {
-    console.log("Failed request intercepted");
+    console.log("Failed request intercepted", error);
     const originalRequest = error.config;
     //IF THE SERVER ISN'T WORKING
     if (typeof error.response === "undefined") {
@@ -79,6 +80,7 @@ axiosInstance.interceptors.response.use(
         window.location.href = LOGIN_URL;
       }
     }
+    return Promise.reject(error);
   }
 );
 

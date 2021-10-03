@@ -18,7 +18,7 @@ function SignUp() {
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
     dispatch(signUp(email, password, username));
-    router.push("/");
+    router.push("/production");
   };
   return (
     <main className="fullscreen-form-container">
@@ -31,6 +31,7 @@ function SignUp() {
           id="username-in"
           onChange={(e) => setUsername(e.target.value)}
         />
+        <p>{translate("nombreDeUsuarioGuia")}</p>
         <label htmlFor="email-in">{translate("correo")}</label>
         <input
           type="email"

@@ -118,8 +118,6 @@ export const reloadUserFromToken =
 export const logIn =
   (email: string, password: string): AppThunk =>
   async (dispatch) => {
-    console.log(email, password);
-
     // start the loading
     dispatch(userLoading());
     // call the api
@@ -138,13 +136,9 @@ export const logIn =
         userLogged({ id: userID, name, error: "", loading: false })
       );
     } catch (error) {
-      return dispatch(
-        userLogInFailed(
-          axios.isAxiosError(error)
-            ? (error as AxiosError).response?.data.error.message
-            : (error as Error).message
-        )
-      );
+      console.log(error);
+
+      return dispatch(userLogInFailed(errorToMessage(error)));
     }
   };
 export const logOut = () => userLoggedOut();

@@ -31,8 +31,6 @@ export async function signInHandler(
   res: Response,
   next: NextFunction
 ) {
-  console.log(req);
-
   try {
     //use email because the username is not unique when using third party auth providers
     const { email, password } = req.body;
@@ -60,9 +58,12 @@ export async function signInHandler(
         });
       }
       throw new Error("Invalid password");
+    } else {
+      throw new Error("User not found");
     }
-    return res.status(400).json({ error: "User not found" });
   } catch (error) {
+    console.log(error);
+
     return res.status(400).json({ error: (error as Error).message });
   }
 }
@@ -156,6 +157,8 @@ export async function signUpHandler(
   const requestUser = { ...req.body, authMethod: "built-in" } as IUser;
   // validate agains joi
   const { error, value } = User.joiValidate(requestUser);
+  console.log(error);
+
   if (error) return res.status(400).json({ error });
 
   try {
@@ -175,6 +178,7 @@ export async function signUpHandler(
       refreshToken,
       user: user.username,
     });
+    //TODO: change this to unknow
   } catch (error: any) {
     console.log("Error on signup process:", error);
 
