@@ -42,8 +42,9 @@ export default function App({
       <Head>
         <meta
           name="description"
-          content="Learn how to build a personal website using Next.js"
+          content="Dashboard for beekeepers where you can easily track your expenses, production, sells and more"
         />
+        <title>Apiculture Dashboard</title>
         {/* FONT AWESOME */}
         <link
           rel="stylesheet"
