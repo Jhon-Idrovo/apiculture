@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 import { loadHives } from '../store/entities/hives';
 import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
@@ -7,7 +9,10 @@ import { translate } from '../utils/utils';
 
 export default function Home() {
   const user = useAppSelector(getUser);
-
+  const router = useRouter();
+  useEffect(() => {
+    window.location.href = "/production";
+  }, []);
   const dispatch = useAppDispatch();
   return (
     <>
@@ -15,17 +20,7 @@ export default function Home() {
         <title>Trivia App</title>
       </Head>
 
-      <main>
-        <div className="">{}</div>
-        <div>Name:{user.name}</div>
-        <button
-          onClick={() => dispatch(logIn("testemail@gmail.com", "lavacalola"))}
-        >
-          {translate("lgI")}
-        </button>
-        <button onClick={() => dispatch(logOut())}>{translate("lgO")}</button>
-        <button onClick={() => dispatch(loadHives())}></button>
-      </main>
+      <main></main>
     </>
   );
 }
