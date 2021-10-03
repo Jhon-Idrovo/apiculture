@@ -2,23 +2,20 @@
  * logic for handling auth requests
  */
 
-import { NextFunction, Request, Response } from "express";
-import Role from "../models/Role";
-import User from "../models/User";
-import BlacklistedToken from "../models/Token";
-import {
-  generateAccessToken,
-  generateRefreshToken,
-  verifyToken,
-} from "../utils/tokens";
-import passport from "passport";
-import { IUser } from "../models/interfaces/users";
-import { Document } from "mongoose";
-import { CLIENT_URL } from "../config/config";
-import { RequestEnhanced, ResponseError } from "../models/interfaces/utils";
-import RecoveryCode from "../models/RecoveryCode";
-import { generateCode } from "../utils/utils";
-import { transporter } from "../config/nodemailer";
+import { NextFunction, Request, Response } from 'express';
+import { Document } from 'mongoose';
+import passport from 'passport';
+
+import { CLIENT_URL } from '../config/config';
+import { transporter } from '../config/nodemailer';
+import { IUser } from '../models/interfaces/users';
+import { RequestEnhanced, ResponseError } from '../models/interfaces/utils';
+import RecoveryCode from '../models/RecoveryCode';
+import Role from '../models/Role';
+import BlacklistedToken from '../models/Token';
+import User from '../models/User';
+import { generateAccessToken, generateRefreshToken, verifyToken } from '../utils/tokens';
+import { generateCode } from '../utils/utils';
 
 /**
  * Verifies username and password against the database. If good, returns an object
@@ -176,7 +173,7 @@ export async function signUpHandler(
     return res.status(201).json({
       accessToken: generateAccessToken(user._id, newRole),
       refreshToken,
-      user,
+      user: user.username,
     });
   } catch (error: any) {
     console.log("Error on signup process:", error);

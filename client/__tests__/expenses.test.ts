@@ -4,7 +4,7 @@ import axiosInstance from '../config/axiosInstance';
 import { EXPENSES_ENDPOINT } from '../config/config';
 import store from '../store/configureStore';
 import { loadExpenses } from '../store/entities/expenses';
-import { expectedExpensesResponse } from './response_placeholders';
+import { expectedExpensesResponse } from '../utils/response_placeholders';
 
 describe("Expenses", () => {
   let fakeAxios: MockAdapter;

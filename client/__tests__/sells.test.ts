@@ -4,7 +4,7 @@ import axiosInstance from '../config/axiosInstance';
 import { SELLS_ENDPOINT } from '../config/config';
 import store from '../store/configureStore';
 import { loadSells, sortSells } from '../store/entities/sells';
-import { expectedSellsResponse } from './response_placeholders';
+import { expectedSellsResponse } from '../utils/response_placeholders';
 
 describe("Sells", () => {
   let fakeAxios: MockAdapter;

@@ -6,8 +6,8 @@ import store from '../store/configureStore';
 import { IHive, loadHives } from '../store/entities/hives';
 import { getProducts, loadProducts } from '../store/entities/products';
 import { ISell } from '../store/entities/sells';
+import { expectedHivesResponse, expectedProductsReponse } from '../utils/response_placeholders';
 import { compareRows, getDonutDataByProduct } from '../utils/utils';
-import { expectedHivesResponse, expectedProductsReponse } from './response_placeholders';
 
 describe("Utils", () => {
   let fakeAxios: MockAdapter;

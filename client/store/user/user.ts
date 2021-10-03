@@ -1,14 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios, { AxiosError } from "axios";
-import axiosInstance from "../../config/axiosInstance";
-import {
-  LOGIN_ENDPOINT,
-  RELOAD_USER_ENDPOINT,
-  SIGNUP_ENDPOINT,
-} from "../../config/config";
-import { errorToMessage, verifyToken } from "../../utils/utils";
-import { RootState } from "../configureStore";
-import { AppThunk } from "../middleware/thunkMiddleware";
+import axios, { AxiosError } from 'axios';
+
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import axiosInstance from '../../config/axiosInstance';
+import { LOGIN_ENDPOINT, RELOAD_USER_ENDPOINT, SIGNUP_ENDPOINT } from '../../config/config';
+import { errorToMessage, verifyToken } from '../../utils/utils';
+import { RootState } from '../configureStore';
+import { AppThunk } from '../middleware/thunkMiddleware';
 
 export declare interface IUser {
   name: string;
@@ -155,13 +153,27 @@ export const signUp =
   (email: string, password: string, username: string): AppThunk =>
   async (dispatch) => {
     dispatch(userLoading());
+
     try {
-      const res = await axiosInstance.post(SIGNUP_ENDPOINT, {
-        username,
-        email,
-        password,
-      });
-      dispatch(userSignedUp(res.data));
+      if (!(email && password && username))
+        throw new Error("llenaTodosLosCamposError");
+
+      const { data }: { data: IUserResponse } = await axiosInstance.post(
+        SIGNUP_ENDPOINT,
+        {
+          username,
+          email,
+          password,
+        }
+      );
+      const tokenPayload = verifyToken(data.accessToken);
+      dispatch(
+        userSignedUp({
+          accessToken: data.accessToken,
+          refreshToken: data.refreshToken,
+          user: { name: data.name, id: tokenPayload.userID },
+        })
+      );
     } catch (error) {
       dispatch(userSignUpFailed(errorToMessage(error)));
     }

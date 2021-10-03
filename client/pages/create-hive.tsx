@@ -2,13 +2,16 @@ import { FormEvent, MouseEventHandler } from 'hoist-non-react-statics/node_modul
 import { useState } from 'react';
 
 import ButtonSpinner from '../components/ButtonSpinner';
+import LogingNeeded from '../components/LogingNeeded';
 import { getHives, hivesToDefault, saveHive } from '../store/entities/hives';
 import { useAppDispatch, useAppSelector } from '../store/hooks/hooks';
+import { getUser } from '../store/user/user';
 import { translate } from '../utils/utils';
 
 function CreateHive() {
   const dispatch = useAppDispatch();
   const hives = useAppSelector(getHives);
+  const user = useAppSelector(getUser);
   const [name, setName] = useState("");
   const [date, setDate] = useState<string | number>(new Date().getTime());
   const submitHandler = (e: FormEvent) => {
@@ -21,6 +24,7 @@ function CreateHive() {
     setDate(new Date().getTime());
     dispatch(hivesToDefault());
   };
+  if (user.id === "") return <LogingNeeded />;
   return (
     <main>
       <form className="hive-form form-secondary" onSubmit={submitHandler}>

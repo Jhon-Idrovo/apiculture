@@ -1,11 +1,11 @@
 import MockAdapter from 'axios-mock-adapter';
 
 import axiosInstance from '../config/axiosInstance';
-import { LOGIN_ENDPOINT } from '../config/config';
+import { LOGIN_ENDPOINT, SIGNUP_ENDPOINT } from '../config/config';
 import store from '../store/configureStore';
-import { getUser, IUser, logIn } from '../store/user/user';
+import { getUser, IUser, logIn, signUp } from '../store/user/user';
+import { expectedSignUpResponse, expectedUserResponse } from '../utils/response_placeholders';
 import { verifyToken } from '../utils/utils';
-import { expectedUserResponse } from './response_placeholders';
 
 // UNIT TESTS
 describe("User", () => {
@@ -14,7 +14,6 @@ describe("User", () => {
     fakeAxios = new MockAdapter(axiosInstance);
   });
   test("should log in user", async () => {
-    // change the HTTP method for real use
     fakeAxios.onPost(LOGIN_ENDPOINT).reply(200, expectedUserResponse);
     // log in is an async function
     await store.dispatch(logIn("TestEmail", "TestPassword"));
@@ -28,6 +27,23 @@ describe("User", () => {
       error: "",
     } as IUser);
   });
+  test("should signUp user", async () => {
+    fakeAxios.onPost(SIGNUP_ENDPOINT).reply(201, expectedSignUpResponse);
+    await store.dispatch(signUp("test", "test", "test"));
+    const state = store.getState();
+    const user = getUser(state);
+    const ss = localStorage.getItem("ss");
+    const rr = localStorage.getItem("rr");
+    expect(user).toStrictEqual({
+      name: expectedSignUpResponse.name,
+      id: verifyToken(expectedSignUpResponse.accessToken).userID,
+      loading: false,
+      error: "",
+    } as IUser);
+    expect(ss).toBe(expectedSignUpResponse.accessToken);
+    expect(rr).toBe(expectedSignUpResponse.refreshToken);
+  });
+
   test("should log in user from token", () => {});
 });
 

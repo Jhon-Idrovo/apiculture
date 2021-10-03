@@ -26,6 +26,13 @@ export function verifyToken(token: string) {
   );
   return tokenParts as TokenPayloadInterface;
 }
+/**
+ * Returns a string of the error which is used as a key to find
+ * the error message on each language
+ * TODO: create error messages for each error
+ * @param error
+ * @returns
+ */
 export function errorToMessage(error: unknown) {
   return (
     axios.isAxiosError(error)

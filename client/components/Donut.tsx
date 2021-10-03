@@ -30,6 +30,7 @@ function Donut({
           //   },
           // },
           onClick: onClickHandler,
+          // text color
           color: "#FFFFFF",
         }}
         plugins={{

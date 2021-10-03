@@ -43,10 +43,13 @@
   "fechaInstalacion": "Fecha de instalación",
   "nombre": "Nombre",
   "errMsg1": "Por favor, complete todos los campos",
+  "errorLlenaTodosLosCampos": "Por favor, complete todos los campos",
   "nuevoGasto": "Nuevo gasto",
   "nuevoProducto": "Nuevo producto",
   "nuevaColmena": "Nueva colmena",
   "nuevaVenta": "Nueva venta",
   "nuevaCosecha": "Cosecha nueva",
-  "unoMas": "Agregar más"
+  "unoMas": "Agregar más",
+  "ir": "Ir",
+  "nombreDeUsuarioGuia": "Mínimo 6 caracteres"
 }

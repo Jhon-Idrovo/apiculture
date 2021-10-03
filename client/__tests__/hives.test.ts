@@ -4,7 +4,7 @@ import axiosInstance from '../config/axiosInstance';
 import { HIVES_ENDPOINT } from '../config/config';
 import store from '../store/configureStore';
 import { loadHives } from '../store/entities/hives';
-import { expectedHivesResponse } from './response_placeholders';
+import { expectedHivesResponse } from '../utils/response_placeholders';
 
 describe("Hive", () => {
   let fakeAxios: MockAdapter;

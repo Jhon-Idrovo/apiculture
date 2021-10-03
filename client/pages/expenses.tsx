@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import FSMessage from '../components/FSMessage';
 import Loading from '../components/Loading';
+import LogingNeeded from '../components/LogingNeeded';
 import Table from '../components/Table';
 import {
     expensesKeyMapping, getExpenes, loadExpenses, sortExpenses
@@ -20,12 +21,7 @@ function Expenses() {
   }, []);
   if (user.loading || expenses.state === "loading" || hives.state === "loading")
     return <Loading />;
-  if (user.id === "")
-    return (
-      <FSMessage>
-        <p>You're not logged in</p>
-      </FSMessage>
-    );
+  if (user.id === "") return <LogingNeeded />;
   return (
     <main>
       <Table

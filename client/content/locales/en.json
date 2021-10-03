@@ -43,10 +43,13 @@
   "fechaInstalacion": "Installation Date",
   "nombre": "Name",
   "errMsg1": "Please fill all the fields",
+  "errorLlenaTodosLosCampos": "Please fill all the fields",
   "nuevoGasto": "New Expense",
   "nuevoProducto": "New Product",
   "nuevaColmena": "New Hive",
   "nuevaVenta": "New Sell",
   "nuevaCosecha": "New Harvest",
-  "unoMas": "Add More"
+  "unoMas": "Add More",
+  "ir": "Go",
+  "nombreDeUsuarioGuia": "Mínimo 6 caracteres"
 }
