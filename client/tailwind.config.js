@@ -4,14 +4,21 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
-      base: "#292C28",
-      "txt-base": "#FFFFFF",
-      primary: "#E1B114",
-      "txt-primary": "#363107",
-      secondary: "#7D8CA3",
-      "txt-secondary": "#FFFFFF",
-      "accent-primary": "#79A9D1",
-      "txt-accent-primary": "#FFFFFF",
+      // 60%
+      base: "#292C28", // Blackish
+      "txt-base": "#FFFFFF", // White
+      primary: "#E1B114", // Yellow
+      "txt-primary": "#363107", // Blackish
+
+      // 30%
+      secondary: "#7D8CA3", // Gray
+      "txt-secondary": "#FFFFFF", // White
+      "base-contrast": "#47505F",
+      "txt-base-contrast": "#FFFFFF",
+
+      // 10%
+      "accent-primary": "#79A9D1", // Blue
+      "txt-accent-primary": "#FFFFFF", // White
       alert: colors.red[500],
     },
     extend: {},

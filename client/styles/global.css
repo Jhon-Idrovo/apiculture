@@ -20,6 +20,9 @@ body {
   outline: none;
 }
 /* UTILS */
+.card {
+  @apply p-2 m-2 rounded-md shadow-inner bg-base-contrast text-txt-base-contrast;
+}
 main {
   @apply text-txt-base;
 }
@@ -148,7 +151,7 @@ main {
 }
 @media only screen and (min-width: 700px) {
   body {
-    @apply ml-36;
+    @apply ml-32;
   }
   #mobile-nav {
     display: none;

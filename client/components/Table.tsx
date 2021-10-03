@@ -57,7 +57,7 @@ function Table({
   if (error) return <Error />;
   return (
     <div
-      className="w-full overflow-x-show table-wrapper"
+      className=" overflow-x-show table-wrapper card"
       style={{ height: "max-content" }}
     >
       <div className="enhanced-table">

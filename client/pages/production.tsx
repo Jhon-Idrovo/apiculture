@@ -41,7 +41,7 @@ function Production() {
     return <Loading />;
   return (
     <main className="production">
-      <div className="donuts">
+      <div className="donuts card">
         {products.list.map((product) => (
           <Donut
             data={getDonutDataByProduct(hives.list, product._id)}
@@ -55,7 +55,7 @@ function Production() {
           />
         ))}
       </div>
-      <div className="hives-container">
+      <div className="hives-container card">
         {hives.list.map((hive) => (
           <div
             className={`hive ${

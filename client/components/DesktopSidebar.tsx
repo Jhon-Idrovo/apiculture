@@ -12,7 +12,7 @@ function DesktopSidebar() {
   return (
     <nav
       id="desktop-nav"
-      className="fixed left-0 top-0 bottom-0 w-32 bg-primary text-txt-primary m-4 mr-0 rounded-md"
+      className="fixed left-0 top-0 bottom-0 w-32 bg-primary text-txt-primary m-0 mr-2 rounded-md overflow-x-hidden"
     >
       <Link href="/">
         <a className="">
