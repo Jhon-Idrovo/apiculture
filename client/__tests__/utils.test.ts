@@ -94,18 +94,17 @@ describe("Utils", () => {
     const productID = getProducts(store.getState()).list[0]._id;
     const hives = expectedHivesResponse.hives;
     const data = getDonutDataByProduct(hives as unknown as IHive[], productID);
-    console.log({ data });
 
     const expected = [
       {
         productId: "614f374972c6f648d79961f1",
         data: {
-          labels: ["Easth", "North"],
+          labels: ["North", "Easth"],
 
           datasets: [
             {
               label: "Hives",
-              data: [21, 11],
+              data: [11, 21],
               backgroundColor: [
                 "rgb(255, 99, 132)",
                 "rgb(54, 162, 235)",
@@ -119,11 +118,11 @@ describe("Utils", () => {
       {
         productId: "614f379372c6f648d79961f3",
         data: {
-          labels: ["Easth", "North"],
+          labels: ["North", "Easth"],
           datasets: [
             {
               label: "Hives",
-              data: [21, 22],
+              data: [11, 21],
               backgroundColor: [
                 "rgb(255, 99, 132)",
                 "rgb(54, 162, 235)",
