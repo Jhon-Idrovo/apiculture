@@ -10,9 +10,12 @@ import { translate } from '../utils/utils';
 function DesktopSidebar() {
   const router = useRouter();
   return (
-    <nav className="">
+    <nav
+      id="desktop-nav"
+      className="fixed left-0 top-0 bottom-0 w-32 bg-primary text-txt-primary m-4 mr-0 rounded-md"
+    >
       <Link href="/">
-        <a className="nav-logo">
+        <a className="">
           <svg
             version="1.0"
             xmlns="http://www.w3.org/2000/svg"
@@ -119,34 +122,41 @@ function DesktopSidebar() {
           </svg>
         </a>
       </Link>
-      <hr />
 
-      <ul className="">
-        <li className="left-header">{translate("panel")}</li>
-        <li className={`${router.pathname === "/sells" && "list-el-active"}`}>
+      <ul className="desktop-nav_list mb-4">
+        <li className="dashboard-header nav_header">{translate("panel")}</li>
+        <li
+          className={`list_element ${
+            router.pathname === "/sells" && "list-el-active"
+          }`}
+        >
           <Link href="/sells">
             <a>{translate("nv1")}</a>
           </Link>
         </li>
         <li
-          className={`${router.pathname === "/expenses" && "list-el-active"}`}
+          className={`list_element ${
+            router.pathname === "/expenses" && "list-el-active"
+          }`}
         >
           <Link href="/expenses">
             <a>{translate("nv2")}</a>
           </Link>
         </li>
         <li
-          className={`${router.pathname === "/production" && "list-el-active"}`}
+          className={`list_element ${
+            router.pathname === "/production" && "list-el-active"
+          }`}
         >
           <Link href="/production">
             <a>{translate("nv3")}</a>
           </Link>
         </li>
       </ul>
-      <ul className="">
-        <li className="right-header">{translate("anadir")}</li>
+      <ul className="desktop-nav_list">
+        <li className="right-header nav_header">{translate("anadir")}</li>
         <li
-          className={`${
+          className={`list_element ${
             router.pathname === CREATE_PRODUCT_URL && "list-el-active"
           }`}
         >
@@ -155,7 +165,7 @@ function DesktopSidebar() {
           </Link>
         </li>
         <li
-          className={`${
+          className={`list_element ${
             router.pathname === CREATE_EXPENSE_URL && "list-el-active"
           }`}
         >
@@ -164,7 +174,7 @@ function DesktopSidebar() {
           </Link>
         </li>
         <li
-          className={`${
+          className={`list_element ${
             router.pathname === CREATE_SELL_URL && "list-el-active"
           }`}
         >
@@ -173,7 +183,7 @@ function DesktopSidebar() {
           </Link>
         </li>
         <li
-          className={`${
+          className={`list_element ${
             router.pathname === CREATE_HIVE_URL && "list-el-active"
           }`}
         >
@@ -182,7 +192,7 @@ function DesktopSidebar() {
           </Link>
         </li>
         <li
-          className={`${
+          className={`list_element ${
             router.pathname === CREATE_HARVEST_URL && "list-el-active"
           }`}
         >

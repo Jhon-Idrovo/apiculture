@@ -7,6 +7,7 @@ import { Fragment, useMemo } from 'react';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 
+import DesktopSidebar from '../components/DesktopSidebar';
 import NavBar from '../components/NavBar';
 // i18n
 import EN from '../content/locales/en.json';
@@ -62,6 +63,7 @@ export default function App({
           // To not see errors on missing translations
           //onError={() => null}
         >
+          <DesktopSidebar />
           <NavBar />
           <Component {...pageProps} />
         </IntlProvider>

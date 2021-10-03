@@ -312,3 +312,21 @@ label {
 .exp-form input,
 .exp-form select {
 }
+/* DESKTOP NAV */
+#desktop-nav {
+  display: none;
+}
+@media only screen and (min-width: 700px) {
+  #desktop-nav {
+    display: initial;
+  }
+}
+.desktop-nav_list {
+  @apply pl-2;
+}
+.list_element {
+  @apply pl-2;
+}
+.nav_header {
+  @apply pl-0 font-bold text-lg;
+}

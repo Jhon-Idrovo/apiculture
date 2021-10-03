@@ -20,6 +20,7 @@ function NavBar() {
   const [navSide, setNavSide] = useState<"" | "left" | "right">("");
   return (
     <nav
+      id="mobile-nav"
       className={`nav-bar ${
         navSide && (navSide === "left" ? "nav-left" : "nav-right")
       }`}
