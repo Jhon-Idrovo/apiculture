@@ -1,4 +1,3 @@
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import axiosInstance from '../../config/axiosInstance';
@@ -25,7 +24,7 @@ export const userInitialState: IUser = {
 export declare interface IUserResponse {
   accessToken: string;
   refreshToken: string;
-  name: IUser["name"];
+  user: IUser["name"];
 }
 export const userSlice = createSlice({
   name: "user",
@@ -122,7 +121,7 @@ export const logIn =
     // call the api
     try {
       const res = await axiosInstance.post(LOGIN_ENDPOINT, { email, password });
-      const { name, accessToken, refreshToken } = res.data as IUserResponse;
+      const { user, accessToken, refreshToken } = res.data as IUserResponse;
       localStorage.setItem("ss", accessToken);
       localStorage.setItem("rr", refreshToken);
       const r = verifyToken(accessToken);
@@ -132,7 +131,7 @@ export const logIn =
       axiosInstance.defaults.headers.Authorization = `JWT ${accessToken}`;
       // pass the error to override previous errors
       return dispatch(
-        userLogged({ id: userID, name, error: "", loading: false })
+        userLogged({ id: userID, name: user, error: "", loading: false })
       );
     } catch (error) {
       console.log(error);
@@ -164,7 +163,7 @@ export const signUp =
         userSignedUp({
           accessToken: data.accessToken,
           refreshToken: data.refreshToken,
-          user: { name: data.name, id: tokenPayload.userID },
+          user: { name: data.user, id: tokenPayload.userID },
         })
       );
     } catch (error) {

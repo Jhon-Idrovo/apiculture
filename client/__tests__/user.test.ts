@@ -21,7 +21,7 @@ describe("User", () => {
     const user = getUser(state);
     const r = verifyToken(expectedUserResponse.accessToken);
     expect(user).toStrictEqual({
-      name: expectedUserResponse.name,
+      name: expectedUserResponse.user,
       id: r.userID,
       loading: false,
       error: "",
@@ -35,7 +35,7 @@ describe("User", () => {
     const ss = localStorage.getItem("ss");
     const rr = localStorage.getItem("rr");
     expect(user).toStrictEqual({
-      name: expectedSignUpResponse.name,
+      name: expectedSignUpResponse.user,
       id: verifyToken(expectedSignUpResponse.accessToken).userID,
       loading: false,
       error: "",

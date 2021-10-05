@@ -88,7 +88,7 @@ export const expectedUserResponse = {
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MTQxNDZmZmYzN2VjZjFhOTNlOTRlZWEiLCJpYXQiOjE2MzE2Njc5NjcsImV4cCI6NTIzMTY2Nzk2N30.shTuR8CmWJxSJ6S-mpWkb8LI0uUcFaBxlzddh33fvjA",
   refreshToken:
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MTQxNDZmZmYzN2VjZjFhOTNlOTRlZWEiLCJpYXQiOjE2MzE2Njc5NjcsImV4cCI6NTIzMTY2Nzk2N30.shTuR8CmWJxSJ6S-mpWkb8LI0uUcFaBxlzddh33fvjA",
-  name: "Jhon Doe",
+  user: "Jhon Doe",
 } as IUserResponse;
 
 export const expectedSignUpResponse = expectedUserResponse;
