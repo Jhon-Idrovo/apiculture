@@ -18,7 +18,6 @@ axiosInstance.interceptors.response.use(
   (res) => res,
   //on reject
   async (error) => {
-    console.log("Failed request intercepted", error);
     const originalRequest = error.config;
     //IF THE SERVER ISN'T WORKING
     if (typeof error.response === "undefined") {

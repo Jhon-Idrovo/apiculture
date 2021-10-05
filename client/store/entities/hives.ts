@@ -36,7 +36,6 @@ const hivesSlice = createSlice({
       state.state = action.payload;
     },
     hivesLoaded: (state, action: PayloadAction<IHive[]>) => {
-      console.log(action.payload);
 
       state.list = action.payload;
       // state.activeHiveID = action.payload[0]._id;

@@ -50,7 +50,6 @@ const sellsSlice = createSlice({
       sells,
       action: PayloadAction<{ sortBy: keyof ISell; order: Order }>
     ) => {
-      console.log(sells);
       const { sortBy, order } = action.payload;
 
       sells.list.sort(compareRows<ISell>(sortBy, order));

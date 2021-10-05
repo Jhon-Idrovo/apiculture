@@ -23,7 +23,6 @@ export default function App({
   pageProps: AppProps;
 }) {
   const { locale } = useRouter();
-  console.log(locale);
 
   const [shortLocale] = locale ? locale.split("-") : ["en"];
   const messages = useMemo(() => {

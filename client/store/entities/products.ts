@@ -79,6 +79,8 @@ export const saveProduct =
       });
       dispatch(prodSaved(r.data.product));
     } catch (error) {
+      console.log(error);
+
       dispatch(prodsLoadFailed(errorToMessage(error)));
     }
   };
